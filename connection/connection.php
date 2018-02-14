@@ -1,11 +1,11 @@
 <?php
 	$host="localhost";
 	$username="root";
-	$password="admin";
+	$password="";
 	$db="saptest";
 	
-	mysql_connect("$host", "$inputUname", "$inputPwd")or die("Failed to connect");
-	mysql_select_db("$db")or die("No database was selected");
+	$connect=mysqli_connect("$host", "$username", "$password");
+	mysqli_select_db($connect, $db) or die("No database was selected");
 	
 	$username=$_POST['inputUname'];
 	$password=$_POST['inputPwd'];
