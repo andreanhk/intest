@@ -42,14 +42,17 @@
 
 <body>
 	<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-		  <h5 class="my-0 mr-md-auto font-weight-normal">SAP Internal Testing</h5>
-			  <nav class="my-2 my-md-0 mr-md-3">
-					<a class="p-2 text-dark" href="<?php echo $root; ?>module/home/home.php">Beranda</a>
-					<a class="p-2 text-dark" href="<?php echo $root; ?>module/home/master.php">Master</a>
-					<a class="p-2 text-dark-active" href="<?php echo $root; ?>module/home/checklist.php">Checklist</a>
-					<a class="p-2 text-dark" href="<?php echo $root; ?>module/home/uat.php">UAT</a>
-			  </nav>
-		  <a class="btn btn-danger" href="<?php echo $root; ?>module/home/login.php">Logout</a>
+		<a class="navbar-brand">
+			<img alt="Samator" src="<?php echo $root; ?>assets/images/s-logo.png" width="30" height="30">
+		</a>	
+		<h5 class="my-0 mr-md-auto font-weight-normal">SAP Internal Testing</h5>
+			<nav class="my-2 my-md-0 mr-md-3 navbar-inverse">
+				<a class="p-2 text-dark" href="<?php echo $root; ?>module/home/home.php">Beranda</a>
+				<a class="p-2 text-dark" href="<?php echo $root; ?>module/home/master.php">Master</a>
+				<a class="p-2 text-dark-active" href="<?php echo $root; ?>module/home/checklist.php">Checklist</a>
+				<a class="p-2 text-dark" href="<?php echo $root; ?>module/home/uat.php">UAT</a>
+			</nav>
+		<a class="btn btn-danger" href="<?php echo $root; ?>module/home/login.php">Logout</a>
     </div>
 	
 	

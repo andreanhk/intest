@@ -46,8 +46,8 @@
 </head>
 
 <body class="text-center">
-	<form class="form-signin">
-		<img class="mb-4" src="<?php echo $root; ?>assets/images/logo.png" alt="" width="72" height="72">
+	<form class="form-signin" action="<?php echo $root; ?>connection/connection.php">
+		<img class="mb-4" src="<?php echo $root; ?>assets/images/s-logo.png" alt="" width="72" height="72">
 			<h1 class="h3 mb-3 font-weight-normal"></h1>
 		<label for="inputEmail" class="sr-only">Username</label>
 		<input type="text" id="inputUname" class="form-control" placeholder="Username" required="" autofocus="">
@@ -56,5 +56,4 @@
 		<button class="btn btn-lg btn-primary btn-block" type="submit" href="<?php echo $root; ?>module/home/home.php">Login</button>
 		<p class="mt-5 mb-3 text-muted">© 2018</p>
 	</form>
-
 </body>
