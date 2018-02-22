@@ -50,16 +50,39 @@
 		<a class="btn btn-danger" href="<?php echo $root; ?>module/home/login.php">Logout</a>
     </div>
 	
-	<div class="container">
-		<div class="col-md-4">Isi Master Data</div>
-		<li>Master data modul</li>
-		<li>Master data user modul</li>
-		<li>Master data BA</li>
-		<li>Master data checklist</li>
-		<li>Master data UAT</li>
-		<div class="col-md-8"></div>
-	</div>
+	<!--<div class="container">
+		<h3>MENU MASTER DATA</h3>
+		<ul class="nav nav-tabs">
+			<li><a href="#">Master data modul</a></li>
+			<li><a href="#">Master data user modul</a></li>
+			<li><a href="#">Master data BA</a></li>
+			<li><a href="#">Master data checklist</a></li>
+			<li><a href="#">Master data UAT</a></li>
+		</ul>
 		
+	</div>-->
+	
+	<div class="container">
+	<h4>Menu Master Data</h4>
+		<br>
+		<ul class="nav nav-tabs nav-fill">
+			<li class="nav-item">
+				<a class="nav-link active" href="#">Master Data Modul</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Master Data User</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Master Data BA</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Master Data Checklist</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">Master Data UAT</a>
+			</li>
+		</ul>
+	</div>
 
 </body>
 
