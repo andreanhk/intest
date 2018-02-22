@@ -51,20 +51,15 @@
 				<a class="p-2 text-dark" href="<?php echo $root; ?>module/home/master.php">Master</a>
 				<a class="p-2 text-dark" href="<?php echo $root; ?>module/home/checklist.php">Checklist</a>
 				<a class="p-2 text-dark" href="<?php echo $root; ?>module/home/uat.php">UAT</a>
-				<a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#">Menu 1</a>
-					<a class="dropdown-item" href="#">Menu 2</a>
-				</div>
 			</nav>
 		<a class="btn btn-danger" href="<?php echo $root; ?>module/home/login.php">Logout</a>
-    </div>
-	
-	
-	
+	</div>
+		
+	<div class="container container-fluid">
+		<div class="row">
+			<div class="col-md-4 text-center"><h3>Master Data</h3></div>
+			<div class="col-md-4 text-center"><h3>Checklist</h3></div>
+			<div class="col-md-4 text-center"><h3>User Acceptance Test</h3></div>
+		</div>
+	</div>
 </body>
-
-
-
-
-

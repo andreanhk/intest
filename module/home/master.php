@@ -55,10 +55,16 @@
 		<a class="btn btn-danger" href="<?php echo $root; ?>module/home/login.php">Logout</a>
     </div>
 	
-	
+	<div class="container">
+		<div class="col-md-4">Isi Master Data</div>
+		<li>Master data modul</li>
+		<li>Master data user modul</li>
+		<li>Master data BA</li>
+		<li>Master data checklist</li>
+		<li>Master data UAT</li>
+		<div class="col-md-8"></div>
+	</div>
+		
+
 </body>
-
-
-
-
 

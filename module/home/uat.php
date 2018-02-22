@@ -55,7 +55,29 @@
 		<a class="btn btn-danger" href="<?php echo $root; ?>module/home/login.php">Logout</a>
     </div>
 	
-	
+	<div class="container container-fluid">
+		<table class="table table-hover text-center">
+			<tbody>
+			<thead>
+				<tr>
+					<td><b>Deskripsi Test</b></td>
+					<td><b>Tanggal Testrun</b></td>
+					<td><b>PIC Testrun</b></td>
+				</tr>
+			</thead>
+			<tr>
+				<td>Isi 1</td>
+				<td>Isi 2</td>
+				<td>Isi 3</td>
+			<tr>
+			<tr>
+				<td>Isi 4</td>
+				<td>Isi 5</td>
+				<td>Isi 6</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
 </body>
 
 
