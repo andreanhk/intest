@@ -57,7 +57,7 @@
 			</li>
 			<li><a href="<?php echo $root; ?>module/home/checklist.php">Checklist</a></li>
 			<li><a href="<?php echo $root; ?>module/home/uat.php">U A T</a></li>
-			&nbsp&nbsp<button class="btn btn-danger navbar-btn" href="<?php echo $root; ?>module/home/login.php">Logout</button>&nbsp&nbsp
+			&nbsp&nbsp<button class="btn btn-danger navbar-btn" onclick="window.location.href='login.php'">Logout</button>&nbsp&nbsp
 		</ul>
 		
 	  </div>
@@ -73,5 +73,5 @@
 		<p>2. Berintegritas dan berkomitmen terhadap kualitas, <i>Health Safety Environment</i>, dan <i>Good Corporate Governance</i>.</p>
 		<p>3. Meningkatkan <i>Total Customer Solution</i>.</p>
 		<p>4. Memperluas wilayah usaha dan mengembangkan produk, layanan, serta teknologi.</p>
-	</div>
+	</div><br><br>
 </body>

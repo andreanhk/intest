@@ -57,7 +57,7 @@
 			</li>
 			<li><a href="<?php echo $root; ?>module/home/checklist.php">Checklist</a></li>
 			<li><a href="<?php echo $root; ?>module/home/uat.php">U A T</a></li>
-			&nbsp&nbsp<button class="btn btn-danger navbar-btn" href="<?php echo $root; ?>module/home/login.php">Logout</button>&nbsp&nbsp
+			&nbsp&nbsp<button class="btn btn-danger navbar-btn" onclick="window.location.href='login.php'">Logout</button>&nbsp&nbsp
 		</ul>
 		
 	  </div>
