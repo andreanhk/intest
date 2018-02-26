@@ -14,7 +14,7 @@
 <!-- Meta Tags -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>Beranda</title>
+<title>Master Data: Business Area</title>
 
 <!-- Mobile Specifics -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,13 +43,13 @@
 		</div>
 		
 		<ul class="nav navbar-nav navbar-right">
-			<li class="active"><a href="<?php echo $root; ?>module/home/home.php">Beranda</a></li>
-			<li class="dropdown">
+			<li><a href="<?php echo $root; ?>module/home/home.php">Beranda</a></li>
+			<li class="dropdown active">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Master
 				<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="<?php echo $root; ?>module/home/m-modul.php">Modul</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-user.php">User</a></li>
+					<li><a href="<?php echo $root; ?>module/home/m-modul.php">Modul</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-ba.php">Business Area</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-check.php">Checklist</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-uat.php">User Acceptance Test</a></li>
@@ -63,15 +63,7 @@
 	  </div>
 	</nav>
 
-	<div class="container">
-		<h3>Visi Samator:</h3>
-		<p>Menjadi perusahaan yang paling diidamkan, terus bertumbuh dan berkembang
-		dengan mendayagunakan sumber daya alam yang  memberikan manfaat bagi kehidupan.</p>
-		<br><br>
-		<h3>Misi Samator:</h3>
-		<p>1. Memberikan yang terbaik bagi <i>stakeholders</i>.</p>
-		<p>2. Berintegritas dan berkomitmen terhadap kualitas, <i>Health Safety Environment</i>, dan <i>Good Corporate Governance</i>.</p>
-		<p>3. Meningkatkan <i>Total Customer Solution</i>.</p>
-		<p>4. Memperluas wilayah usaha dan mengembangkan produk, layanan, serta teknologi.</p>
+	<div class="container container-fluid">
+		<h1>Master Data Business Area</h1>
 	</div>
 </body>

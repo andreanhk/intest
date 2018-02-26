@@ -14,9 +14,7 @@
 <!-- Meta Tags -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>Login</title>   
-
-<meta name="description" content="SAP Documentation" /> 
+<title>Login</title>
 
 <!-- Mobile Specifics -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +28,7 @@
 <link href="<?php echo $root; ?>assets/css/bootstrap.css" rel="stylesheet">
 
 <!-- Signin CSS -->
-<link href="<?php echo $root; ?>assets/css/signin.css" rel="stylesheet">
+<link href="<?php echo $root; ?>assets/css/login.css" rel="stylesheet">
 
 <!-- Google Font -->
 <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,200italic,300,300italic,400italic,600,600italic,700,700italic,900' rel='stylesheet' type='text/css'>
@@ -49,6 +47,7 @@
 		<label for="inputPassword" class="sr-only">Password</label>
 		<input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
 		<button class="btn btn-lg btn-info btn-block" type="submit" href="<?php echo $root; ?>module/home/home.php">Login</button>
+		<br>
 		<p class="mt-5 mb-3 text-muted">© 2018</p>
 	</form>
 </body>

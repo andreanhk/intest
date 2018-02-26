@@ -14,9 +14,7 @@
 <!-- Meta Tags -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>SAP Testing - Master Data</title>   
-
-<meta name="description" content="SAP Documentation" /> 
+<title>Master Data</title>
 
 <!-- Mobile Specifics -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,28 +25,43 @@
 <!--[if IEMobile]>  <meta http-equiv="cleartype" content="on">  <![endif]-->
 
 <!-- Bootstrap -->
-<link href="<?php echo $root; ?>assets/css/bootstrap.css" rel="stylesheet">
+<link href="<?php echo $root; ?>assets/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Google Font -->
-<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,200italic,300,300italic,400italic,600,600italic,700,700italic,900' rel='stylesheet' type='text/css'>
+<!-- Javascript -->
+<script src="<?php echo $root; ?>assets/js/jquery.min.js"></script>
+<script src="<?php echo $root; ?>assets/js/bootstrap.min.js"></script>
 
 <!-- Fav Icon -->
 <link rel="icon" href="<?php echo $root; ?>assets/images/samator.ico" type="image/ico">
 
 <body>
-	<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-		<a class="navbar-brand">
-			<img alt="Samator" src="<?php echo $root; ?>assets/images/s-logo.png" width="30" height="30">
-		</a>	
-		<h5 class="my-0 mr-md-auto font-weight-normal">SAP Internal Testing</h5>
-			<nav class="my-2 my-md-0 mr-md-3 navbar-inverse">
-				<a class="p-2 text-dark" href="<?php echo $root; ?>module/home/home.php">Beranda</a>
-				<a class="p-2 text-dark-active" href="<?php echo $root; ?>module/home/master.php">Master</a>
-				<a class="p-2 text-dark" href="<?php echo $root; ?>module/home/checklist.php">Checklist</a>
-				<a class="p-2 text-dark" href="<?php echo $root; ?>module/home/uat.php">UAT</a>
-			</nav>
-		<a class="btn btn-danger" href="<?php echo $root; ?>module/home/login.php">Logout</a>
-    </div>
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+		<div class="navbar-header">
+		  <img alt="Samator" class="navbar-text" src="<?php echo $root; ?>assets/images/s-logo.png" width="20" height="20">
+		  <a class="navbar-brand">SAP Internal Testing</a>
+		</div>
+		
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="<?php echo $root; ?>module/home/home.php">Beranda</a></li>
+			<li class="dropdown active">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Master
+				<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="<?php echo $root; ?>module/home/m-modul.php">Modul</a></li>
+					<li><a href="<?php echo $root; ?>module/home/m-user.php">User</a></li>
+					<li><a href="<?php echo $root; ?>module/home/m-ba.php">Business Area</a></li>
+					<li><a href="<?php echo $root; ?>module/home/m-check.php">Checklist</a></li>
+					<li><a href="<?php echo $root; ?>module/home/m-uat.php">User Acceptance Test</a></li>
+				</ul>
+			</li>
+			<li><a href="<?php echo $root; ?>module/home/checklist.php">Checklist</a></li>
+			<li><a href="<?php echo $root; ?>module/home/uat.php">U A T</a></li>
+			&nbsp&nbsp<button class="btn btn-danger navbar-btn" href="<?php echo $root; ?>module/home/login.php">Logout</button>&nbsp&nbsp
+		</ul>
+		
+	  </div>
+	</nav>
 	
 	<!--<div class="container">
 		<h3>MENU MASTER DATA</h3>
