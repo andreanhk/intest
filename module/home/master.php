@@ -63,18 +63,6 @@
 	  </div>
 	</nav>
 	
-	<!--<div class="container">
-		<h3>MENU MASTER DATA</h3>
-		<ul class="nav nav-tabs">
-			<li><a href="#">Master data modul</a></li>
-			<li><a href="#">Master data user modul</a></li>
-			<li><a href="#">Master data BA</a></li>
-			<li><a href="#">Master data checklist</a></li>
-			<li><a href="#">Master data UAT</a></li>
-		</ul>
-		
-	</div>-->
-	
 	<div class="container">
 	<h4>Menu Master Data</h4>
 		<br>
@@ -96,6 +84,6 @@
 			</li>
 		</ul>
 	</div>
-
+	
 </body>
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2018 at 10:37 AM
+-- Generation Time: Feb 27, 2018 at 10:37 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -45,19 +45,43 @@ INSERT INTO `login_data` (`loginuid`, `loginuname`, `loginpwd`, `loginright`) VA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `modul`
+-- Table structure for table `m_check`
 --
 
-CREATE TABLE `modul` (
+CREATE TABLE `m_check` (
+  `customid` int(11) NOT NULL,
+  `ctype` varchar(255) NOT NULL,
+  `ctypedesc` varchar(255) NOT NULL,
+  `ctcode` varchar(255) NOT NULL,
+  `ctable` varchar(255) NOT NULL,
+  `cstat` varchar(255) NOT NULL,
+  `cmodul` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `m_check`
+--
+
+INSERT INTO `m_check` (`customid`, `ctype`, `ctypedesc`, `ctcode`, `ctable`, `cstat`, `cmodul`) VALUES
+(300001, 'Enterprise Structure', 'Define BA', 'SPRO', 'V_TGSB', 'Create', 'FICO'),
+(300002, 'Enterprise Structure', 'Assign Business Area to Consolidation Business Area', 'SPRO', 'V_GSB_A', 'Check', 'FICO');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `m_modul`
+--
+
+CREATE TABLE `m_modul` (
   `idmodul` varchar(255) NOT NULL,
   `namemodul` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `modul`
+-- Dumping data for table `m_modul`
 --
 
-INSERT INTO `modul` (`idmodul`, `namemodul`) VALUES
+INSERT INTO `m_modul` (`idmodul`, `namemodul`) VALUES
 ('ABAP', 'ABAP'),
 ('BASIS', 'Basis'),
 ('FICO', 'Financial Controlling'),

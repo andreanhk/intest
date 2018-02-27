@@ -1,10 +1,11 @@
 <?php
-	/*$host="localhost";
-	$username="root";
-	$password="";
-	$db="saptest";
+	class Connection{
+		private	$host="localhost";
+				$username="root";
+				$password="";
+				$db="saptest";
 	
-	$con=mysqli_connect("$host","$username","$password");
+	/*$con=mysqli_connect("$host","$username","$password");
 	mysqli_select_db("$con","$db")or die("No database was selected");
 	
 	$username=$_GET['inputUname'];
@@ -48,19 +49,4 @@
 		{
 			echo "Incorrect";
 		}*/
-	
-	$user='root';
-	$pass='';
-	
-	function login($user, $pass) {
-			$sql='SELECT * FROM login_data WHERE Loginuname=:InputUname AND LoginPwd=:InputPwd';
-			$stmt = $this->conn->prepare($sql);
-			$stmt->bindParam(':user',$user);
-			$stmt->bindParam(':pass',$pass);
-			$stmt->execute();
-			$rowCount = $stmt->rowCount();
-			if ($rowCount==1) return $stmt->fetchAll()[0];
-			else $e->getMessage();
-		}
-	
 ?>

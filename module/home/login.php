@@ -30,9 +30,6 @@
 <!-- Signin CSS -->
 <link href="<?php echo $root; ?>assets/css/login.css" rel="stylesheet">
 
-<!-- Google Font -->
-<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,200italic,300,300italic,400italic,600,600italic,700,700italic,900' rel='stylesheet' type='text/css'>
-
 <!-- Fav Icon -->
 <link rel="icon" href="<?php echo $root; ?>assets/images/samator.ico" type="image/ico">
 
