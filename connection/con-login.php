@@ -14,6 +14,8 @@
 		die("Failed: ".$conn->connect_error);
 	}
 	
+	session_start();
+	
 	$uname=$_POST["username"];
 	$pass=$_POST["password"];
 	
@@ -25,6 +27,7 @@
 	if ($count==1)
 	{
 		echo header('Location: ../index.php');
+		$_SESSION["username"]=$uname;
 	}
 	else
 	{

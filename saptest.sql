@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2018 at 10:37 AM
+-- Generation Time: Mar 01, 2018 at 11:08 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -41,6 +41,27 @@ CREATE TABLE `login_data` (
 
 INSERT INTO `login_data` (`loginuid`, `loginuname`, `loginpwd`, `loginright`) VALUES
 (1, 'admin', 'admin', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `m_ba`
+--
+
+CREATE TABLE `m_ba` (
+  `idba` int(4) NOT NULL,
+  `nameba` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `m_ba`
+--
+
+INSERT INTO `m_ba` (`idba`, `nameba`) VALUES
+(1000, 'Samator'),
+(2000, 'Aneka Gas Industri'),
+(3000, 'Samator Gas Industri'),
+(5000, 'Samator Wase Gas');
 
 -- --------------------------------------------------------
 
@@ -100,16 +121,17 @@ CREATE TABLE `user` (
   `userno` int(4) NOT NULL,
   `userid` varchar(255) NOT NULL,
   `userpwd` varchar(255) NOT NULL,
-  `userlname` varchar(255) NOT NULL
+  `userlname` varchar(255) NOT NULL,
+  `usermodul` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`userno`, `userid`, `userpwd`, `userlname`) VALUES
-(1, 'Admin', 'admin', 'Admin (Super User)'),
-(2, 'Andrean', 'andrean', 'Andrean HK');
+INSERT INTO `user` (`userno`, `userid`, `userpwd`, `userlname`, `usermodul`) VALUES
+(1, 'Admin', 'admin', 'Admin (Super User)', 'ABAP'),
+(2, 'Andrean', 'andrean', 'Andrean HK', 'Basis');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

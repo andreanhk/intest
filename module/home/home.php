@@ -34,6 +34,19 @@
 <!-- Fav Icon -->
 <link rel="icon" href="<?php echo $root; ?>assets/images/samator.ico" type="image/ico">
 
+<?php
+	session_start();
+	if(isset($_SESSION['username']) && $_SESSION['username']!="")
+	{
+		echo($_SESSION['username']);
+	}
+	else
+	{
+		//go back if username is not set
+		header("Location: login.php");
+	}
+?>
+
 <body>
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
@@ -74,8 +87,8 @@
 	</nav>
 	
 	<div class="container container-fluid">
-		<div class="col-md-3 pull-right">
-			<h1>KOLOM USER</h1>
+		<div class="col-lg-3 pull-right">
+			<h4>Selamat Datang $_SESSION</h4>
 		</div>
 	</div>
 	
