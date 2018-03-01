@@ -17,16 +17,28 @@
 	$uname=$_POST["username"];
 	$pass=$_POST["password"];
 	
-	$sql="SELECT * FROM login_data WHERE loginuname='".$uname."' AND loginpwd='".$pass."'";
+	$sql="SELECT * FROM user WHERE userid='".$uname."' AND userpwd='".$pass."'";
 	
-	if($con->query($sql)==TRUE)
+	$result=mysqli_query($con,$sql) or die(mysqli_error($con));
+	$count=mysqli_num_rows($result);
+	
+	if ($count==1)
+	{
+		echo header('Location: ../index.php');
+	}
+	else
+	{
+		echo header('Location: ../module/home/login.php');
+	}
+	
+	/*if($con->query($sql)==TRUE)
 	{
 		echo header('Location: ../index.php');
 	}
 	else
 	{
 		echo "Error: ".$sql."<br>".$con->error;
-	}
+	}*/
 	
 	$con->close();
 ?>

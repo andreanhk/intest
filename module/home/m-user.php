@@ -66,4 +66,36 @@
 	<div class="container container-fluid">
 		<h1>Master Data User</h1>
 	</div>
+	
+	<div class="container container-fluid">
+		<table class="table table-hover text-center">
+			<thead>
+				<tr>
+					<td><b>ID Login</b></td>
+					<td><b>Nama User</b></td>
+					<td><b>Modul User</b></td>
+				</tr>
+			</thead>
+			<tbody>
+			<?php
+				$connection = mysql_connect('localhost', 'root', '');
+				mysql_select_db('saptest');
+
+				$query = "SELECT userid,userlname,usermodul FROM user";
+				$result = mysql_query($query);
+
+				while($row = mysql_fetch_array($result))
+				{
+					echo "<tr>";
+						echo "<td style:'border=1px solid black'>".$row['userid']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['userlname']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['usermodul']."</td>";
+					echo "</tr>";
+				}
+
+				mysql_close();
+			?>
+			</tbody>
+		</table>
+	</div>
 </body>

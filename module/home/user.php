@@ -43,7 +43,7 @@
 		</div>
 		
 		<ul class="nav navbar-nav navbar-right">
-			<li class="active"><a href="<?php echo $root; ?>module/home/home.php">Beranda</a></li>
+			<li class=""><a href="<?php echo $root; ?>module/home/home.php">Beranda</a></li>
 			<li class="dropdown">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Master
 				<span class="caret"></span></a>
@@ -58,7 +58,7 @@
 			<li><a href="<?php echo $root; ?>module/home/checklist.php">Checklist</a></li>
 			<li><a href="<?php echo $root; ?>module/home/uat.php">U A T</a></li>
 			<!--<li><a href="<?php echo $root; ?>module/home/login.php"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>-->
-			<li class="dropdown">
+			<li class="dropdown active">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 				<span class="caret"></span></a>
 				<ul class="dropdown-menu">
@@ -74,21 +74,6 @@
 	</nav>
 	
 	<div class="container container-fluid">
-		<div class="col-md-3 pull-right">
-			<h1>KOLOM USER</h1>
-		</div>
+		<h1>Dashboard Pengaturan User</h1>
 	</div>
-	
-	<div class="container">
-		<br>
-		<h3>Visi Samator:</h3>
-		<p>Menjadi perusahaan yang paling diidamkan, terus bertumbuh dan berkembang
-		dengan mendayagunakan sumber daya alam yang  memberikan manfaat bagi kehidupan.</p>
-		<br><br>
-		<h3>Misi Samator:</h3>
-		<p>1. Memberikan yang terbaik bagi <i>stakeholders</i>.</p>
-		<p>2. Berintegritas dan berkomitmen terhadap kualitas, <i>Health Safety Environment</i>, dan <i>Good Corporate Governance</i>.</p>
-		<p>3. Meningkatkan <i>Total Customer Solution</i>.</p>
-		<p>4. Memperluas wilayah usaha dan mengembangkan produk, layanan, serta teknologi.</p>
-	</div><br><br>
 </body>

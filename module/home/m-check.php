@@ -66,4 +66,40 @@
 	<div class="container container-fluid">
 		<h1>Master Data Checklist</h1>
 	</div>
+	
+	<div class="container container-fluid">
+		<table class="table table-hover text-center">
+			<thead>
+				<tr>
+					<td><b>Custom Type</b></td>
+					<td><b>Custom Description</b></td>
+					<td><b>Tcode</b></td>
+					<td><b>Table</b></td>
+					<td><b>Custom Status</b></td>
+				</tr>
+			</thead>
+			<tbody>
+			<?php
+				$connection = mysql_connect('localhost', 'root', '');
+				mysql_select_db('saptest');
+
+				$query = "SELECT ctype,ctypedesc,ctcode,ctable,cstat FROM m_check";
+				$result = mysql_query($query);
+
+				while($row = mysql_fetch_array($result))
+				{
+					echo "<tr>";
+						echo "<td style:'border=1px solid black'>".$row['ctype']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['ctypedesc']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['ctcode']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['ctable']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['cstat']."</td>";
+					echo "</tr>";
+				}
+
+				mysql_close();
+			?>
+			</tbody>
+		</table>
+	</div>
 </body>
