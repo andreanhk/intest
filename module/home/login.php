@@ -1,6 +1,16 @@
 <?php
 	$root = "../../";
 	require "../template/setting.php";
+	
+	session_start();
+	if(isset($_SESSION['username']) && $_SESSION['username']!="")
+	{
+		header("Location: home.php");
+	}
+	else
+	{
+		//header("Location: login.php");
+	}
 ?>
 
 <!DOCTYPE html>

@@ -1,0 +1,25 @@
+<?php
+if session hak akses = admin {
+?>
+line html tombol edit/delete
+<?php
+}else{
+?>
+line redirect ke home -->
+<?php
+}
+?>
+
+
+
+<?php
+if session hak akses = admin {
+
+echo "<ahref-line html>
+
+}else{
+
+ehco "line redirect ke home"
+
+}
+?>

@@ -26,8 +26,14 @@
 	
 	if ($count==1)
 	{
+		
+		while ($row = mysqli_fetch_object($result))
+		{
+			$_SESSION["username"]=$row->userid;
+			$_SESSION["longname"]=$row->userlname;
+		}
+
 		echo header('Location: ../index.php');
-		$_SESSION["username"]=$uname;
 	}
 	else
 	{

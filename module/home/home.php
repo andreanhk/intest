@@ -1,6 +1,16 @@
 <?php
 	$root = "../../";
 	require "../template/setting.php";
+	
+	session_start();
+	if(isset($_SESSION['username']) && $_SESSION['username']!="")
+	{
+		//echo($_SESSION['username']);
+	}
+	else
+	{
+		header("Location: login.php");
+	}
 ?>
 
 <!DOCTYPE html>
@@ -34,19 +44,6 @@
 <!-- Fav Icon -->
 <link rel="icon" href="<?php echo $root; ?>assets/images/samator.ico" type="image/ico">
 
-<?php
-	session_start();
-	if(isset($_SESSION['username']) && $_SESSION['username']!="")
-	{
-		echo($_SESSION['username']);
-	}
-	else
-	{
-		//go back if username is not set
-		header("Location: login.php");
-	}
-?>
-
 <body>
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
@@ -61,8 +58,8 @@
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Master
 				<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="<?php echo $root; ?>module/home/m-modul.php">Modul</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-user.php">User</a></li>
+					<li><a href="<?php echo $root; ?>module/home/m-modul.php">Modul</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-ba.php">Business Area</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-check.php">Checklist</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-uat.php">User Acceptance Test</a></li>
@@ -70,25 +67,32 @@
 			</li>
 			<li><a href="<?php echo $root; ?>module/home/checklist.php">Checklist</a></li>
 			<li><a href="<?php echo $root; ?>module/home/uat.php">U A T</a></li>
-			<!--<li><a href="<?php echo $root; ?>module/home/login.php"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>-->
 			<li class="dropdown">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+				<?php echo $_SESSION["longname"]; ?>
 				<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="<?php echo $root; ?>module/home/user.php">Ganti Password</a></li>
-					<li><a href="<?php echo $root; ?>module/home/login.php">Logout</a></li>
-					
+					<li><a href="<?php echo $root; ?>module/home/user.php">Pengaturan</a></li>
+					<li><a href="../../connection/logout.php"><b>Logout</b></a></li>
 				</ul>
 			</li>
-			<!--&nbsp&nbsp<button class="btn btn-danger navbar-btn" onclick="window.location.href='login.php'">Logout</button>&nbsp&nbsp-->
+			<!--&nbsp&nbsp<button class="btn btn-danger navbar-btn" onclick="window.location.href='../../connection/logout.php'">Logout</button>&nbsp&nbsp-->
 		</ul>
 		
 	  </div>
 	</nav>
 	
 	<div class="container container-fluid">
-		<div class="col-lg-3 pull-right">
-			<h4>Selamat Datang $_SESSION</h4>
+			<h4 class="text-center">
+				<div class="col-lg-12">
+				Selamat Datang, 
+				<label type="text" name="sessionid" id="sessionid">
+					<?php
+						echo $_SESSION["longname"];
+					?>
+				</label>
+				
+			</h4>
 		</div>
 	</div>
 	

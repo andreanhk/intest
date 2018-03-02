@@ -1,6 +1,16 @@
 <?php
 	$root = "../../";
 	require "../template/setting.php";
+	
+	session_start();
+	if(isset($_SESSION['username']) && $_SESSION['username']!="")
+	{
+		//echo($_SESSION['username']);
+	}
+	else
+	{
+		header("Location: login.php");
+	}
 ?>
 
 <!DOCTYPE html>
@@ -57,17 +67,15 @@
 			</li>
 			<li><a href="<?php echo $root; ?>module/home/checklist.php">Checklist</a></li>
 			<li><a href="<?php echo $root; ?>module/home/uat.php">U A T</a></li>
-			<!--<li><a href="<?php echo $root; ?>module/home/login.php"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></li>-->
 			<li class="dropdown active">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+				<?php echo $_SESSION["longname"]; ?>
 				<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="<?php echo $root; ?>module/home/user.php">Ganti Password</a></li>
-					<li><a href="<?php echo $root; ?>module/home/login.php">Logout</a></li>
-					
+					<li><a href="<?php echo $root; ?>module/home/user.php">Pengaturan</a></li>
+					<li><a href="../../connection/logout.php"><b>Logout</b></a></li>
 				</ul>
 			</li>
-			<!--&nbsp&nbsp<button class="btn btn-danger navbar-btn" onclick="window.location.href='login.php'">Logout</button>&nbsp&nbsp-->
 		</ul>
 		
 	  </div>
@@ -75,5 +83,11 @@
 	
 	<div class="container container-fluid">
 		<h1>Dashboard Pengaturan User</h1>
+	</div>
+	
+	<div class="container container-fluid">
+		<li>Edit user</li>
+		<li>Edit nama user</li>
+		<li>Edit modul user</li>
 	</div>
 </body>

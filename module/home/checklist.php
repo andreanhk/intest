@@ -1,6 +1,16 @@
 <?php
 	$root = "../../";
 	require "../template/setting.php";
+	
+	session_start();
+	if(isset($_SESSION['username']) && $_SESSION['username']!="")
+	{
+		//echo($_SESSION['username']);
+	}
+	else
+	{
+		header("Location: login.php");
+	}
 ?>
 
 <!DOCTYPE html>
@@ -48,8 +58,8 @@
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Master
 				<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="<?php echo $root; ?>module/home/m-modul.php">Modul</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-user.php">User</a></li>
+					<li><a href="<?php echo $root; ?>module/home/m-modul.php">Modul</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-ba.php">Business Area</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-check.php">Checklist</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-uat.php">User Acceptance Test</a></li>
@@ -57,7 +67,15 @@
 			</li>
 			<li class="active"><a href="<?php echo $root; ?>module/home/checklist.php">Checklist</a></li>
 			<li><a href="<?php echo $root; ?>module/home/uat.php">U A T</a></li>
-			&nbsp&nbsp<button class="btn btn-danger navbar-btn" onclick="window.location.href='login.php'">Logout</button>&nbsp&nbsp
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+				<?php echo $_SESSION["longname"]; ?>
+				<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="<?php echo $root; ?>module/home/user.php">Pengaturan</a></li>
+					<li><a href="../../connection/logout.php"><b>Logout</b></a></li>
+				</ul>
+			</li>
 		</ul>
 		
 	  </div>

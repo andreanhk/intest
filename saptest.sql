@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 01, 2018 at 11:08 AM
+-- Generation Time: Mar 02, 2018 at 10:18 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -130,7 +130,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`userno`, `userid`, `userpwd`, `userlname`, `usermodul`) VALUES
-(1, 'Admin', 'admin', 'Admin (Super User)', 'ABAP'),
+(1, 'Admin', 'admin', 'Administrator', 'ABAP'),
 (2, 'Andrean', 'andrean', 'Andrean HK', 'Basis');
 COMMIT;
 
