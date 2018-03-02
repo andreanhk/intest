@@ -83,8 +83,19 @@
 
 	<div class="container container-fluid">
 		<h1>Master Data User 
-			<a class="btn btn-success pull-right"><span class="glyphicon glyphicon-plus"></span></a>
-			<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-cross"></span></a>
+			<?php
+				if ($_SESSION['username']=="Admin")
+				{
+			?>
+			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
+			<a class="btn btn-success pull-right"><span class="glyphicon glyphicon-plus"></span> <b>Tambah User</b></a>
+			<?php
+				}
+				else
+				{
+					
+				}
+			?>
 		</h1>
 	</div>
 	
