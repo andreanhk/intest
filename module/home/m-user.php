@@ -88,7 +88,36 @@
 				{
 			?>
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
-			<a class="btn btn-success pull-right"><span class="glyphicon glyphicon-plus"></span> <b>Tambah User</b></a>
+			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modaladduser"><span class="glyphicon glyphicon-plus"></span> <b>Tambah User</b></button>
+			
+			<!-- Modal Add User -->
+			<div id="modaladduser" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+				  <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Tambah User Baru</h4>
+				  </div>
+				  <div class="modal-body"><h5>
+					<label for="new_iduser">User ID (digunakan untuk username login):</label>
+					<input type="text" id="new_iduser" name="new_iduser" class="form-control" placeholder="User ID" required="" autofocus=""><br>
+					<label for="new_userlname">Nama lengkap user:</label>
+					<input type="text" id="new_userlname" name="new_userlname" class="form-control" placeholder="Nama Lengkap User" required=""><br>
+					<label for="new_pwduser">Password (digunakan untuk password login):</label>
+					<input type="password" id="new_pwduser" name="new_pwduser" class="form-control" placeholder="Password" required=""><br>
+					<label for="new_repeatpwd">Ulangi Password:</label>
+					<input type="password" id="new_repeatpwd" name="new_repeatpwd" class="form-control" placeholder="Ulangi Password" required=""><br>
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-default btn-success" type="submit" data-dismiss="modal" href="#">Tambah</button>
+					<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+				  </div>
+				</div>
+
+			  </div>
+			</div>
 			<?php
 				}
 				else
@@ -97,7 +126,7 @@
 				}
 			?>
 		</h1>
-	</div>
+	</div><br>
 	
 	<div class="container container-fluid">
 		<table class="table table-hover text-center">

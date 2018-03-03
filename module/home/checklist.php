@@ -82,25 +82,41 @@
 	</nav>
 	
 	<div class="container container-fluid">
+		<h1>Checklist</h1><br>
+	</div>
+	
+	<div class="container container-fluid">
 		<table class="table table-hover text-center">
-			<tbody>
 			<thead>
 				<tr>
-					<td><b>Deskripsi</b></td>
-					<td><b>TR No.</b></td>
-					<td><b>PIC Modul</b></td>
+					<td><b>Custom Type</b></td>
+					<td><b>Custom Description</b></td>
+					<td><b>Tcode</b></td>
+					<td><b>Table</b></td>
+					<td><b>Custom Status</b></td>
 				</tr>
 			</thead>
-			<tr>
-				<td>Isi 1</td>
-				<td>Isi 2</td>
-				<td>Isi 3</td>
-			<tr>
-			<tr>
-				<td>Isi 4</td>
-				<td>Isi 5</td>
-				<td>Isi 6</td>
-			</tr>
+			<tbody>
+			<?php
+				$connection = mysql_connect('localhost', 'root', '');
+				mysql_select_db('saptest');
+
+				$query = "SELECT ctype,ctypedesc,ctcode,ctable,cstat FROM m_check";
+				$result = mysql_query($query);
+
+				while($row = mysql_fetch_array($result))
+				{
+					echo "<tr>";
+						echo "<td style:'border=1px solid black'>".$row['ctype']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['ctypedesc']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['ctcode']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['ctable']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['cstat']."</td>";
+					echo "</tr>";
+				}
+
+				mysql_close();
+			?>
 			</tbody>
 		</table>
 	</div>
