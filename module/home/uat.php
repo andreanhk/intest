@@ -44,6 +44,22 @@
 <!-- Fav Icon -->
 <link rel="icon" href="<?php echo $root; ?>assets/images/samator.ico" type="image/ico">
 
+<script type="text/javascript">
+	function getUatScn(val)
+	{
+		$.ajax(
+		{
+			type:"POST",
+			url:"process.php",
+			data:'idmodul='+val,
+			success: function(data)
+			{
+				$("#uatScn").html(data);
+			}
+		});
+	}
+</script>
+
 <body>
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
@@ -86,21 +102,27 @@
 	</div>
 	
 	<div class="container container-fluid">
-	
-	<?php
-		mysql_connect('localhost', 'root', '');
-		mysql_select_db('saptest');
-		$sql = "SELECT idmodul FROM m_modul";
-		$result = mysql_query($sql);
+		<select onchange="getUatScn(this.value);">
+			<?php
+				mysql_connect('localhost', 'root', '');
+				mysql_select_db('saptest');
+				$sql = "SELECT idmodul FROM m_modul";
+				$result = mysql_query($sql);
 
-		echo "<select name='idmodul'>";
-		while ($row = mysql_fetch_array($result))
-		{
-			echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
-		}
-			echo "</select>";
-			
-		$sql1 = "SELECT uat_scn,uat_modul FROM m_uat_scn WHERE uat_modul='".$result."'";
+				//echo "<select name='idmodul'>";
+				while ($row = mysql_fetch_array($result))
+				{
+					echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
+				}
+				//echo "</select>";
+			?>
+		</select>
+		
+		<select id="uatScn" name="uatScn">
+		</select>
+		
+	<?php
+		/*$sql1 = "SELECT uat_scn,uat_modul FROM m_uat_scn WHERE uat_modul='".$result."'";
 		$result1 = mysql_query($sql1);
 
 		echo "<select name='uat_scn'>";
@@ -108,7 +130,7 @@
 		{
 			echo "<option value='" . $row['uat_scn'] . "'>" . $row['uat_scn'] . "</option>";
 		}
-			echo "</select>";
+			echo "</select>";*/
 	?>
 					
 		<table class="table table-hover text-center">

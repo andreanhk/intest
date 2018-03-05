@@ -100,7 +100,7 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Tambah User Baru</h4>
 				  </div>
-				  <div class="modal-body"><h5>
+				  <form class="modal-body" method="POST"><h5>
 					<label for="new_iduser">User ID (digunakan untuk username login):</label>
 					<input type="text" id="new_iduser" name="new_iduser" class="form-control" placeholder="User ID" required="" autofocus=""><br>
 					<label for="new_userlname">Nama lengkap user:</label>
@@ -123,13 +123,33 @@
 						}
 						echo "</select>";
 					?>
-				  </div>
+				  </form>
 				  <div class="modal-footer">
-					<button type="button" class="btn btn-default btn-success" type="submit" data-dismiss="modal" href="#">Tambah</button>
+					<button type="button" class="btn btn-default btn-success" type="submit" data-dismiss="modal">Tambah</button>
+					<?php
+						if (isset($_POST['new_iduser']) && isset($_POST['new_pwduser']))
+						{
+							$userid = $_POST['new_iduser'];
+							$longname = $_POST['new_userlname'];
+							$password = $_POST['new_pwduser'];
+							$repeatpassword = $_POST['new_repeatpwd'];
+					 
+							$query = "INSERT INTO `user` (username, password, email) VALUES ('$userid','$longname','$password','$repeatpassword')";
+							$result1 = mysqli_query($query);
+							
+							if($result1)
+							{
+								$smsg = "Berhasil.";
+							}
+							else
+							{
+								$fmsg ="Gagal";
+							}
+						}
+					?>
 					<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
 				  </div>
 				</div>
-
 			  </div>
 			</div>
 			<?php
