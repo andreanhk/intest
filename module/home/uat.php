@@ -86,6 +86,31 @@
 	</div>
 	
 	<div class="container container-fluid">
+	
+	<?php
+		mysql_connect('localhost', 'root', '');
+		mysql_select_db('saptest');
+		$sql = "SELECT idmodul FROM m_modul";
+		$result = mysql_query($sql);
+
+		echo "<select name='idmodul'>";
+		while ($row = mysql_fetch_array($result))
+		{
+			echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
+		}
+			echo "</select>";
+			
+		$sql1 = "SELECT uat_scn,uat_modul FROM m_uat_scn WHERE uat_modul='".$result."'";
+		$result1 = mysql_query($sql1);
+
+		echo "<select name='uat_scn'>";
+		while ($row = mysql_fetch_array($result1))
+		{
+			echo "<option value='" . $row['uat_scn'] . "'>" . $row['uat_scn'] . "</option>";
+		}
+			echo "</select>";
+	?>
+					
 		<table class="table table-hover text-center">
 			<tbody>
 			<thead>

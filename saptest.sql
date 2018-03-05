@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2018 at 10:18 AM
+-- Generation Time: Mar 05, 2018 at 10:42 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -110,6 +110,70 @@ INSERT INTO `m_modul` (`idmodul`, `namemodul`) VALUES
 ('PM', 'Plant Maintenance'),
 ('PP', 'Production Planning'),
 ('SD', 'Sales & Distribution');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `m_uat_scn`
+--
+
+CREATE TABLE `m_uat_scn` (
+  `uat_id` int(11) NOT NULL,
+  `uat_modul` varchar(255) NOT NULL,
+  `uat_scn` varchar(255) NOT NULL,
+  `uat_desc` varchar(255) NOT NULL,
+  `no_scn` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `m_uat_scn`
+--
+
+INSERT INTO `m_uat_scn` (`uat_id`, `uat_modul`, `uat_scn`, `uat_desc`, `no_scn`) VALUES
+(1, 'PP', 'Penjualan Botolan Reguler (MTS)', 'Penjualan gas dalam botol hasil produksi & sparepart ke Customer & IB Sales Order, Terima Botol Kosong, Produksi, Distribusi , Billing , Pelunasan A/R', 'PP01'),
+(2, 'PP', 'Pembelian Bahan Baku', 'Pembelian bahan baku', 'PP02');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `m_uat_step`
+--
+
+CREATE TABLE `m_uat_step` (
+  `no_scn` varchar(4) NOT NULL,
+  `no_step` int(11) NOT NULL,
+  `bp_step` varchar(255) NOT NULL,
+  `tcode_step` varchar(255) NOT NULL,
+  `modul_step` varchar(255) NOT NULL,
+  `user_step` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `m_uat_step`
+--
+
+INSERT INTO `m_uat_step` (`no_scn`, `no_step`, `bp_step`, `tcode_step`, `modul_step`, `user_step`) VALUES
+('PP01', 1, 'Buat Sales Order', 'VA01', 'PP', 'Sales Counter'),
+('PP01', 2, 'Release SO (Credit Management)', 'ZSDENH006', 'PP', 'Management'),
+('PP01', 3, 'Cetak SO', 'VA03', 'PP', 'Sales Counter'),
+('PP01', 4, 'Perintah Packing oleh Sales Counter', 'ZSDENH039', 'PP', 'Sales Counter'),
+('PP01', 5, 'Create TTBK & GR ke Sloc Empty Pack', 'ZMMENH025', 'PP', 'Adm.Panggung'),
+('PP01', 6, 'Konfirmasi SO & Buat Inquiry Jika Ada Pekerjaan Tambahan (Khusus MR)', 'ZSDENH040', 'PP', 'Panggung'),
+('PP01', 7, 'Report', 'ZSDRPT047', 'PP', 'Panggung'),
+('PP01', 8, 'Konversi Inquiry ke SO setelah konfirm ke relasi (Khusus MR)', 'ZSDENH043', 'PP', 'Sales Counter'),
+('PP01', 9, 'Report', 'ZSDRPT047', 'PP', 'Sales Counter'),
+('PP01', 10, 'Prosedur Running MRP & Create PRO MTS', 'ZSDENH043', 'PP', 'PPIC'),
+('PP01', 11, 'Input Hasil Produksi', 'ZPPENH001', 'PP', 'Produksi'),
+('PP01', 12, 'Transfer Packing dari Sloc Full Pack ke Sloc Distribusi', 'ZSDENH040', 'PP', 'Adm.Panggung'),
+('PP01', 13, 'Cetak Packing List (Dilampirkan di SO)', 'ZSDENH040', 'PP', 'Adm.Panggung'),
+('PP01', 14, 'Posting (GI) Surat Jalan', 'VL01N', 'PP', 'Distribusi/Logistik'),
+('PP01', 15, 'Posting (GI) Surat Jalan', 'VL02N', 'PP', 'Distribusi/Logistik'),
+('PP01', 16, 'Cetak Surat Jalan', 'VL03N', 'PP', 'Distribusi/Logistik'),
+('PP01', 17, 'Create Invoice', 'VF01', 'PP', 'Adm.Penjualan'),
+('PP01', 18, 'Cetak Invoice', 'VF03', 'PP', 'Adm.Penjualan'),
+('PP01', 19, 'Cetak Faktur Pajak', 'ZFIRPT038', 'PP', 'Adm.Penjualan'),
+('PP01', 20, 'Terima Plns dari Customer via Bank BCA Test Transfer', 'F-21', 'PP', 'GL Bank'),
+('PP01', 21, 'Account Clear AR', 'F-32', 'PP', 'Adm.Piutang');
 
 -- --------------------------------------------------------
 
