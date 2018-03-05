@@ -82,6 +82,91 @@
 	</nav>
 
 	<div class="container container-fluid">
-		<h1>Master Data User Acceptance Test</h1>
+		<h1>Master Data User Acceptance Test
+		<?php
+				if ($_SESSION['username']=="Admin")
+				{
+			?>
+			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
+			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modaladd_uatscn"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Skenario Baru</b></button>
+			
+			<!-- Modal Add User -->
+			<div id="modaladd_uatscn" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+				  <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Tambah Skenario UAT Baru</h4>
+				  </div>
+				  <div class="modal-body"><h5>
+					<label for="new_scnname">Nama skenario:</label>
+					<input type="text" id="new_scnname" name="new_scnname" class="form-control" placeholder="Contoh: Pembelian Bahan Baku" required="" autofocus=""><br>
+					<label for="new_scndesc">Deskripsi skenario:</label>
+					<input type="text" id="new_scndesc" name="new_scndesc" class="form-control" placeholder="Contoh: Tes Pembelian Bahan Baku dari Vendor" required=""><br>
+					<label for="new_scnmodul">Modul skenario:</label>
+					<?php
+						mysql_connect('localhost', 'root', '');
+						mysql_select_db('saptest');
+
+						$sql = "SELECT idmodul FROM m_modul";
+						$result = mysql_query($sql);
+
+						echo "<select name='idmodul'>";
+						while ($row = mysql_fetch_array($result)) {
+							echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
+						}
+						echo "</select>";
+					?>
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-default btn-success" type="submit" data-dismiss="modal" href="#">Tambah</button>
+					<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+				  </div>
+				</div>
+
+			  </div>
+			</div>
+			<?php
+				}
+				else
+				{
+					
+				}
+			?>
+		</h1>
+	</div><br>
+	
+	<div class="container container-fluid">
+		<table class="table table-hover text-center">
+			<thead>
+				<tr>
+					<td><b>Modul</b></td>
+					<td><b>Nama Skenario</b></td>
+					<td><b>Deskripsi Skenario</b></td>
+				</tr>
+			</thead>
+			<tbody>
+			<?php
+				$connection = mysql_connect('localhost', 'root', '');
+				mysql_select_db('saptest');
+
+				$query = "SELECT uat_modul,uat_scn,uat_desc FROM m_uat_scn";
+				$result = mysql_query($query);
+
+				while($row = mysql_fetch_array($result))
+				{
+					echo "<tr>";
+						echo "<td style:'border=1px solid black'>".$row['uat_modul']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['uat_scn']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['uat_desc']."</td>";
+					echo "</tr>";
+				}
+
+				mysql_close();
+			?>
+			</tbody>
+		</table>
 	</div>
 </body>

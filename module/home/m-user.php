@@ -107,8 +107,22 @@
 					<input type="text" id="new_userlname" name="new_userlname" class="form-control" placeholder="Nama Lengkap User" required=""><br>
 					<label for="new_pwduser">Password (digunakan untuk password login):</label>
 					<input type="password" id="new_pwduser" name="new_pwduser" class="form-control" placeholder="Password" required=""><br>
-					<label for="new_repeatpwd">Ulangi Password:</label>
+					<label for="new_repeatpwd">Ulangi password:</label>
 					<input type="password" id="new_repeatpwd" name="new_repeatpwd" class="form-control" placeholder="Ulangi Password" required=""><br>
+					<label for="new_repeatpwd">Modul user:</label>
+					<?php
+						mysql_connect('localhost', 'root', '');
+						mysql_select_db('saptest');
+
+						$sql = "SELECT idmodul FROM m_modul";
+						$result = mysql_query($sql);
+
+						echo "<select name='idmodul'>";
+						while ($row = mysql_fetch_array($result)) {
+							echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
+						}
+						echo "</select>";
+					?>
 				  </div>
 				  <div class="modal-footer">
 					<button type="button" class="btn btn-default btn-success" type="submit" data-dismiss="modal" href="#">Tambah</button>

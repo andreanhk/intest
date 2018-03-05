@@ -82,8 +82,67 @@
 	</nav>
 
 	<div class="container container-fluid">
-		<h1>Master Data Checklist</h1>
-	</div>
+		<h1>Master Data Checklist
+			<?php
+				if ($_SESSION['username']=="Admin")
+				{
+			?>
+			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
+			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modaladdchecklist"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Checklist Baru</b></button>
+			
+			<!-- Modal Add User -->
+			<div id="modaladdchecklist" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+				  <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Tambah Checklist Baru</h4>
+				  </div>
+				  <div class="modal-body"><h5>
+					<label for="new_ctype">Tipe custom:</label>
+					<input type="text" id="new_ctype" name="new_ctype" class="form-control" placeholder="Contoh: Enterprise Structure" required="" autofocus=""><br>
+					<label for="new_cdesc">Deskripsi custom:</label>
+					<input type="text" id="new_cdesc" name="new_cdesc" class="form-control" placeholder="Contoh: Define Business Area" required=""><br>
+					<label for="new_ctcode">Tcode custom:</label>
+					<input type="text" id="new_ctcode" name="new_ctcode" class="form-control" placeholder="Contoh: SPRO" required=""><br>
+					<label for="new_ctable">Tabel:</label>
+					<input type="text" id="new_ctable" name="new_ctable" class="form-control" placeholder="Contoh: V_TGSB" required=""><br>
+					<label for="new_cstat">Status custom:</label>
+					<input type="text" id="new_cstat" name="new_cstat" class="form-control" placeholder="Contoh: Create/Check" required=""><br>
+					<label for="new_cmodul">Modul checklist:</label>
+					<?php
+						mysql_connect('localhost', 'root', '');
+						mysql_select_db('saptest');
+
+						$sql = "SELECT idmodul FROM m_modul";
+						$result = mysql_query($sql);
+
+						echo "<select name='idmodul'>";
+						while ($row = mysql_fetch_array($result)) {
+							echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
+						}
+						echo "</select>";
+					?>
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-default btn-success" type="submit" data-dismiss="modal" href="#">Tambah</button>
+					<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+				  </div>
+				</div>
+
+			  </div>
+			</div>
+			<?php
+				}
+				else
+				{
+					
+				}
+			?>
+		</h1>
+	</div><br>
 	
 	<div class="container container-fluid">
 		<table class="table table-hover text-center">

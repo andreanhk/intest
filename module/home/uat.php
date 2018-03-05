@@ -82,6 +82,10 @@
 	</nav>
 	
 	<div class="container container-fluid">
+		<h1>User Acceptance Test</h1><br>
+	</div>
+	
+	<div class="container container-fluid">
 		<table class="table table-hover text-center">
 			<tbody>
 			<thead>

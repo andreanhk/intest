@@ -82,8 +82,47 @@
 	</nav>
 
 	<div class="container container-fluid">
-		<h1>Master Data Business Area</h1>
-	</div>
+		<h1>Master Data Business Area
+			<?php
+				if ($_SESSION['username']=="Admin")
+				{
+			?>
+			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
+			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modaladdba"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Business Area Baru</b></button>
+			
+			<!-- Modal Add User -->
+			<div id="modaladdba" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+				  <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Tambah Business Area Baru</h4>
+				  </div>
+				  <div class="modal-body"><h5>
+					<label for="new_iduser">Kode business area (4 digit):</label>
+					<input type="text" id="new_codeba" name="new_codeba" class="form-control" placeholder="Contoh: 3000" required="" autofocus=""><br>
+					<label for="new_userlname">Nama perusahaan/cabang:</label>
+					<input type="text" id="new_nameba" name="new_nameba" class="form-control" placeholder="Contoh: Samator Gas Industri Pusat" required=""><br>
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-default btn-success" type="submit" data-dismiss="modal" href="#">Tambah</button>
+					<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+				  </div>
+				</div>
+
+			  </div>
+			</div>
+			<?php
+				}
+				else
+				{
+					
+				}
+			?>
+		</h1>
+	</div><br>
 	
 	<div class="container container-fluid">
 		<table class="table table-hover text-center">
