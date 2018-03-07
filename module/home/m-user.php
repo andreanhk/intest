@@ -101,30 +101,33 @@
 					<h4 class="modal-title">Tambah User Baru</h4>
 				  </div>
 				  
-				  <form class="modal-body" method="POST"><h5>
-					<label for="new_iduser">User ID (digunakan untuk username login):</label>
-					<input type="text" id="new_iduser" name="new_iduser" class="form-control" placeholder="User ID" required="" autofocus=""><br>
-					<label for="new_userlname">Nama lengkap user:</label>
-					<input type="text" id="new_userlname" name="new_userlname" class="form-control" placeholder="Nama Lengkap User" required=""><br>
-					<label for="new_pwduser">Password (digunakan untuk password login):</label>
-					<input type="password" id="new_pwduser" name="new_pwduser" class="form-control" placeholder="Password" required=""><br>
-					<label for="new_repeatpwd">Ulangi password:</label>
-					<input type="password" id="new_repeatpwd" name="new_repeatpwd" class="form-control" placeholder="Ulangi Password" required=""><br>
-					<label for="new_repeatpwd">Modul user:</label>
-					<?php
-						mysql_connect('localhost', 'root', '');
-						mysql_select_db('saptest');
+				  <div class="modal-body" method="POST"><h5>
+					<form method="POST">
+						<label for="new_iduser">User ID (digunakan untuk username login):</label>
+						<input type="text" id="new_iduser" name="new_iduser" class="form-control" placeholder="User ID" required="" autofocus=""><br>
+						<label for="new_userlname">Nama lengkap user:</label>
+						<input type="text" id="new_userlname" name="new_userlname" class="form-control" placeholder="Nama Lengkap User" required=""><br>
+						<label for="new_pwduser">Password (digunakan untuk password login):</label>
+						<input type="password" id="new_pwduser" name="new_pwduser" class="form-control" placeholder="Password" required=""><br>
+						<label for="new_repeatpwd">Ulangi password:</label>
+						<input type="password" id="new_repeatpwd" name="new_repeatpwd" class="form-control" placeholder="Ulangi Password" required=""><br>
+						<label for="new_repeatpwd">Modul user:</label>
+						<?php
+							mysql_connect('localhost', 'root', '');
+							mysql_select_db('saptest');
 
-						$sql = "SELECT idmodul FROM m_modul";
-						$result = mysql_query($sql);
+							$sql = "SELECT idmodul FROM m_modul";
+							$result = mysql_query($sql);
 
-						echo "<select name='idmodul'>";
-						while ($row = mysql_fetch_array($result)) {
-							echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
-						}
-						echo "</select>";
-					?>
-				  </form>
+							echo "<select name='idmodul'>";
+							while ($row = mysql_fetch_array($result)) {
+								echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
+							}
+							echo "</select>";
+						?>
+					</form>
+				  </div>
+				  
 				  <div class="modal-footer">
 					<button type="button" class="btn btn-default btn-success" type="submit" data-dismiss="modal">Tambah</button>
 					<?php
