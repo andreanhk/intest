@@ -100,6 +100,7 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title">Tambah User Baru</h4>
 				  </div>
+				  
 				  <form class="modal-body" method="POST"><h5>
 					<label for="new_iduser">User ID (digunakan untuk username login):</label>
 					<input type="text" id="new_iduser" name="new_iduser" class="form-control" placeholder="User ID" required="" autofocus=""><br>
@@ -134,7 +135,7 @@
 							$password = $_POST['new_pwduser'];
 							$repeatpassword = $_POST['new_repeatpwd'];
 					 
-							$query = "INSERT INTO `user` (username, password, email) VALUES ('$userid','$longname','$password','$repeatpassword')";
+							$query = "INSERT INTO `user` (userid, userlname, userpwd) VALUES ('$userid','$longname','$password')";
 							$result1 = mysqli_query($query);
 							
 							if($result1)
