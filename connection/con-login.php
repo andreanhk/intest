@@ -19,7 +19,7 @@
 	$uname=$_POST["username"];
 	$pass=$_POST["password"];
 	
-	$sql="SELECT * FROM user WHERE userid='".$uname."' AND userpwd='".$pass."'";
+	$sql="SELECT * FROM user WHERE userid='".$uname."' AND BINARY userpwd= BINARY '".$pass."'";
 	
 	$result=mysqli_query($con,$sql) or die(mysqli_error($con));
 	$count=mysqli_num_rows($result);
