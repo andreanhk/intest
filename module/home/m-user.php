@@ -16,34 +16,37 @@
 	$longname = "";
 	$password = "";
 	$result1 = "";
-	
-	
+	$idmodul = "";
 	
 					if (isset($_POST['submit']))
 						{
 							$userid = $_POST['new_iduser'];
 							$longname = $_POST['new_userlname'];
 							$password = $_POST['new_pwduser'];
+							$idmodul = $_POST['idmodul'];
 							//$repeatpassword = $_POST['new_repeatpwd'];
 							
-							//echo "Masuk";
-							$query = 'INSERT INTO user(userid, userlname, userpwd) VALUES ("'.$userid.'","'.$longname.'","'.$password.'")';
-							//echo $query;
+							$query1 = 'SELECT * FROM user WHERE userid="'.$userid.'"';
+							//echo $query1;
 							
-							$con=mysqli_connect("localhost","root","","saptest");
-							
-							//mysqli_query($con,$query);
-							
-							$result1 = mysqli_query($con,$query);
-							echo $result1;	
-							//echo $query;
-							if($result1)
+							if ($query1==1)
 							{
-								$smsg = "Berhasil.";
+								die ("Another user ID exists");
 							}
 							else
-							{
-								$fmsg = "Gagal";
+							{	
+								$query = 'INSERT INTO user(userid, userlname, userpwd, usermodul) VALUES ("'.$userid.'","'.$longname.'","'.$password.'","'.$idmodul.'")';
+								$con=mysqli_connect("localhost","root","","saptest");
+								$result1 = mysqli_query($con,$query);
+								
+								if($result1)
+								{
+									$smsg = "Berhasil.";
+								}
+								else
+								{
+									$fmsg = "Gagal";
+								}
 							}
 						}
 ?>
