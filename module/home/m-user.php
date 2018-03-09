@@ -11,6 +11,41 @@
 	{
 		header("Location: login.php");
 	}
+	
+	$userid = "";
+	$longname = "";
+	$password = "";
+	$result1 = "";
+	
+	
+	
+					if (isset($_POST['submit']))
+						{
+							$userid = $_POST['new_iduser'];
+							$longname = $_POST['new_userlname'];
+							$password = $_POST['new_pwduser'];
+							//$repeatpassword = $_POST['new_repeatpwd'];
+							
+							//echo "Masuk";
+							$query = 'INSERT INTO user(userid, userlname, userpwd) VALUES ("'.$userid.'","'.$longname.'","'.$password.'")';
+							//echo $query;
+							
+							$con=mysqli_connect("localhost","root","","saptest");
+							
+							//mysqli_query($con,$query);
+							
+							$result1 = mysqli_query($con,$query);
+							echo $result1;	
+							//echo $query;
+							if($result1)
+							{
+								$smsg = "Berhasil.";
+							}
+							else
+							{
+								$fmsg = "Gagal";
+							}
+						}
 ?>
 
 <!DOCTYPE html>
@@ -101,8 +136,8 @@
 					<h4 class="modal-title">Tambah User Baru</h4>
 				  </div>
 				  
-				  <div class="modal-body" method="POST"><h5>
-					<form method="POST">
+				  <div class="modal-body"><h5>
+					<form action="" method="POST" name="form_adduser">
 						<label for="new_iduser">User ID (digunakan untuk username login):</label>
 						<input type="text" id="new_iduser" name="new_iduser" class="form-control" placeholder="User ID" required="" autofocus=""><br>
 						<label for="new_userlname">Nama lengkap user:</label>
@@ -125,32 +160,48 @@
 							}
 							echo "</select>";
 						?>
+						<br>
+						
+						<!--$connect = mysqli_connect("localhost", "root", "", "saptest");
+						if(!empty($_POST))
+						{
+							$output = '';
+							$userid = mysqli_real_escape_string($connect, $_POST["userid"]);  
+							$userlname = mysqli_real_escape_string($connect, $_POST["userlname"]);  
+							$userpwd = mysqli_real_escape_string($connect, $_POST["userpwd"]);  
+							
+							$query = "INSERT INTO user(userid,userlname,userpwd) VALUES('$userid', '$userlname', '$userpwd')";
+							if(mysqli_query($connect, $query))
+							{
+							 $output .= '<label class="text-success">Data Inserted</label>';
+							 $select_query = "SELECT * FROM user ORDER BY userid DESC";
+							 $result = mysqli_query($connect, $select_query);
+							 $output .= '
+							  <table class="table table-bordered">  
+											<tr>  
+												 <th width="70%">Employee Name</th>  
+												 <th width="30%">View</th>  
+											</tr>
+
+							 ';
+							 while($row = mysqli_fetch_array($result))
+							 {
+							  $output .= '
+							   <tr>  
+												 <td>' . $row["name"] . '</td>  
+												 <td><input type="button" name="view" value="view" id="' . $row["id"] . '" class="btn btn-info btn-xs view_data" /></td>  
+											</tr>
+							  ';
+							 }
+							 $output .= '</table>';
+							}
+							echo $output;
+						}-->
+						<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-user.php">Tambah</button>
 					</form>
 				  </div>
 				  
 				  <div class="modal-footer">
-					<button type="button" class="btn btn-default btn-success" type="submit" data-dismiss="modal">Tambah</button>
-					<?php
-						if (isset($_POST['new_iduser']) && isset($_POST['new_pwduser']))
-						{
-							$userid = $_POST['new_iduser'];
-							$longname = $_POST['new_userlname'];
-							$password = $_POST['new_pwduser'];
-							$repeatpassword = $_POST['new_repeatpwd'];
-					 
-							$query = "INSERT INTO `user` (userid, userlname, userpwd) VALUES ('$userid','$longname','$password')";
-							$result1 = mysqli_query($query);
-							
-							if($result1)
-							{
-								$smsg = "Berhasil.";
-							}
-							else
-							{
-								$fmsg ="Gagal";
-							}
-						}
-					?>
 					<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
 				  </div>
 				</div>
