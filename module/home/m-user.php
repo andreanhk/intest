@@ -18,37 +18,45 @@
 	$result1 = "";
 	$idmodul = "";
 	
-					if (isset($_POST['submit']))
-						{
-							$userid = $_POST['new_iduser'];
-							$longname = $_POST['new_userlname'];
-							$password = $_POST['new_pwduser'];
-							$idmodul = $_POST['idmodul'];
-							//$repeatpassword = $_POST['new_repeatpwd'];
-							
-							$query1 = 'SELECT * FROM user WHERE userid="'.$userid.'"';
-							//echo $query1;
-							
-							if ($query1==1)
-							{
-								die ("Another user ID exists");
-							}
-							else
-							{	
-								$query = 'INSERT INTO user(userid, userlname, userpwd, usermodul) VALUES ("'.$userid.'","'.$longname.'","'.$password.'","'.$idmodul.'")';
-								$con=mysqli_connect("localhost","root","","saptest");
-								$result1 = mysqli_query($con,$query);
-								
-								if($result1)
-								{
-									$smsg = "Berhasil.";
-								}
-								else
-								{
-									$fmsg = "Gagal";
-								}
-							}
-						}
+	if (isset($_POST['submit']))
+	{
+		$userid = $_POST['new_iduser'];
+		$longname = $_POST['new_userlname'];
+		$password = $_POST['new_pwduser'];
+		$idmodul = $_POST['idmodul'];
+						
+		//$query1 = 'SELECT * FROM user WHERE userid="'.$userid.'"';
+		
+		$query = 'SELECT * FROM user WHERE userid="'.$userid.'"';
+		$con = mysqli_connect("localhost","root","","saptest");
+		$result = mysqli_query($con,$query);
+		
+		if($result->num_rows == 0)
+		{
+			$query = 'INSERT INTO user(userid, userlname, userpwd, usermodul) VALUES ("'.$userid.'","'.$longname.'","'.$password.'","'.$idmodul.'")';
+			//$con = mysqli_connect("localhost","root","","saptest");
+			$result1 = mysqli_query($con,$query);
+		}
+		else
+		{
+			echo '<script language="javascript">';
+			echo 'alert("User ID tersebut sudah ada!")';
+			echo '</script>';
+		}
+		
+		//$mysqli->close();
+		
+		/*if ($query1==1)
+		{
+			die ("Another user ID exists");
+		}
+		else
+		{	
+			$query = 'INSERT INTO user(userid, userlname, userpwd, usermodul) VALUES ("'.$userid.'","'.$longname.'","'.$password.'","'.$idmodul.'")';
+			$con=mysqli_connect("localhost","root","","saptest");
+			$result1 = mysqli_query($con,$query);	
+		}*/
+	}
 ?>
 
 <!DOCTYPE html>
@@ -163,49 +171,12 @@
 							}
 							echo "</select>";
 						?>
-						<br>
-						
-						<!--$connect = mysqli_connect("localhost", "root", "", "saptest");
-						if(!empty($_POST))
-						{
-							$output = '';
-							$userid = mysqli_real_escape_string($connect, $_POST["userid"]);  
-							$userlname = mysqli_real_escape_string($connect, $_POST["userlname"]);  
-							$userpwd = mysqli_real_escape_string($connect, $_POST["userpwd"]);  
-							
-							$query = "INSERT INTO user(userid,userlname,userpwd) VALUES('$userid', '$userlname', '$userpwd')";
-							if(mysqli_query($connect, $query))
-							{
-							 $output .= '<label class="text-success">Data Inserted</label>';
-							 $select_query = "SELECT * FROM user ORDER BY userid DESC";
-							 $result = mysqli_query($connect, $select_query);
-							 $output .= '
-							  <table class="table table-bordered">  
-											<tr>  
-												 <th width="70%">Employee Name</th>  
-												 <th width="30%">View</th>  
-											</tr>
-
-							 ';
-							 while($row = mysqli_fetch_array($result))
-							 {
-							  $output .= '
-							   <tr>  
-												 <td>' . $row["name"] . '</td>  
-												 <td><input type="button" name="view" value="view" id="' . $row["id"] . '" class="btn btn-info btn-xs view_data" /></td>  
-											</tr>
-							  ';
-							 }
-							 $output .= '</table>';
-							}
-							echo $output;
-						}-->
-						<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-user.php">Tambah</button>
+						<br><br>
+						<div class="modal-footer">
+							<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-user.php">Tambah</button>
+							<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+						</div>
 					</form>
-				  </div>
-				  
-				  <div class="modal-footer">
-					<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
 				  </div>
 				</div>
 			  </div>
