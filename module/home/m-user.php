@@ -24,8 +24,6 @@
 		$longname = $_POST['new_userlname'];
 		$password = $_POST['new_pwduser'];
 		$idmodul = $_POST['idmodul'];
-						
-		//$query1 = 'SELECT * FROM user WHERE userid="'.$userid.'"';
 		
 		$query = 'SELECT * FROM user WHERE userid="'.$userid.'"';
 		$con = mysqli_connect("localhost","root","","saptest");
@@ -34,8 +32,8 @@
 		if($result->num_rows == 0)
 		{
 			$query = 'INSERT INTO user(userid, userlname, userpwd, usermodul) VALUES ("'.$userid.'","'.$longname.'","'.$password.'","'.$idmodul.'")';
-			//$con = mysqli_connect("localhost","root","","saptest");
 			$result1 = mysqli_query($con,$query);
+			header("location:m-user.php");
 		}
 		else
 		{

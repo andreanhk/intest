@@ -11,6 +11,33 @@
 	{
 		header("Location: login.php");
 	}
+	
+	$idba = "";
+	$nameba = "";
+	$result1 = "";
+	
+	if (isset($_POST['submit']))
+	{
+		$idba = $_POST['new_idba'];
+		$nameba = $_POST['new_nameba'];
+		
+		$query = 'SELECT * FROM m_ba WHERE idba="'.$idba.'"';
+		$con = mysqli_connect("localhost","root","","saptest");
+		$result = mysqli_query($con,$query);
+		
+		if($result->num_rows == 0)
+		{
+			$query = 'INSERT INTO m_ba(idba,nameba) VALUES ("'.$idba.'","'.$nameba.'")';
+			$result1 = mysqli_query($con,$query);
+			header("location:m-ba.php");
+		}
+		else
+		{
+			echo '<script language="javascript">';
+			echo 'alert("Kode BA tersebut sudah ada!")';
+			echo '</script>';
+		}
+	}
 ?>
 
 <!DOCTYPE html>
@@ -101,15 +128,20 @@
 					<h4 class="modal-title">Tambah Business Area Baru</h4>
 				  </div>
 				  <div class="modal-body"><h5>
-					<label for="new_iduser">Kode business area (4 digit):</label>
-					<input type="text" id="new_codeba" name="new_codeba" class="form-control" placeholder="Contoh: 3000" required="" autofocus=""><br>
-					<label for="new_userlname">Nama perusahaan/cabang:</label>
-					<input type="text" id="new_nameba" name="new_nameba" class="form-control" placeholder="Contoh: Samator Gas Industri Pusat" required=""><br>
+					<form action="" method="POST" name="form_addba">
+						<label for="new_idba">Kode business area (4 digit):</label>
+						<input type="text" id="new_idba" name="new_idba" class="form-control" placeholder="Contoh: 3000" required="" autofocus=""><br>
+						<label for="new_nameba">Nama perusahaan/cabang:</label>
+						<input type="text" id="new_nameba" name="new_nameba" class="form-control" placeholder="Contoh: Samator Gas Industri Pusat" required=""><br>
+						
+						<br><br>
+						<div class="modal-footer">
+							<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-user.php">Tambah</button>
+							<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+						</div>
+					</form>
 				  </div>
-				  <div class="modal-footer">
-					<button type="button" class="btn btn-default btn-success" type="submit" data-dismiss="modal" href="#">Tambah</button>
-					<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
-				  </div>
+				  
 				</div>
 
 			  </div>
