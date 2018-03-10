@@ -83,6 +83,7 @@
 
 	<div class="container container-fluid">
 		<h1>Master Data Checklist
+			
 			<?php
 				if ($_SESSION['username']=="Admin")
 				{
@@ -90,11 +91,11 @@
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
 			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modaladdchecklist"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Checklist Baru</b></button>
 			
-			<!-- Modal Add User -->
+			<!-- Modal Add Checklist -->
 			<div id="modaladdchecklist" class="modal fade" role="dialog">
 			  <div class="modal-dialog">
 
-				<!-- Modal content-->
+				<!-- Open modal add checklist -->
 				<div class="modal-content">
 				  <div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -142,6 +143,22 @@
 				}
 			?>
 		</h1>
+		
+		<?php
+				mysql_connect('localhost', 'root', '');
+				mysql_select_db('saptest');
+
+				$sql = "SELECT idmodul FROM m_modul";
+				$result = mysql_query($sql);
+
+				echo "<select name='idmodul'>";
+				while ($row = mysql_fetch_array($result))
+				{
+					echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
+				}
+				echo "</select>";
+			?>
+		
 	</div><br>
 	
 	<div class="container container-fluid">

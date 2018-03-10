@@ -41,19 +41,6 @@
 			echo 'alert("User ID tersebut sudah ada!")';
 			echo '</script>';
 		}
-		
-		//$mysqli->close();
-		
-		/*if ($query1==1)
-		{
-			die ("Another user ID exists");
-		}
-		else
-		{	
-			$query = 'INSERT INTO user(userid, userlname, userpwd, usermodul) VALUES ("'.$userid.'","'.$longname.'","'.$password.'","'.$idmodul.'")';
-			$con=mysqli_connect("localhost","root","","saptest");
-			$result1 = mysqli_query($con,$query);	
-		}*/
 	}
 ?>
 
@@ -136,48 +123,48 @@
 			
 			<!-- Modal Add User -->
 			<div id="modaladduser" class="modal fade" role="dialog">
-			  <div class="modal-dialog">
+				<div class="modal-dialog">
 
-				<!-- Modal content-->
-				<div class="modal-content">
-				  <div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Tambah User Baru</h4>
-				  </div>
-				  
-				  <div class="modal-body"><h5>
-					<form action="" method="POST" name="form_adduser">
-						<label for="new_iduser">User ID (digunakan untuk username login):</label>
-						<input type="text" id="new_iduser" name="new_iduser" class="form-control" placeholder="User ID" required="" autofocus=""><br>
-						<label for="new_userlname">Nama lengkap user:</label>
-						<input type="text" id="new_userlname" name="new_userlname" class="form-control" placeholder="Nama Lengkap User" required=""><br>
-						<label for="new_pwduser">Password (digunakan untuk password login):</label>
-						<input type="password" id="new_pwduser" name="new_pwduser" class="form-control" placeholder="Password" required=""><br>
-						<label for="new_repeatpwd">Ulangi password:</label>
-						<input type="password" id="new_repeatpwd" name="new_repeatpwd" class="form-control" placeholder="Ulangi Password" required=""><br>
-						<label for="new_repeatpwd">Modul user:</label>
-						<?php
-							mysql_connect('localhost', 'root', '');
-							mysql_select_db('saptest');
+					<!-- Modal content-->
+					<div class="modal-content">
+					  <div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Tambah User Baru</h4>
+					  </div>
+					  
+						<div class="modal-body"><h5>
+							<form action="" method="POST" name="form_adduser">
+								<label for="new_iduser">User ID (digunakan untuk username login):</label>
+								<input type="text" id="new_iduser" name="new_iduser" class="form-control" placeholder="User ID" required="" autofocus=""><br>
+								<label for="new_userlname">Nama lengkap user:</label>
+								<input type="text" id="new_userlname" name="new_userlname" class="form-control" placeholder="Nama Lengkap User" required=""><br>
+								<label for="new_pwduser">Password (digunakan untuk password login):</label>
+								<input type="password" id="new_pwduser" name="new_pwduser" class="form-control" placeholder="Password" required=""><br>
+								<label for="new_repeatpwd">Ulangi password:</label>
+								<input type="password" id="new_repeatpwd" name="new_repeatpwd" class="form-control" placeholder="Ulangi Password" required=""><br>
+								<label for="new_repeatpwd">Modul user:</label>
+								<?php
+									mysql_connect('localhost', 'root', '');
+									mysql_select_db('saptest');
 
-							$sql = "SELECT idmodul FROM m_modul";
-							$result = mysql_query($sql);
+									$sql = "SELECT idmodul FROM m_modul";
+									$result = mysql_query($sql);
 
-							echo "<select name='idmodul'>";
-							while ($row = mysql_fetch_array($result)) {
-								echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
-							}
-							echo "</select>";
-						?>
-						<br><br>
-						<div class="modal-footer">
-							<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-user.php">Tambah</button>
-							<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+									echo "<select name='idmodul'>";
+									while ($row = mysql_fetch_array($result)) {
+										echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
+									}
+									echo "</select>";
+								?>
+								<br><br>
+								<div class="modal-footer">
+									<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-user.php">Tambah</button>
+									<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+								</div>
+							</form>
 						</div>
-					</form>
-				  </div>
+					</div>
 				</div>
-			  </div>
 			</div>
 			<?php
 				}

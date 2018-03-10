@@ -128,6 +128,48 @@
 
 			  </div>
 			</div>
+			
+			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modaladd_uatstep"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Step Baru</b></button>
+			
+			<!-- Modal Add Step Baru -->
+			<div id="modaladd_uatstep" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+				  <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Tambah Step UAT Baru</h4>
+				  </div>
+				  <div class="modal-body"><h5>
+					<label for="new_stepname">Nama step:</label>
+					<input type="text" id="new_scnname" name="new_stepname" class="form-control" placeholder="Contoh: Pembelian Bahan Baku" required="" autofocus=""><br>
+					<label for="new_scndesc">Deskripsi step:</label>
+					<input type="text" id="new_scndesc" name="new_stepdesc" class="form-control" placeholder="Contoh: Tes Pembelian Bahan Baku dari Vendor" required=""><br>
+					<label for="new_scnmodul">Skenario step:</label>
+					<?php
+						mysql_connect('localhost', 'root', '');
+						mysql_select_db('saptest');
+
+						$sql = "SELECT uat_scn FROM m_uat_scn";
+						$result = mysql_query($sql);
+
+						echo "<select name='uat_scn'>";
+						while ($row = mysql_fetch_array($result)) {
+							echo "<option value='" . $row['uat_scn'] . "'>" . $row['uat_scn'] . "</option>";
+						}
+						echo "</select>";
+					?>
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-default btn-success" type="submit" data-dismiss="modal" href="#">Tambah</button>
+					<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+				  </div>
+				</div>
+
+			  </div>
+			</div>
+			
 			<?php
 				}
 				else
