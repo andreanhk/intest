@@ -106,52 +106,58 @@
 			<?php
 				mysql_connect('localhost', 'root', '');
 				mysql_select_db('saptest');
-				$sql = "SELECT idmodul FROM m_modul";
+				$sql = "SELECT uat_scn, uat_desc FROM m_uat_scn";
 				$result = mysql_query($sql);
 
 				//echo "<select name='idmodul'>";
 				while ($row = mysql_fetch_array($result))
 				{
-					echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
+					echo "<option value='" . $row['uat_scn'] . "'>" . $row['uat_scn'] . "</option>";
+					$uat_scn = $_GET['uat_scn'];
 				}
 				//echo "</select>";
 			?>
 		</select>
 		
-		<select id="uatScn" name="uatScn">
-		</select>
+		Deskripsi UAT:<?php echo $uat_scn; ?>
 		
-	<?php
-		/*$sql1 = "SELECT uat_scn,uat_modul FROM m_uat_scn WHERE uat_modul='".$result."'";
-		$result1 = mysql_query($sql1);
-
-		echo "<select name='uat_scn'>";
-		while ($row = mysql_fetch_array($result1))
-		{
-			echo "<option value='" . $row['uat_scn'] . "'>" . $row['uat_scn'] . "</option>";
-		}
-			echo "</select>";*/
-	?>
-					
+		<br><br>
 		<table class="table table-hover text-center">
-			<tbody>
 			<thead>
 				<tr>
-					<td><b>Deskripsi Test</b></td>
-					<td><b>Tanggal Testrun</b></td>
-					<td><b>PIC Testrun</b></td>
+					<td><b>No step</b></td>
+					<td><b>Skenario</b></td>
+					<td><b>Deskripsi</b></td>
+					<td><b>Step</b></td>
+					<td><b>Tcode</b></td>
+					<td><b>User</b></td>
+					<td><b>Tgl testrun</b></td>
+					<td><b>PIC</b></td>
 				</tr>
 			</thead>
-			<tr>
-				<td>Isi 1</td>
-				<td>Isi 2</td>
-				<td>Isi 3</td>
-			<tr>
-			<tr>
-				<td>Isi 4</td>
-				<td>Isi 5</td>
-				<td>Isi 6</td>
-			</tr>
+			<tbody>
+			<?php
+				$connection = mysql_connect('localhost', 'root', '');
+				mysql_select_db('saptest');
+
+				$query = "SELECT c.no_scn, c.uat_scn, c.uat_desc, t.bp_step, t.tcode_step, t.user_step, t.no_step, t.no_scn
+						  FROM m_uat_scn c JOIN m_uat_step t ON c.no_scn = t.no_scn";
+				$result = mysql_query($query);
+
+				while($row = mysql_fetch_array($result))
+				{
+					echo "<tr>";
+						echo "<td style:'border=1px solid black'>".$row['no_step']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['uat_scn']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['uat_desc']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['bp_step']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['tcode_step']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['user_step']."</td>";
+					echo "</tr>";
+				}
+
+				mysql_close();
+			?>
 			</tbody>
 		</table>
 	</div>
