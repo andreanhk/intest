@@ -199,6 +199,8 @@
 						echo "<td style:'border=1px solid black'>".$row['userid']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['userlname']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['usermodul']."</td>";
+						echo "<td><button class='btn btn-info btn-xs'><span class='glyphicon glyphicon-pencil'></span></button>&nbsp";
+						echo "<button class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-trash'></span></button></td>";
 					echo "</tr>";
 				}
 

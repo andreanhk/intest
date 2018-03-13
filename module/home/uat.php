@@ -45,18 +45,11 @@
 <link rel="icon" href="<?php echo $root; ?>assets/images/samator.ico" type="image/ico">
 
 <script type="text/javascript">
-	function getUatScn(val)
+	function getval(sel)
 	{
-		$.ajax(
-		{
-			type:"POST",
-			url:"process.php",
-			data:'idmodul='+val,
-			success: function(data)
-			{
-				$("#uatScn").html(data);
-			}
-		});
+		//alert(sel.value);
+		//var descText = $('option.selected',this).text();
+		$('#uatDesc').text(sel.value);
 	}
 </script>
 
@@ -102,24 +95,22 @@
 	</div>
 	
 	<div class="container container-fluid">
-		<select onchange="getUatScn(this.value);">
+		<select onchange="getval(this);" >
 			<?php
 				mysql_connect('localhost', 'root', '');
 				mysql_select_db('saptest');
 				$sql = "SELECT uat_scn, uat_desc FROM m_uat_scn";
 				$result = mysql_query($sql);
 
-				//echo "<select name='idmodul'>";
 				while ($row = mysql_fetch_array($result))
 				{
 					echo "<option value='" . $row['uat_scn'] . "'>" . $row['uat_scn'] . "</option>";
 					$uat_scn = $_GET['uat_scn'];
 				}
-				//echo "</select>";
 			?>
 		</select>
 		
-		Deskripsi UAT:<?php echo $uat_scn; ?>
+		<br><br>Deskripsi UAT: <label for="uatDesc" id="uatDesc"></label>
 		
 		<br><br>
 		<table class="table table-hover text-center">
@@ -141,7 +132,8 @@
 				mysql_select_db('saptest');
 
 				$query = "SELECT c.no_scn, c.uat_scn, c.uat_desc, t.bp_step, t.tcode_step, t.user_step, t.no_step, t.no_scn
-						  FROM m_uat_scn c JOIN m_uat_step t ON c.no_scn = t.no_scn";
+						  FROM m_uat_scn c JOIN m_uat_step t ON c.no_scn = t.no_scn
+						  ";
 				$result = mysql_query($query);
 
 				while($row = mysql_fetch_array($result))
