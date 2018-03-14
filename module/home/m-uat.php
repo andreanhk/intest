@@ -107,17 +107,18 @@
 					<input type="text" id="new_scndesc" name="new_scndesc" class="form-control" placeholder="Contoh: Tes Pembelian Bahan Baku dari Vendor" required=""><br>
 					<label for="new_scnmodul">Modul skenario:</label>
 					<?php
-						mysql_connect('localhost', 'root', '');
-						mysql_select_db('saptest');
+						$con = mysqli_connect("localhost","root","","saptest");
 
 						$sql = "SELECT idmodul FROM m_modul";
-						$result = mysql_query($sql);
+						$result = mysql_query($con,$sql);
 
 						echo "<select name='idmodul'>";
-						while ($row = mysql_fetch_array($result)) {
+						while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
 							echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
 						}
 						echo "</select>";
+						
+						$con->close();
 					?>
 				  </div>
 				  <div class="modal-footer">
@@ -148,17 +149,19 @@
 					<input type="text" id="new_scndesc" name="new_stepdesc" class="form-control" placeholder="Contoh: Tes Pembelian Bahan Baku dari Vendor" required=""><br>
 					<label for="new_scnmodul">Skenario step:</label>
 					<?php
-						mysql_connect('localhost', 'root', '');
-						mysql_select_db('saptest');
+						$con = mysqli_connect("localhost","root","","saptest");
 
 						$sql = "SELECT uat_scn FROM m_uat_scn";
-						$result = mysql_query($sql);
+						$result = mysqli_query($con,$sql);
 
 						echo "<select name='uat_scn'>";
-						while ($row = mysql_fetch_array($result)) {
+						while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
+						{
 							echo "<option value='" . $row['uat_scn'] . "'>" . $row['uat_scn'] . "</option>";
 						}
 						echo "</select>";
+						
+						$con->close();
 					?>
 				  </div>
 				  <div class="modal-footer">
@@ -191,22 +194,32 @@
 			</thead>
 			<tbody>
 			<?php
-				$connection = mysql_connect('localhost', 'root', '');
-				mysql_select_db('saptest');
+				$con = mysqli_connect("localhost","root","","saptest");
 
 				$query = "SELECT uat_modul,uat_scn,uat_desc FROM m_uat_scn";
-				$result = mysql_query($query);
+				$result = mysqli_query($con,$query);
 
-				while($row = mysql_fetch_array($result))
+				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					echo "<tr>";
 						echo "<td style:'border=1px solid black'>".$row['uat_modul']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['uat_scn']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['uat_desc']."</td>";
+						echo "<td style:'border=1px solid black' class='col-md-7'>".$row['uat_desc']."</td>";
+					if ($_SESSION['username']=="Admin")
+						{
+			?>
+							<td><button type='button' class='btn btn-info btn-xs' data-toggle='modal' data-target='#modalEditUser'><span class='glyphicon glyphicon-pencil'></span></button>&nbsp
+							<button type='button' class='btn btn-danger btn-xs' data-toggle='modal' data-target='#modalDelUser'><span class='glyphicon glyphicon-trash'></span></button></td>
+			<?php
+						}
+						else
+						{
+							
+						}
 					echo "</tr>";
 				}
 
-				mysql_close();
+				$con->close();
 			?>
 			</tbody>
 		</table>

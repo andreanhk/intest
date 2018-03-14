@@ -98,13 +98,12 @@
 			</thead>
 			<tbody>
 			<?php
-				$connection = mysql_connect('localhost', 'root', '');
-				mysql_select_db('saptest');
+				$con = mysqli_connect("localhost","root","","saptest");
 
 				$query = "SELECT ctype,ctypedesc,ctcode,ctable,cstat FROM m_check";
-				$result = mysql_query($query);
+				$result = mysqli_query($con,$query);
 
-				while($row = mysql_fetch_array($result))
+				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					echo "<tr>";
 						echo "<td style:'border=1px solid black'>".$row['ctype']."</td>";
@@ -115,7 +114,7 @@
 					echo "</tr>";
 				}
 
-				mysql_close();
+				$con->close();
 			?>
 			</tbody>
 		</table>

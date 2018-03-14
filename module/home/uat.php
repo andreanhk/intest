@@ -97,16 +97,18 @@
 	<div class="container container-fluid">
 		<select onchange="getval(this);" >
 			<?php
-				mysql_connect('localhost', 'root', '');
-				mysql_select_db('saptest');
-				$sql = "SELECT uat_scn, uat_desc FROM m_uat_scn";
-				$result = mysql_query($sql);
+				$con = mysqli_connect("localhost","root","","saptest");
+				
+				$query = "SELECT uat_scn, uat_desc FROM m_uat_scn";
+				$result = mysqli_query($con,$query);
 
-				while ($row = mysql_fetch_array($result))
+				while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					echo "<option value='" . $row['uat_scn'] . "'>" . $row['uat_scn'] . "</option>";
 					$uat_scn = $_GET['uat_scn'];
 				}
+				
+				$con->close();
 			?>
 		</select>
 		
@@ -128,15 +130,12 @@
 			</thead>
 			<tbody>
 			<?php
-				$connection = mysql_connect('localhost', 'root', '');
-				mysql_select_db('saptest');
+				$con = mysqli_connect("localhost","root","","saptest");
 
-				$query = "SELECT c.no_scn, c.uat_scn, c.uat_desc, t.bp_step, t.tcode_step, t.user_step, t.no_step, t.no_scn
-						  FROM m_uat_scn c JOIN m_uat_step t ON c.no_scn = t.no_scn
-						  ";
-				$result = mysql_query($query);
+				$query = "SELECT c.no_scn, c.uat_scn, c.uat_desc, t.bp_step, t.tcode_step, t.user_step, t.no_step, t.no_scn FROM m_uat_scn c JOIN m_uat_step t ON c.no_scn = t.no_scn";
+				$result = mysqli_query($con,$query);
 
-				while($row = mysql_fetch_array($result))
+				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					echo "<tr>";
 						echo "<td style:'border=1px solid black'>".$row['no_step']."</td>";
@@ -148,7 +147,7 @@
 					echo "</tr>";
 				}
 
-				mysql_close();
+				$con->close();
 			?>
 			</tbody>
 		</table>

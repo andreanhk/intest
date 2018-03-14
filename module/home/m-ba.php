@@ -166,21 +166,31 @@
 			</thead>
 			<tbody>
 			<?php
-				$connection = mysql_connect('localhost', 'root', '');
-				mysql_select_db('saptest');
+				$con = mysqli_connect("localhost","root","","saptest");
 
 				$query = "SELECT * FROM m_ba";
-				$result = mysql_query($query);
+				$result = mysqli_query($con,$query);
 
-				while($row = mysql_fetch_array($result))
+				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					echo "<tr>";
 						echo "<td style:'border=1px solid black'>".$row['idba']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['nameba']."</td>";
+					if ($_SESSION['username']=="Admin")
+						{
+			?>
+							<td><button type='button' class='btn btn-info btn-xs' data-toggle='modal' data-target='#modalEditUser'><span class='glyphicon glyphicon-pencil'></span></button>&nbsp
+							<button type='button' class='btn btn-danger btn-xs' data-toggle='modal' data-target='#modalDelUser'><span class='glyphicon glyphicon-trash'></span></button></td>
+			<?php
+						}
+						else
+						{
+							
+						}
 					echo "</tr>";
 				}
 
-				mysql_close();
+				$con->close();
 			?>
 			</tbody>
 		</table>

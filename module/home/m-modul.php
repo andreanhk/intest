@@ -95,21 +95,20 @@
 			</thead>
 			<tbody>
 			<?php
-				$connection = mysql_connect('localhost', 'root', ''); //The Blank string is the password
-				mysql_select_db('saptest');
+				$con = mysqli_connect("localhost","root","","saptest");
 
 				$query = "SELECT * FROM m_modul"; //You don't need a ; like you do in SQL
-				$result = mysql_query($query);
+				$result = mysqli_query($con,$query);
 
-				while($row = mysql_fetch_array($result)){   //Creates a loop to loop through results
-				//echo "<tr><td>" . $row['idmodul'] . "</td><td>" . $row['namemodul'] . "</td></tr>";  //$row['index'] the index here is a field name
-				echo "<tr>";
-					echo "<td style:'border=1px solid black'>".$row['idmodul']."</td>";
-					echo "<td style:'border=1px solid black>".$row['namemodul']."</td>";
-				echo "</tr>";
+				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
+				{
+					echo "<tr>";
+						echo "<td style:'border=1px solid black'>".$row['idmodul']."</td>";
+						echo "<td style:'border=1px solid black>".$row['namemodul']."</td>";
+					echo "</tr>";
 				}
 
-				mysql_close(); //Make sure to close out the database connection
+				$con->close();
 			?>
 			</tbody>
 		</table>
