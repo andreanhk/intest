@@ -208,8 +208,8 @@
 						if ($_SESSION['username']=="Admin")
 						{
 			?>
-							<td><button type='button' class='btn btn-info btn-xs' data-toggle='modal' data-target='#modalEditUser'><span class='glyphicon glyphicon-pencil'></span></button>&nbsp
-							<button type='button' class='btn btn-danger btn-xs' data-toggle='modal' data-target='#modalDelUser'><span class='glyphicon glyphicon-trash'></span></button></td>
+							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' data-target='#modalEditUser' href='delete.php?id='".$row['id']."'><span class='glyphicon glyphicon-pencil'></span></a>&nbsp
+							<a type='button' class='btn btn-danger btn-xs' data-toggle='modal' data-target='#modalDelUser' href='delete.php?id='".$row['id']."'><span class='glyphicon glyphicon-trash'></span></a></td>
 			<?php
 						}
 						else
