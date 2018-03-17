@@ -110,7 +110,7 @@
 						$con = mysqli_connect("localhost","root","","saptest");
 
 						$sql = "SELECT idmodul FROM m_modul";
-						$result = mysql_query($con,$sql);
+						$result = mysqli_query($con,$sql);
 
 						echo "<select name='idmodul'>";
 						while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
