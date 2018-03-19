@@ -88,7 +88,7 @@
 				{
 			?>
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
-			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modaladd_uatscn"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Skenario Baru</b></button>
+			<a class="btn btn-success text-right" data-toggle="modal" data-target="#modaladd_uatscn"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Skenario Baru</b></a>
 			
 			<!-- Modal Add User -->
 			<div id="modaladd_uatscn" class="modal fade" role="dialog">
@@ -130,7 +130,7 @@
 			  </div>
 			</div>
 			
-			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modaladd_uatstep"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Step Baru</b></button>
+			<a class="btn btn-success text-right" data-toggle="modal" data-target="#modaladd_uatstep"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Step Baru</b></a>
 			
 			<!-- Modal Add Step Baru -->
 			<div id="modaladd_uatstep" class="modal fade" role="dialog">

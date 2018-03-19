@@ -208,39 +208,35 @@
 						if ($_SESSION['username']=="Admin")
 						{
 			?>
-							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' data-target='#modalEditUser' href='delete.php?id='".$row['id']."'><span class='glyphicon glyphicon-pencil'></span></a>&nbsp
+							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' data-target='#modalEditUser' href='delete.php?id='".$row['id']."'><span class='glyphicon glyphicon-pencil'></span></a> 
 							<!--<a type='button' class='btn btn-danger btn-xs' data-toggle='modal' href='#modalDelUser'".$row['userid']."'><span class='glyphicon glyphicon-trash'></span></a></td>-->
 
 							<a type='button' class='btn btn-danger btn-xs' data-toggle='modal' href='#modalDelUser'".$row['id']."'><span class='glyphicon glyphicon-trash'></span></a></td>
 
 							<div id="modalDelUser"<?php $row['userid']; ?>" class="modal fade" role="dialog">
-							<div class="modal-dialog">
-								<!-- Modal content-->
-								<div class="modal-content">
-								  <div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h4 class="modal-title">Edit User</h4>
-								  </div>
-								  
-									<div class="modal-body"><h5>
-										<form action="" method="POST" name="formDelUser">
-									<label>Anda yakin akan menghapus user dengan ID:</label>
-									<?php
-										$userid=$row['userid'];
-										echo $_GET['userid'];
-										//echo $userid;
-										//visit https://stackoverflow.com/questions/26107666/delete-a-specific-row-of-a-table-using-php
-									?>
-									<br><br>
-									<div class="modal-footer">
-										<button class="btn btn-default btn-success" type="submit" name="submitEdit" id="submitEdit" method="POST" action="m-user.php">Hapus</button>
-										<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+								<div class="modal-dialog">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Edit User</h4>
+										</div>
+										  
+										<div class="modal-body"><h5>
+											<form action="" method="POST" name="formDelUser">
+												<label>Anda yakin akan menghapus user dengan ID:</label>
+												<label type="text" id="userToDel" name="userToDel"><?php echo $row['userid']; ?></label>
+											<!--visit https://stackoverflow.com/questions/26107666/delete-a-specific-row-of-a-table-using-php-->
+											<br><br>
+											<div class="modal-footer">
+												<button class="btn btn-default btn-success" type="submit" name="submitEdit" id="submitEdit" method="POST" action="m-user.php">Hapus<?php echo $row['userid']; ?></button>
+												<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+											</div>
+											</form>
+										</div>
 									</div>
-								</form>
+								</div>
 							</div>
-						</div>
-					</div>
-				</div>
 			<?php
 						}
 						else
