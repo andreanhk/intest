@@ -235,9 +235,9 @@
 													$result = mysqli_query($con,$query);
 
 													echo "<select name='idmodul'>";
-													while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
+													while ($row1 = mysqli_fetch_array($result,MYSQLI_ASSOC))
 													{
-														echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
+														echo "<option value='" . $row1['idmodul'] . "'>" . $row1['idmodul'] . "</option>";
 													}
 													echo "</select>";
 													
@@ -255,7 +255,7 @@
 							</div>
 
 							<!-- Button Delete User -->
-							<a type='button' class='btn btn-danger btn-xs' data-toggle='modal' href='#modalDelUser'."<?php echo $row['userid']; ?>."><span class='glyphicon glyphicon-trash'><?php echo $row['userid'];?></span></a></td>
+							<a type='button' class='btn btn-danger btn-xs' data-toggle='modal' href='#modalDelUser'."<?php echo $row['userid']; ?>."><span class='glyphicon glyphicon-trash'></span></a></td>
 
 							<!-- Modal Delete User -->
 							<div id="modalDelUser"<?php $row['userid']; ?>" class="modal fade" role="dialog">
