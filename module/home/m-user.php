@@ -232,10 +232,10 @@
 													$con = mysqli_connect("localhost","root","","saptest");
 
 													$query = "SELECT idmodul FROM m_modul";
-													$result = mysqli_query($con,$query);
+													$result1 = mysqli_query($con,$query);
 
 													echo "<select name='idmodul'>";
-													while ($row1 = mysqli_fetch_array($result,MYSQLI_ASSOC))
+													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 													{
 														echo "<option value='" . $row1['idmodul'] . "'>" . $row1['idmodul'] . "</option>";
 													}
