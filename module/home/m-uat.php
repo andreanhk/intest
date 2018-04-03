@@ -3,6 +3,7 @@
 	require "../template/setting.php";
 	
 	session_start();
+	
 	if(isset($_SESSION['username']) && $_SESSION['username']!="")
 	{
 		//echo($_SESSION['username']);
@@ -152,7 +153,7 @@
 					?>
 				  </div>
 				  <div class="modal-footer">
-					<button type="button" class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-uat-scn.php">Tambah</button>
+					<button type="button" class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-uat.php">Tambah</button>
 					<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
 				  </div>
 				</div>
