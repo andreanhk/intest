@@ -18,13 +18,13 @@
 	$scnmodul = "";
 	$result1 = "";
 	
-	if (isset($_POST['submit']))
+	if (isset($_POST['submit1']))
 	{
 		$con = mysqli_connect("localhost","root","","saptest");
 
 		$scnname = mysqli_real_escape_string($con,$_POST['new_scnname']);
 		$scndesc = mysqli_real_escape_string($con,$_POST['new_scndesc']);
-		$scnmodul = mysqli_real_escape_string($con,$_POST['new_scnmodul']);
+		$scnmodul = mysqli_real_escape_string($con,$_POST['uat_modul']);
 		
 		$query = 'SELECT * FROM m_uat_scn WHERE uat_scn="'.$scnname.'"';
 		$result = mysqli_query($con,$query);
@@ -33,7 +33,7 @@
 		{
 			$query = 'INSERT INTO m_uat_scn(uat_scn, uat_desc, uat_modul) VALUES ("'.$scnname.'","'.$scndesc.'","'.$scnmodul.'")';
 			$result1 = mysqli_query($con,$query);
-			header("location:m-uat-scn.php");
+			header("location:m-uat.php");
 		}
 		else
 		{
@@ -121,44 +121,47 @@
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
 			<a class="btn btn-success text-right" data-toggle="modal" data-target="#modaladd_uatscn"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Skenario Baru</b></a>
 			
-			<!-- Modal Add User -->
+			<!-- Modal Add Skenario UAT -->
 			<div id="modaladd_uatscn" class="modal fade" role="dialog">
-			  <div class="modal-dialog">
+				<div class="modal-dialog">
 
-				<!-- Modal content-->
-				<div class="modal-content">
-				  <div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Tambah Skenario UAT Baru</h4>
-				  </div>
-				  <div class="modal-body"><h5>
-					<label for="new_scnname">Nama skenario:</label>
-					<input type="text" id="new_scnname" name="new_scnname" class="form-control" placeholder="Contoh: Pembelian Bahan Baku" required="" autofocus=""><br>
-					<label for="new_scndesc">Deskripsi skenario:</label>
-					<input type="text" id="new_scndesc" name="new_scndesc" class="form-control" placeholder="Contoh: Tes Pembelian Bahan Baku dari Vendor" required=""><br>
-					<label for="new_scnmodul">Modul skenario:</label>
-					<?php
-						$con = mysqli_connect("localhost","root","","saptest");
-
-						$sql = "SELECT idmodul FROM m_modul";
-						$result = mysqli_query($con,$sql);
-
-						echo "<select name='idmodul'>";
-						while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
-							echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
-						}
-						echo "</select>";
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Tambah Skenario UAT Baru</h4>
+						</div>
 						
-						$con->close();
-					?>
-				  </div>
-				  <div class="modal-footer">
-					<button type="button" class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-uat.php">Tambah</button>
-					<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
-				  </div>
-				</div>
+						<div class="modal-body"><h5>
+							<form action="" method="POST" name="form_addscn">
+								<label for="new_scnname">Nama skenario:</label>
+								<input type="text" id="new_scnname" name="new_scnname" class="form-control" placeholder="Contoh: Pembelian Bahan Baku" required="" autofocus=""><br>
+								<label for="new_scndesc">Deskripsi skenario:</label>
+								<input type="text" id="new_scndesc" name="new_scndesc" class="form-control" placeholder="Contoh: Tes Pembelian Bahan Baku dari Vendor" required=""><br>
+								<label for="new_scnmodul">Modul skenario:</label>
+								<?php
+									$con = mysqli_connect("localhost","root","","saptest");
 
-			  </div>
+									$sql = "SELECT idmodul FROM m_modul";
+									$result = mysqli_query($con,$sql);
+
+									echo "<select name='uat_modul'>";
+									while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
+										echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
+									}
+									echo "</select>";
+									
+									$con->close();
+								?>
+							  
+								<div class="modal-footer">
+									<button class="btn btn-default btn-success" type="submit" name="submit1" id="submit1" method="POST" action="m-uat.php">Tambah</button>
+									<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
 			
 			<a class="btn btn-success text-right" data-toggle="modal" data-target="#modaladd_uatstep"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Step Baru</b></a>

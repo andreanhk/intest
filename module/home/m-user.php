@@ -150,7 +150,7 @@
 								<input type="password" id="new_pwduser" name="new_pwduser" class="form-control" placeholder="Password" required=""><br>
 								<label for="new_repeatpwd">Ulangi password:</label>
 								<input type="password" id="new_repeatpwd" name="new_repeatpwd" class="form-control" placeholder="Ulangi Password" required=""><br>
-								<label for="new_repeatpwd">Modul user:</label>
+								<label for="new_idmodul">Modul user:</label>
 								<?php
 									$con = mysqli_connect("localhost","root","","saptest");
 
@@ -216,10 +216,10 @@
 								<div class="modal-dialog">
 									<!-- Modal content-->
 									<div class="modal-content">
-									  <div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4 class="modal-title">Edit User</h4>
-									  </div>
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Edit User</h4>
+										</div>
 									  
 										<div class="modal-body"><h5>
 											<form action="" method="POST" name="formEditUser">
