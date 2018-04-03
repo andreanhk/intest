@@ -11,6 +11,36 @@
 	{
 		header("Location: login.php");
 	}
+
+	$scnname = "";
+	$scndesc = "";
+	$scnmodul = "";
+	$result1 = "";
+	
+	if (isset($_POST['submit']))
+	{
+		$con = mysqli_connect("localhost","root","","saptest");
+
+		$scnname = mysqli_real_escape_string($con,$_POST['new_scnname']);
+		$scndesc = mysqli_real_escape_string($con,$_POST['new_scndesc']);
+		$scnmodul = mysqli_real_escape_string($con,$_POST['new_scnmodul']);
+		
+		$query = 'SELECT * FROM m_uat_scn WHERE uat_scn="'.$scnname.'"';
+		$result = mysqli_query($con,$query);
+		
+		if($result->num_rows == 0)
+		{
+			$query = 'INSERT INTO m_uat_scn(uat_scn, uat_desc, uat_modul) VALUES ("'.$scnname.'","'.$scndesc.'","'.$scnmodul.'")';
+			$result1 = mysqli_query($con,$query);
+			header("location:m-uat-scn.php");
+		}
+		else
+		{
+			echo '<script language="javascript">';
+			echo 'alert("Skenario UAT tersebut sudah ada!")';
+			echo '</script>';
+		}
+	}
 ?>
 
 <!DOCTYPE html>
@@ -122,7 +152,7 @@
 					?>
 				  </div>
 				  <div class="modal-footer">
-					<button type="button" class="btn btn-default btn-success" type="submit" data-dismiss="modal" href="#">Tambah</button>
+					<button type="button" class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-uat-scn.php">Tambah</button>
 					<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
 				  </div>
 				</div>
@@ -144,9 +174,9 @@
 				  </div>
 				  <div class="modal-body"><h5>
 					<label for="new_stepname">Nama step:</label>
-					<input type="text" id="new_scnname" name="new_stepname" class="form-control" placeholder="Contoh: Pembelian Bahan Baku" required="" autofocus=""><br>
+					<input type="text" id="new_stepname" name="new_stepname" class="form-control" placeholder="Contoh: Pembelian Bahan Baku" required="" autofocus=""><br>
 					<label for="new_scndesc">Deskripsi step:</label>
-					<input type="text" id="new_scndesc" name="new_stepdesc" class="form-control" placeholder="Contoh: Tes Pembelian Bahan Baku dari Vendor" required=""><br>
+					<input type="text" id="new_stepdesc" name="new_stepdesc" class="form-control" placeholder="Contoh: Tes Pembelian Bahan Baku dari Vendor" required=""><br>
 					<label for="new_scnmodul">Skenario step:</label>
 					<?php
 						$con = mysqli_connect("localhost","root","","saptest");

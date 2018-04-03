@@ -104,8 +104,8 @@
 
 				while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
-					echo "<option value='" . $row['uat_scn'] . "'>" . $row['uat_scn'] . "</option>";
-					$uat_scn = $_GET['uat_scn'];
+					echo "<option value='" . $row['uat_desc'] . "'>" . $row['uat_scn'] . "</option>";
+					$uat_desc = $_GET['uat_desc'];
 				}
 				
 				$con->close();
