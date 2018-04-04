@@ -22,9 +22,9 @@
 	{
 		$con = mysqli_connect("localhost","root","","saptest");
 
-		$scnname = mysqli_real_escape_string($con,$_POST['new_scnname']);
-		$scndesc = mysqli_real_escape_string($con,$_POST['new_scndesc']);
-		$scnmodul = mysqli_real_escape_string($con,$_POST['uat_modul']);
+		$scnname = mysqli_real_escape_string($con, $_POST['new_scnname']);
+		$scndesc = mysqli_real_escape_string($con, $_POST['new_scndesc']);
+		$scnmodul = mysqli_real_escape_string($con, $_POST['uat_modul']);
 		
 		$query = 'SELECT * FROM m_uat_scn WHERE uat_scn="'.$scnname.'"';
 		$result = mysqli_query($con,$query);
@@ -39,6 +39,36 @@
 		{
 			echo '<script language="javascript">';
 			echo 'alert("Skenario UAT tersebut sudah ada!")';
+			echo '</script>';
+		}
+	}
+	
+	$stepname = "";
+	$stepdesc = "";
+	$stepscn = "";
+	$result2 = "";
+	
+	if (isset($_POST['submit2']))
+	{
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$stepname = mysqli_real_escape_string($con, $_POST['new_stepname']);
+		$stepdesc = mysqli_real_escape_string($con, $_POST['new_stepdesc']);
+		$stepscn = mysqli_real_escape_string($con, $_POST['new_stepscn']);
+		
+		$query = 'SELECT * FROM m_uat_step WHERE bp_step="'.$stepname.'"';
+		$result = mysqli_query($con,$query);
+		
+		if($result->num_rows == 0)
+		{
+			$query = 'INSERT INTO m_uat_step() VALUES ()';
+			$result2 = mysqli_query($con,$query);
+			header("location:m-uat.php")
+		}
+		else
+		{
+			echo '<script language="javascript">';
+			echo 'alert("Step UAT tersebut sudah ada di skenario terpilih!")';
 			echo '</script>';
 		}
 	}
@@ -153,7 +183,6 @@
 									
 									$con->close();
 								?>
-							  
 								<div class="modal-footer">
 									<button class="btn btn-default btn-success" type="submit" name="submit1" id="submit1" method="POST" action="m-uat.php">Tambah</button>
 									<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
@@ -168,43 +197,46 @@
 			
 			<!-- Modal Add Step Baru -->
 			<div id="modaladd_uatstep" class="modal fade" role="dialog">
-			  <div class="modal-dialog">
+				<div class="modal-dialog">
 
 				<!-- Modal content-->
-				<div class="modal-content">
-				  <div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Tambah Step UAT Baru</h4>
-				  </div>
-				  <div class="modal-body"><h5>
-					<label for="new_stepname">Nama step:</label>
-					<input type="text" id="new_stepname" name="new_stepname" class="form-control" placeholder="Contoh: Pembelian Bahan Baku" required="" autofocus=""><br>
-					<label for="new_scndesc">Deskripsi step:</label>
-					<input type="text" id="new_stepdesc" name="new_stepdesc" class="form-control" placeholder="Contoh: Tes Pembelian Bahan Baku dari Vendor" required=""><br>
-					<label for="new_scnmodul">Skenario step:</label>
-					<?php
-						$con = mysqli_connect("localhost","root","","saptest");
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Tambah Step UAT Baru</h4>
+						</div>
+						<div class="modal-body"><h5>
+							<form action="" method="POST" name="form_addstep">
+								<label for="new_stepname">Nama step:</label>
+								<input type="text" id="new_stepname" name="new_stepname" class="form-control" placeholder="Contoh: Pembelian Bahan Baku" required="" autofocus=""><br>
+								<label for="new_stepdesc">Deskripsi step:</label>
+								<input type="text" id="new_stepdesc" name="new_stepdesc" class="form-control" placeholder="Contoh: Tes Pembelian Bahan Baku dari Vendor" required=""><br>
+								<label for="new_stepscn">Skenario step:</label>
+								<?php
+									$con = mysqli_connect("localhost","root","","saptest");
 
-						$sql = "SELECT uat_scn FROM m_uat_scn";
-						$result = mysqli_query($con,$sql);
+									$sql = "SELECT uat_scn FROM m_uat_scn";
+									$result = mysqli_query($con,$sql);
 
-						echo "<select name='uat_scn'>";
-						while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
-						{
-							echo "<option value='" . $row['uat_scn'] . "'>" . $row['uat_scn'] . "</option>";
-						}
-						echo "</select>";
-						
-						$con->close();
-					?>
-				  </div>
-				  <div class="modal-footer">
-					<button type="button" class="btn btn-default btn-success" type="submit" data-dismiss="modal" href="#">Tambah</button>
-					<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
-				  </div>
+									echo "<select name='uat_scn'>";
+									while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
+									{
+										echo "<option value='" . $row['uat_scn'] . "'>" . $row['uat_scn'] . "</option>";
+									}
+									echo "</select>";
+									
+									$con->close();
+								?>
+							
+								<div class="modal-footer">
+									<button class="btn btn-default btn-success" type="submit" name="submit2" id="submit2" method="POST" action="m-uat.php">Tambah</button>
+									<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+								</div>
+							</form>
+						</div>
+					</div>
+
 				</div>
-
-			  </div>
 			</div>
 			
 			<?php
