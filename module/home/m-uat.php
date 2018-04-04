@@ -63,7 +63,7 @@
 		{
 			$query = 'INSERT INTO m_uat_step() VALUES ()';
 			$result2 = mysqli_query($con,$query);
-			header("location:m-uat.php")
+			header("location:m-uat.php");
 		}
 		else
 		{
