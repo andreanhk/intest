@@ -112,6 +112,8 @@
 			?>
 		</select>
 		
+		<!-- Untuk tabel php auto-refresh https://www.w3schools.com/php/php_ajax_database.asp -->
+		
 		<br><br>Deskripsi UAT: <label for="uatDesc" id="uatDesc"></label>
 		
 		<br><br>

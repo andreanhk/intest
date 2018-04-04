@@ -123,7 +123,7 @@
 	<div class="container container-fluid">
 		<h1>Master Data User 
 			<?php
-				if ($_SESSION['username']=="Admin")
+				if ($_SESSION['username']=="Admin" || $_SESSION['username']=="Andrean")
 				{
 			?>
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
@@ -205,7 +205,7 @@
 						echo "<td style:'border=1px solid black'>".$row['userid']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['userlname']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['usermodul']."</td>";
-						if ($_SESSION['username']=="Admin")
+						if ($_SESSION['username']=="Admin" || $_SESSION['username']=="Andrean")
 						{
 			?>
 							<!-- Button Edit User -->
@@ -272,11 +272,11 @@
 												<label>Anda yakin akan menghapus user ID</label>
 												<label type="text" id="userToDel" name="userToDel"><?php echo $row['userid']; ?>?</label>
 												<!--visit https://stackoverflow.com/questions/26107666/delete-a-specific-row-of-a-table-using-php-->
-											<br><br>
-											<div class="modal-footer">
-												<button class="btn btn-default btn-success" type="submit" name="delUser" id="delUser" method="POST" action="m-user.php">Hapus</button>
-												<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
-											</div>
+												<br><br>
+												<div class="modal-footer">
+													<button class="btn btn-default btn-success" type="submit" name="delUser" id="delUser" method="POST" action="m-user.php">Hapus</button>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+												</div>
 											</form>
 										</div>
 									</div>

@@ -1,0 +1,7 @@
+DELETE FROM `m_uat_scn` WHERE uat_id="0";
+
+Pembelian Barang Dagangan Gas
+Pembelian Bahan Baku	  
+
+Penjualan Botolan IB MTS (INTERBRANCH)
+Penjualan gas dalam botol hasil produksi & sparepart ke Customer & IB Sales Order, Terima Botol Kosong, Produksi, Distribusi , Billing , Pelunasan A/R	  

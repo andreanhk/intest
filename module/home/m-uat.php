@@ -15,6 +15,7 @@
 
 	$scnname = "";
 	$scndesc = "";
+	$scnNo = "";
 	$scnmodul = "";
 	$result1 = "";
 	
@@ -24,14 +25,15 @@
 
 		$scnname = mysqli_real_escape_string($con, $_POST['new_scnname']);
 		$scndesc = mysqli_real_escape_string($con, $_POST['new_scndesc']);
+		$scnNo = mysqli_real_escape_string($con, $_POST['new_scnNo']);
 		$scnmodul = mysqli_real_escape_string($con, $_POST['uat_modul']);
 		
-		$query = 'SELECT * FROM m_uat_scn WHERE uat_scn="'.$scnname.'"';
+		$query = 'SELECT * FROM m_uat_scn WHERE uat_scn="'.$scnname.'" AND no_scn="'.$scnNo.'"';
 		$result = mysqli_query($con,$query);
 		
 		if($result->num_rows == 0)
 		{
-			$query = 'INSERT INTO m_uat_scn(uat_scn, uat_desc, uat_modul) VALUES ("'.$scnname.'","'.$scndesc.'","'.$scnmodul.'")';
+			$query = 'INSERT INTO m_uat_scn(uat_scn, uat_desc, uat_modul, no_scn) VALUES ("'.$scnname.'","'.$scndesc.'","'.$scnmodul.'","'.$scnNo.'")';
 			$result1 = mysqli_query($con,$query);
 			header("location:m-uat.php");
 		}
@@ -60,7 +62,7 @@
 		$stepscn = mysqli_real_escape_string($con, $_POST['new_stepscn']);
 		$stepmodul = mysqli_real_escape_string($con, $_POST['new_stepmodul']);
 		
-		$query = 'SELECT * FROM m_uat_step WHERE bp_step="'.$stepname.'" AND stepscn="'.$stepscn.'"';
+		$query = 'SELECT * FROM m_uat_step WHERE bp_step="'.$stepname.'" AND stepscn="'.$stepscn.'"';  //Coba JOIN 2 tabel untuk insert value PP02 di table step -> cek value dari tabel scn
 		$result = mysqli_query($con,$query);
 		
 		if($result->num_rows == 0)
@@ -172,6 +174,8 @@
 								<input type="text" id="new_scnname" name="new_scnname" class="form-control" placeholder="Contoh: Pembelian Bahan Baku" required="" autofocus=""><br>
 								<label for="new_scndesc">Deskripsi skenario:</label>
 								<input type="text" id="new_scndesc" name="new_scndesc" class="form-control" placeholder="Contoh: Tes Pembelian Bahan Baku dari Vendor" required=""><br>
+								<label for="new_scnNo">No. skenario:</label>
+								<input type="text" id="new_scnNo" name="new_scnNo" class="form-control" placeholder="Contoh: PP01" required=""><br>
 								<label for="new_scnmodul">Modul skenario:</label>
 								<?php
 									$con = mysqli_connect("localhost","root","","saptest");
@@ -212,12 +216,12 @@
 						<div class="modal-body"><h5>
 							<form action="" method="POST" name="form_addstep">
 								<label for="new_stepname">Nama step:</label>
-								<input type="text" id="new_stepname" name="new_stepname" class="form-control" placeholder="Contoh: Pembelian Bahan Baku" required="" autofocus=""><br>
+								<input type="text" id="new_stepname" name="new_stepname" class="form-control" placeholder="Contoh: Buat Sales Order" required="" autofocus=""><br>
 								<label for="new_steptcode">Tcode step:</label>
-								<input type="text" id="new_steptcode" name="new_steptcode" class="form-control" placeholder="Contoh: ZABENH001" required=""><br>
-								<label for="new_stepuser">Tcode step:</label>
+								<input type="text" id="new_steptcode" name="new_steptcode" class="form-control" placeholder="Contoh: VA01" required=""><br>
+								<label for="new_stepuser">User step:</label>
 								<input type="text" id="new_stepuser" name="new_stepuser" class="form-control" placeholder="Contoh: Sales Counter" required=""><br>
-								<label for="new_stepscn">Skenario step:</label>
+								<label for="new_stepscn">Skenario step:</label><br />
 								<?php
 									$con = mysqli_connect("localhost","root","","saptest");
 
@@ -233,7 +237,7 @@
 									
 									$con->close();
 								?>
-							
+								<br><br>
 								<div class="modal-footer">
 									<button class="btn btn-default btn-success" type="submit" name="submit2" id="submit2" method="POST" action="m-uat.php">Tambah</button>
 									<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
@@ -259,7 +263,8 @@
 		<table class="table table-hover text-center">
 			<thead>
 				<tr>
-					<td><b>Modul</b></td>
+					<!--<td><b>Modul</b></td>-->
+					<td><b>No. Skenario</b></td>
 					<td><b>Nama Skenario</b></td>
 					<td><b>Deskripsi Skenario</b></td>
 				</tr>
@@ -268,13 +273,14 @@
 			<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 
-				$query = "SELECT uat_modul,uat_scn,uat_desc FROM m_uat_scn";
+				$query = "SELECT * FROM m_uat_scn";
 				$result = mysqli_query($con,$query);
 
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					echo "<tr>";
-						echo "<td style:'border=1px solid black'>".$row['uat_modul']."</td>";
+						//echo "<td style:'border=1px solid black'>".$row['uat_modul']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['no_scn']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['uat_scn']."</td>";
 						echo "<td style:'border=1px solid black' class='col-md-7'>".$row['uat_desc']."</td>";
 					if ($_SESSION['username']=="Admin")
