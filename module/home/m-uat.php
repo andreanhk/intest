@@ -44,8 +44,10 @@
 	}
 	
 	$stepname = "";
-	$stepdesc = "";
+	$steptcode = "";
+	$stepuser = "";
 	$stepscn = "";
+	$stepmodul = "";
 	$result2 = "";
 	
 	if (isset($_POST['submit2']))
@@ -53,15 +55,17 @@
 		$con = mysqli_connect("localhost","root","","saptest");
 		
 		$stepname = mysqli_real_escape_string($con, $_POST['new_stepname']);
-		$stepdesc = mysqli_real_escape_string($con, $_POST['new_stepdesc']);
+		$steptcode = mysqli_real_escape_string($con, $_POST['new_steptcode']);
+		$stepuser = mysqli_real_escape_string($con, $_POST['new_stepuser']);
 		$stepscn = mysqli_real_escape_string($con, $_POST['new_stepscn']);
+		$stepmodul = mysqli_real_escape_string($con, $_POST['new_stepmodul']);
 		
-		$query = 'SELECT * FROM m_uat_step WHERE bp_step="'.$stepname.'"';
+		$query = 'SELECT * FROM m_uat_step WHERE bp_step="'.$stepname.'" AND stepscn="'.$stepscn.'"';
 		$result = mysqli_query($con,$query);
 		
 		if($result->num_rows == 0)
 		{
-			$query = 'INSERT INTO m_uat_step() VALUES ()';
+			$query = 'INSERT INTO m_uat_step(bp_step, tcode_step, user_step, modul_step) VALUES ()';
 			$result2 = mysqli_query($con,$query);
 			header("location:m-uat.php");
 		}
@@ -209,8 +213,10 @@
 							<form action="" method="POST" name="form_addstep">
 								<label for="new_stepname">Nama step:</label>
 								<input type="text" id="new_stepname" name="new_stepname" class="form-control" placeholder="Contoh: Pembelian Bahan Baku" required="" autofocus=""><br>
-								<label for="new_stepdesc">Deskripsi step:</label>
-								<input type="text" id="new_stepdesc" name="new_stepdesc" class="form-control" placeholder="Contoh: Tes Pembelian Bahan Baku dari Vendor" required=""><br>
+								<label for="new_steptcode">Tcode step:</label>
+								<input type="text" id="new_steptcode" name="new_steptcode" class="form-control" placeholder="Contoh: ZABENH001" required=""><br>
+								<label for="new_stepuser">Tcode step:</label>
+								<input type="text" id="new_stepuser" name="new_stepuser" class="form-control" placeholder="Contoh: Sales Counter" required=""><br>
 								<label for="new_stepscn">Skenario step:</label>
 								<?php
 									$con = mysqli_connect("localhost","root","","saptest");
