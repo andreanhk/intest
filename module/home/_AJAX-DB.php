@@ -4,24 +4,33 @@
 
 <head>
 <script>
-function showUser(str) {
-    if (str == "") {
+function showUser(str)
+{
+    if (str == "")
+	{
         document.getElementById("txtHint").innerHTML = "";
         return;
-    } else { 
-        if (window.XMLHttpRequest) {
+    }
+	else
+	{ 
+        if (window.XMLHttpRequest)
+		{
             // code for IE7+, Firefox, Chrome, Opera, Safari
             xmlhttp = new XMLHttpRequest();
-        } else {
+        }
+		else
+		{
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
+        xmlhttp.onreadystatechange = function()
+		{
+            if (this.readyState == 4 && this.status == 200)
+			{
                 document.getElementById("txtHint").innerHTML = this.responseText;
             }
         };
-        xmlhttp.open("GET","_dynTable.php?q="+str,true);
+        xmlhttp.open("GET","_ajax-db.php?q="+str,true);
         xmlhttp.send();
     }
 }
@@ -48,11 +57,12 @@ function showUser(str) {
 $q = intval($_GET['q']);
 
 $con = mysqli_connect('localhost','root','','test');
-if (!$con) {
+if (!$con)
+{
     die('Could not connect: ' . mysqli_error($con));
 }
 
-mysqli_select_db($con,"ajax_demo");
+mysqli_select_db($con,MYSQLI_ASSOC);
 $sql="SELECT * FROM user WHERE id = '".$q."'";
 $result = mysqli_query($con,$sql);
 
