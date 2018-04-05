@@ -101,9 +101,9 @@
             
             // Now get the value from user and pass it to
             // server script.
-            var age = document.getElementById('age').value;
-            var wpm = document.getElementById('wpm').value;
-            var sex = document.getElementById('sex').value;
+            var age = document.getElementById('no_scn').value;
+            var wpm = document.getElementById('uat_scn').value;
+            var sex = document.getElementById('uat_desc').value;
             var queryString = "?age = " + age ;
             
             queryString +=  "&wpm = " + wpm + "&sex = " + sex;
