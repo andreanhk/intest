@@ -56,15 +56,17 @@
 		header("Location:m-user.php");
 	}
 	
+	echo $_POST['editUser'];
 	if (isset($_POST['editUser']))
-	{
+	{		
+		
 		$con = mysqli_connect("localhost","root","","saptest");
 		
 		$editlname = mysqli_real_escape_string($con,$_POST['edit_userlname']);
 		$editpwd = mysqli_real_escape_string($con,$_POST['edit_userpwd']);
 		$editmodul = mysqli_real_escape_string($con,$_POST['edit_idmodul']);
 		
-		$id = $_GET['id'];
+		$id = $_POST['userid'];
 		
 		mysqli_query($con,"UPDATE user SET userlname='".$editlname."' userpwd='".$editpwd."' usermodul='".$editmodul."' WHERE userid='".$id."'");
 		mysqli_close($con);
@@ -250,6 +252,7 @@
 									  
 										<div class="modal-body"><h5>
 											<form action="" method="POST" name="formEditUser">
+												<input type='hidden' name='userid' value='<?php echo $row['userid']; ?>' />
 												<label for="new_userlname">Edit nama:</label>
 												<input type="text" id="edit_userlname" name="new_userlname" class="form-control" placeholder="Nama Lengkap" required=""><br>
 												<label for="new_pwduser">Edit password:</label>
@@ -272,7 +275,7 @@
 												?>
 												<br><br>
 												<div class="modal-footer">
-													<button class="btn btn-default btn-success" type="submit" name="editUser" id="editUser" method="POST" action="m-user.php?id=<?php echo $row['userid']; ?>">Simpan</button>
+													<button value='dadsadsad' class="btn btn-default btn-success" type="submit" name="editUser" id="editUser" action="m-user.php?id=<?php echo $row['userid']; ?>">Simpan</button>
 													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
 												</div>
 											</form>
