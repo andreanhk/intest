@@ -182,8 +182,8 @@
 				<tr>
 					<td><b>No step</b></td>
 					<td><b>Skenario</b></td>
-					<td><b>Deskripsi</b></td>
-					<td><b>Step</b></td>
+					<td><b>Deskripsi Skenario</b></td>
+					<td><b>Deskripsi Step</b></td>
 					<td><b>Tcode</b></td>
 					<td><b>User</b></td>
 					<td><b>Tgl testrun</b></td>

@@ -45,6 +45,32 @@
 		}
 	}
 	
+	if (isset($_GET['del']))
+	{
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$id = $_GET['id'];
+		
+		mysqli_query($con,"DELETE FROM user WHERE userid='".$id."'");
+		mysqli_close($con);
+		header("Location:m-user.php");
+	}
+	
+	if (isset($_POST['editUser']))
+	{
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$editlname = mysqli_real_escape_string($con,$_POST['edit_userlname']);
+		$editpwd = mysqli_real_escape_string($con,$_POST['edit_userpwd']);
+		$editmodul = mysqli_real_escape_string($con,$_POST['edit_idmodul']);
+		
+		$id = $_GET['id'];
+		
+		mysqli_query($con,"UPDATE user SET userlname='".$editlname."' userpwd='".$editpwd."' usermodul='".$editmodul."' WHERE userid='".$id."'");
+		mysqli_close($con);
+		header("Location:m-user.php");
+	}
+	
 	/*if (isset($_POST['submitEdit']))
 	{
 		$username = $_POST[];
@@ -184,7 +210,7 @@
 	</div><br>
 	
 	<div class="container container-fluid">
-		<table class="table table-hover text-center">
+		<table class="table table-hover text-center table-striped">
 			<thead>
 				<tr>
 					<td><b>ID Login</b></td>
@@ -192,7 +218,7 @@
 					<td><b>Modul User</b></td>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody data-link="row">
 			<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 
@@ -205,14 +231,15 @@
 						echo "<td style:'border=1px solid black'>".$row['userid']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['userlname']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['usermodul']."</td>";
+						
 						if ($_SESSION['username']=="Admin" || $_SESSION['username']=="Andrean")
 						{
 			?>
 							<!-- Button Edit User -->
-							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href='#modalEditUser'."<?php echo $row['userid']; ?>."><span class='glyphicon glyphicon-pencil'></span></a> 
+							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditUser<?php echo $row['userid']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
 							
 							<!-- Modal Edit User -->
-							<div id="modalEditUser" class="modal fade" role="dialog">
+							<div id="modalEditUser<?php echo $row['userid']; ?>" class="modal fade" role="dialog">
 								<div class="modal-dialog">
 									<!-- Modal content-->
 									<div class="modal-content">
@@ -226,15 +253,15 @@
 												<label for="new_userlname">Edit nama:</label>
 												<input type="text" id="edit_userlname" name="new_userlname" class="form-control" placeholder="Nama Lengkap" required=""><br>
 												<label for="new_pwduser">Edit password:</label>
-												<input type="password" id="edit_pwduser" name="new_pwduser" class="form-control" placeholder="Password" required=""><br>
-												<label for="new_repeatpwd">Edit modul:</label>
+												<input type="password" id="edit_userpwd" name="new_pwduser" class="form-control" placeholder="Password" required=""><br>
+												<label for="new_usermodul">Edit modul:</label>
 												<?php
 													$con = mysqli_connect("localhost","root","","saptest");
 
 													$query = "SELECT idmodul FROM m_modul";
 													$result1 = mysqli_query($con,$query);
 
-													echo "<select name='idmodul'>";
+													echo "<select name='edit_idmodul'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 													{
 														echo "<option value='" . $row1['idmodul'] . "'>" . $row1['idmodul'] . "</option>";
@@ -245,7 +272,7 @@
 												?>
 												<br><br>
 												<div class="modal-footer">
-													<button class="btn btn-default btn-success" type="submit" name="submitEdit" id="submitEdit" method="POST" action="m-user.php">Simpan</button>
+													<button class="btn btn-default btn-success" type="submit" name="editUser" id="editUser" method="POST" action="m-user.php?id=<?php echo $row['userid']; ?>">Simpan</button>
 													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
 												</div>
 											</form>
@@ -255,10 +282,10 @@
 							</div>
 
 							<!-- Button Delete User -->
-							<a type='button' class='btn btn-danger btn-xs' data-toggle='modal' href='#modalDelUser'."<?php echo $row['userid']; ?>."><span class='glyphicon glyphicon-trash'></span></a></td>
+							<a type='button' class='btn btn-danger btn-xs' data-toggle='modal' href="#modalDelUser<?php echo $row['userid']; ?>"><span class='glyphicon glyphicon-trash'></span></a></td>
 
 							<!-- Modal Delete User -->
-							<div id="modalDelUser"<?php $row['userid']; ?>" class="modal fade" role="dialog">
+							<div id="modalDelUser<?php echo $row['userid']; ?>" class="modal fade" role="dialog">
 								<div class="modal-dialog">
 									<!-- Modal content-->
 									<div class="modal-content">
@@ -274,7 +301,8 @@
 												<!--visit https://stackoverflow.com/questions/26107666/delete-a-specific-row-of-a-table-using-php-->
 												<br><br>
 												<div class="modal-footer">
-													<button class="btn btn-default btn-success" type="submit" name="delUser" id="delUser" method="POST" action="m-user.php">Hapus</button>
+													<a class="btn btn-default btn-success" type="submit" name="delUser" id="delUser" method="POST" href="m-user.php?del=x&id=<?php echo $row['userid']; ?>">Hapus</a>
+													
 													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
 												</div>
 											</form>

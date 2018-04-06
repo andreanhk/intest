@@ -41,28 +41,22 @@
             
             // Now get the value from user and pass it to
             // server script.
-            var age = document.getElementById('age').value;
-            var wpm = document.getElementById('wpm').value;
-            var sex = document.getElementById('sex').value;
-            var queryString = "?age = " + age ;
+            var Userno = document.getElementById('userno').value;
+            var userid = document.getElementById('userid').value;
+            var pwd = document.getElementById('pwd').value;
+            var queryString = "?userno = " + userno ;
             
-            queryString +=  "&wpm = " + wpm + "&sex = " + sex;
-            ajaxRequest.open("GET", "_AJAX-DB1.php" + queryString, true);
+            queryString +=  "&userid = " + wpm + "&userno = " + sex;
+            ajaxRequest.open("GET", "wkwk.php" + queryString, true);
             ajaxRequest.send(null); 
          }
          //-->
       </script>
 
       <form name = 'myForm'>
-         Max Age: <input type = 'text' id = 'age' /> <br />
-         Max WPM: <input type = 'text' id = 'wpm' /> <br />
-         Sex: 
-         
-         <select id = 'sex'>
-            <option value = "m">m</option>
-            <option value = "f">f</option>
-         </select>
-         
+         Max Age: <input type = 'text' id = 'userno' /> <br />
+         Max WPM: <input type = 'text' id = 'userid' /> <br />
+         Sex: <input type = 'text' id = 'userpwd' /> <br />
          <input type = 'button' onclick = 'ajaxFunction()' value = 'Query MySQL'/>
       </form>
       
@@ -71,6 +65,7 @@
 </html>
 
 <?php
+if($_POST){ 
 $dbhost = "localhost";
 $dbuser = "root";
 $dbpass = "";
@@ -81,7 +76,7 @@ mysql_connect($dbhost, $dbuser, $dbpass);
 	
 //Select Database
 mysql_select_db($dbname) or die(mysql_error());
-	
+
 // Retrieve data from Query String
 $userno = $_GET['userno'];
 $userid = $_GET['userid'];
@@ -127,4 +122,5 @@ echo "Query: " . $query . "<br />";
 $display_string .= "</table>";
 
 echo $display_string;
+}
 ?>
