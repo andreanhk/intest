@@ -38,11 +38,15 @@
 <link href="<?php echo $root; ?>assets/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Javascript -->
-<script src="<?php echo $root; ?>assets/js/jquery.min.js"></script>
+<script src="<?php echo $root; ?>assets/js/jquery-2.2.4.js"></script>
 <script src="<?php echo $root; ?>assets/js/bootstrap.min.js"></script>
 
 <!-- Fav Icon -->
 <link rel="icon" href="<?php echo $root; ?>assets/images/samator.ico" type="image/ico">
+
+<!-- DataTables -->
+<link href="<?php echo $root; ?>assets/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="<?php echo $root; ?>assets/datatables/media/js/jquery.dataTables.min.js"></script>
 
 <script type="text/javascript">
 	function getval(sel)
@@ -155,7 +159,7 @@
 	</div>
 	
 	<div class="container container-fluid">
-		<select onchange="getval(this);" >     <!-- edit onChange event ini/edit javascript supaya include semua -->
+		<select id="select1" onchange="getval(this);" >     <!-- edit onChange event ini/edit javascript supaya include semua -->
 			<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 				
@@ -164,7 +168,7 @@
 
 				while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
-					echo "<option value='" . $row['uat_desc'] . "'>" . $row['uat_scn'] . "</option>";
+					echo "<option value='$row[uat_desc]'>$row[uat_scn]</option>";
 					$uat_desc = $_GET['uat_desc'];
 				}
 				
@@ -177,17 +181,15 @@
 		<br><br>Deskripsi UAT: <label for="uatDesc" id="uatDesc"></label>
 		
 		<br><br>
-		<table class="table table-hover text-center">
+		<table id="tableUAT" class="table table-hover text-center">
 			<thead>
 				<tr>
-					<td><b>No step</b></td>
-					<td><b>Skenario</b></td>
-					<td><b>Deskripsi Skenario</b></td>
-					<td><b>Deskripsi Step</b></td>
-					<td><b>Tcode</b></td>
-					<td><b>User</b></td>
-					<td><b>Tgl testrun</b></td>
-					<td><b>PIC</b></td>
+					<th><b>No step</b></th>
+					<th><b>Skenario</b></th>
+					<th><b>Deskripsi Skenario</b></th>
+					<th><b>Deskripsi Step</b></th>
+					<th><b>Tcode</b></th>
+					<th><b>User</b></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -214,8 +216,62 @@
 			</tbody>
 		</table>
 	</div>
-	
-	<div id="autoTable">
-		
-	</div>
+	<br /><br />
 </body>
+
+<script>
+	var idxCols=0;
+	var cols=[];
+								
+	$(document).ready(function() {
+		$('#tableUAT').DataTable( {
+			
+			"columnDefs": [
+				{
+					"targets": [ 1 ],
+					"visible": false,
+				},
+				{
+					"targets": [ 2 ],
+					"visible": false
+				}
+			],
+			
+			initComplete: function () {
+				this.api().columns().every( function () {
+					cols.push(this);
+					idxCols++;
+					/*var column = this;
+					var select = $('<select><option value=""></option></select>')
+						.appendTo( $(column.header()) )
+						.on( 'change', function () {
+							var val = $.fn.dataTable.util.escapeRegex(
+								$(this).val()
+							);
+						
+						console.log($(this).val());
+	 
+							column
+								.search( val ? '^'+val+'$' : '', true, false )
+								.draw();
+						} );
+	 
+					column.data().unique().sort().each( function ( d, j ) {
+						select.append( '<option value="'+d+'">'+d+'</option>' )
+					} );*/
+				} );
+			}
+		} );
+		
+		$('#select1').on( 'change', function () {
+			column = cols[1];
+			var val = $.fn.dataTable.util.escapeRegex(
+				$(this).find(":selected").text()
+			);
+			
+			column
+				.search( val ? '^'+val+'$' : '', true, false )
+				.draw();
+		} );
+	} );
+</script>

@@ -45,6 +45,7 @@
 		}
 	}
 	
+	
 	if (isset($_GET['del']))
 	{
 		$con = mysqli_connect("localhost","root","","saptest");
@@ -56,21 +57,23 @@
 		header("Location:m-user.php");
 	}
 	
-	echo $_POST['editUser'];
 	if (isset($_POST['editUser']))
-	{		
-		
+	{	
 		$con = mysqli_connect("localhost","root","","saptest");
 		
 		$editlname = mysqli_real_escape_string($con,$_POST['edit_userlname']);
 		$editpwd = mysqli_real_escape_string($con,$_POST['edit_userpwd']);
 		$editmodul = mysqli_real_escape_string($con,$_POST['edit_idmodul']);
 		
-		$id = $_POST['userid'];
+		$id = mysqli_real_escape_string($con,$_POST['userid']);
 		
-		mysqli_query($con,"UPDATE user SET userlname='".$editlname."' userpwd='".$editpwd."' usermodul='".$editmodul."' WHERE userid='".$id."'");
+		if(!mysqli_query($con,"UPDATE user SET userlname='$editlname',userpwd='$editpwd',usermodul='$editmodul' WHERE userid='$id'"))
+		{
+			echo mysqli_error($con);
+		}
+		
 		mysqli_close($con);
-		header("Location:m-user.php");
+		#header("Location:m-user.php");
 	}
 	
 	/*if (isset($_POST['submitEdit']))
@@ -110,6 +113,10 @@
 
 <!-- Fav Icon -->
 <link rel="icon" href="<?php echo $root; ?>assets/images/samator.ico" type="image/ico">
+
+<!-- DataTables -->
+<link href="<?php echo $root; ?>assets/DataTables/DataTables.min.css" rel="stylesheet">
+<script src="<?php echo $root; ?>assets/DataTables/DataTables.min.js"></script>
 
 <body>
 	<nav class="navbar navbar-default">
@@ -212,7 +219,7 @@
 	</div><br>
 	
 	<div class="container container-fluid">
-		<table class="table table-hover text-center table-striped">
+		<table id="tableUser" class="table table-hover text-center table-striped">
 			<thead>
 				<tr>
 					<td><b>ID Login</b></td>
@@ -254,9 +261,9 @@
 											<form action="" method="POST" name="formEditUser">
 												<input type='hidden' name='userid' value='<?php echo $row['userid']; ?>' />
 												<label for="new_userlname">Edit nama:</label>
-												<input type="text" id="edit_userlname" name="new_userlname" class="form-control" placeholder="Nama Lengkap" required=""><br>
+												<input type="text" id="edit_userlname" name="edit_userlname" class="form-control" placeholder="Nama Lengkap" required=""><br>
 												<label for="new_pwduser">Edit password:</label>
-												<input type="password" id="edit_userpwd" name="new_pwduser" class="form-control" placeholder="Password" required=""><br>
+												<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" placeholder="Password" required=""><br>
 												<label for="new_usermodul">Edit modul:</label>
 												<?php
 													$con = mysqli_connect("localhost","root","","saptest");
@@ -275,7 +282,7 @@
 												?>
 												<br><br>
 												<div class="modal-footer">
-													<button value='dadsadsad' class="btn btn-default btn-success" type="submit" name="editUser" id="editUser" action="m-user.php?id=<?php echo $row['userid']; ?>">Simpan</button>
+													<button class="btn btn-default btn-success" type="submit" name="editUser" id="editUser" action="m-user.php?id=<?php echo $row['userid']; ?>">Simpan</button>
 													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
 												</div>
 											</form>
@@ -329,3 +336,9 @@
 		</table>
 	</div>
 </body>
+
+<script>
+	$(document).ready( function () {
+    $('#tableUser').DataTable();
+	} );
+</script>
