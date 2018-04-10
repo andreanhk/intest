@@ -18,11 +18,12 @@
 	
 	if (isset($_POST['submit']))
 	{
-		$idba = $_POST['new_idba'];
-		$nameba = $_POST['new_nameba'];
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$idba = mysqli_real_escape_string($con,$_POST['new_idba']);
+		$nameba = mysqli_real_escape_string($con,$_POST['new_nameba']);
 		
 		$query = 'SELECT * FROM m_ba WHERE idba="'.$idba.'"';
-		$con = mysqli_connect("localhost","root","","saptest");
 		$result = mysqli_query($con,$query);
 		
 		if($result->num_rows == 0)
@@ -43,9 +44,9 @@
 	{
 		$con = mysqli_connect("localhost","root","","saptest");
 		
-		$id = $_GET['idba'];
+		$idba = $_GET['idba'];
 		
-		mysqli_query($con,"DELETE FROM m_ba WHERE idba='".$id."'");
+		mysqli_query($con,"DELETE FROM m_ba WHERE idba='".$idba."'");
 		mysqli_close($con);
 		header("Location:m-ba.php");
 	}
@@ -146,7 +147,7 @@
 				{
 			?>
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
-			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modaladdba"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Business Area Baru</b></button>
+			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modaladdba"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Business Area</b></button>
 			
 			<!-- Modal Add User -->
 			<div id="modaladdba" class="modal fade" role="dialog">
@@ -161,7 +162,7 @@
 				  <div class="modal-body"><h5>
 					<form action="" method="POST" name="form_addba">
 						<label for="new_idba">Kode business area (4 digit):</label>
-						<input type="text" id="new_idba" name="new_idba" class="form-control" placeholder="Contoh: 3000" required="" autofocus=""><br>
+						<input type="text" id="new_idba" name="new_idba" class="form-control" placeholder="Contoh: 3000" required="" autofocus="" maxlength="4"><br>
 						<label for="new_nameba">Nama perusahaan/cabang:</label>
 						<input type="text" id="new_nameba" name="new_nameba" class="form-control" placeholder="Contoh: Samator Gas Industri Pusat" required=""><br>
 						
@@ -211,7 +212,7 @@
 					if ($_SESSION['username']=="Admin")
 						{
 			?>
-							<td><button type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditBA<?php echo $row['idba']; ?>"><span class='glyphicon glyphicon-pencil'></span></button> 
+							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditBA<?php echo $row['idba']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
 							
 							<!-- Modal Edit BA -->
 							<div id="modalEditBA<?php echo $row['idba']; ?>" class="modal fade" role="dialog">
@@ -257,7 +258,7 @@
 								</div>
 							</div>
 							
-							<a type='button' class='btn btn-danger btn-xs' data-toggle='modal' href="#modalDelBA<?php echo $row['idba']; ?>"><span class='glyphicon glyphicon-trash'></span></button></td>
+							<a class='btn btn-danger btn-xs' data-toggle='modal' href="#modalDelBA<?php echo $row['idba']; ?>"><span class='glyphicon glyphicon-trash'></span></a></td>
 							
 							<!-- Modal Delete BA -->
 							<div id="modalDelBA<?php echo $row['idba']; ?>" class="modal fade" role="dialog">
@@ -275,7 +276,7 @@
 												<label type="text" id="BAToDel" name="BAToDel"><?php echo $row['idba']; ?> <?php echo $row['nameba']; ?>?</label>
 												<br><br>
 												<div class="modal-footer">
-													<a class="btn btn-default btn-success" type="submit" name="delBA" id="delBA" method="POST" href="m-ba.php?delBA=x&id=<?php echo $row['idba']; ?>">Hapus</a>
+													<a class="btn btn-default btn-success" type="submit" name="delBA" id="delBA" method="POST" href="m-ba.php?delBA=x&idba=<?php echo $row['idba']; ?>">Hapus</a>
 													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
 												</div>
 											</form>

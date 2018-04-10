@@ -93,7 +93,7 @@
 				{
 			?>
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
-			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modaladdchecklist"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Checklist Baru</b></button>
+			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modaladdchecklist"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Checklist</b></button>
 			
 			<!-- Modal Add Checklist -->
 			<div id="modaladdchecklist" class="modal fade" role="dialog">

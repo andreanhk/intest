@@ -159,7 +159,7 @@
 				{
 			?>
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
-			<a class="btn btn-success text-right" data-toggle="modal" data-target="#modaladd_uatscn"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Skenario Baru</b></a>
+			<a class="btn btn-success text-right" data-toggle="modal" data-target="#modaladd_uatscn"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Skenario</b></a>
 			
 			<!-- Modal Add Skenario UAT -->
 			<div id="modaladd_uatscn" class="modal fade" role="dialog">
@@ -205,7 +205,7 @@
 				</div>
 			</div>
 			
-			<a class="btn btn-success text-right" data-toggle="modal" data-target="#modaladd_uatstep"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Step Baru</b></a>
+			<a class="btn btn-success text-right" data-toggle="modal" data-target="#modaladd_uatstep"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Step</b></a>
 			
 			<!-- Modal Add Step Baru -->
 			<div id="modaladd_uatstep" class="modal fade" role="dialog">
@@ -291,8 +291,9 @@
 					if ($_SESSION['username']=="Admin")
 						{
 			?>
-							<td><button type='button' class='btn btn-info btn-xs' data-toggle='modal' data-target='#modalEditUser'><span class='glyphicon glyphicon-pencil'></span></button> 
-							<button type='button' class='btn btn-danger btn-xs' data-toggle='modal' data-target='#modalDelUser'><span class='glyphicon glyphicon-trash'></span></button></td>
+							<td><a class='btn btn-warning btn-xs' data-toggle='modal' data-target='#modalEditScn'><span class='glyphicon glyphicon-th-list'></span></a> 
+							<a class='btn btn-info btn-xs' data-toggle='modal' data-target='#modalEditScn'><span class='glyphicon glyphicon-pencil'></span></a> 
+							<a class='btn btn-danger btn-xs' data-toggle='modal' data-target='#modalDelScn'><span class='glyphicon glyphicon-trash'></span></a></td>
 			<?php
 						}
 						else

@@ -312,7 +312,6 @@
 												<br><br>
 												<div class="modal-footer">
 													<a class="btn btn-default btn-success" type="submit" name="delUser" id="delUser" method="POST" href="m-user.php?del=x&id=<?php echo $row['userid']; ?>">Hapus</a>
-													
 													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
 												</div>
 											</form>

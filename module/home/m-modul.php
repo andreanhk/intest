@@ -11,6 +11,61 @@
 	{
 		header("Location: login.php");
 	}
+	
+	$idmodul = "";
+	$namemodul = "";
+	$result1 = "";
+	
+	if (isset($_POST['submit']))
+	{
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$idmodul = mysqli_real_escape_string($con,$_POST['new_idModul']);
+		$namemodul = mysqli_real_escape_string($con,$_POST['new_nameModul']);
+		
+		$query = 'SELECT * FROM m_modul WHERE idmodul="'.$idmodul.'"';
+		$result = mysqli_query($con,$query);
+		
+		if($result->num_rows == 0)
+		{
+			$query = 'INSERT INTO m_modul(idmodul,namemodul) VALUES ("'.$idmodul.'","'.$namemodul.'")';
+			$result1 = mysqli_query($con,$query);
+			header("location:m-modul.php");
+		}
+		else
+		{
+			echo '<script language="javascript">';
+			echo 'alert("Kode modul tersebut sudah ada!")';
+			echo '</script>';
+		}
+	}
+	
+	if (isset($_GET['delmodul']))
+	{
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$idmodul = $_GET['idmodul'];
+		
+		mysqli_query($con,"DELETE FROM m_modul WHERE idmodul='".$idmodul."'");
+		mysqli_close($con);
+		header("Location:m-modul.php");
+	}
+	
+	if (isset($_POST['editModul']))
+	{	
+		$con = mysqli_connect("localhost","root","","saptest");
+		$editnamemodul = mysqli_real_escape_string($con,$_POST['edit_namemodul']);
+		
+		$id = mysqli_real_escape_string($con,$_POST['idmodul']);
+		
+		if(!mysqli_query($con,"UPDATE m_modul SET namemodul='$editnamemodul' WHERE idmodul='$id'"))
+		{
+			echo mysqli_error($con);
+		}
+		
+		mysqli_close($con);
+		#header("Location:m-modul.php");
+	}
 ?>
 
 <!DOCTYPE html>
@@ -86,7 +141,51 @@
 	</nav>
 
 	<div class="container container-fluid">
-		<h1>Master Data Modul</h1>
+		<h1>Master Data Modul
+			<?php
+				if ($_SESSION['username']=="Admin")
+				{
+			?>
+			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
+			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modalAddModul"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Modul</b></button>
+			
+			<!-- Modal Add User -->
+			<div id="modalAddModul" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+				  <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Tambah Modul Baru</h4>
+				  </div>
+				  <div class="modal-body"><h5>
+					<form action="" method="POST" name="form_addmodul">
+						<label for="new_idmodul">Kode modul:</label>
+						<input type="text" id="new_idmodul" name="new_idmodul" class="form-control" placeholder="Contoh: ABAP" required="" autofocus=""><br>
+						<label for="new_namemodul">Nama modul:</label>
+						<input type="text" id="new_namemodul" name="new_namemodul" class="form-control" placeholder="Contoh: Advanced Business Application & Programming" required=""><br>
+						
+						<br><br>
+						<div class="modal-footer">
+							<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-modul.php">Tambah</button>
+							<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+						</div>
+					</form>
+				  </div>
+				  
+				</div>
+
+			  </div>
+			</div>
+			<?php
+				}
+				else
+				{
+					
+				}
+			?>
+		</h1>
 	</div><br>
 	
 	<div class="container container-fluid">
@@ -95,13 +194,14 @@
 				<tr>
 					<td><b>ID Modul</b></td>
 					<td><b>Nama Modul</b></td>
+					<td class="col-md-2"></td>
 				</tr>
 			</thead>
 			<tbody>
 			<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 
-				$query = "SELECT * FROM m_modul"; //You don't need a ; like you do in SQL
+				$query = "SELECT * FROM m_modul";
 				$result = mysqli_query($con,$query);
 
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
@@ -109,6 +209,87 @@
 					echo "<tr>";
 						echo "<td style:'border=1px solid black'>".$row['idmodul']."</td>";
 						echo "<td style:'border=1px solid black>".$row['namemodul']."</td>";
+					if ($_SESSION['username']=="Admin")
+						{
+			?>
+							<td><a class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditModul<?php echo $row['idmodul']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
+							
+							<!-- Modal Edit modul -->
+							<div id="modalEditModul<?php echo $row['idmodul']; ?>" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Edit Modul <?php echo $row['idmodul']; ?></h4>
+										</div>
+									  
+										<div class="modal-body"><h5>
+											<form action="" method="POST" name="formEditmodul">
+												<input type='hidden' name='idmodul' value='<?php echo $row['idmodul']; ?>' />
+												<label for="edit_namemodul">Edit nama modul:</label>
+												<input type="text" id="edit_namemodul" name="edit_namemodul" class="form-control" placeholder="Nama modul" required=""><br>
+												<!--<label for="new_pwduser">Edit password:</label>
+												<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" placeholder="Password" required=""><br>
+												<label for="new_usermodul">Edit modul:</label>-->
+												<?php
+													/*$con = mysqli_connect("localhost","root","","saptest");
+
+													$query = "SELECT idmodul FROM m_modul";
+													$result1 = mysqli_query($con,$query);
+
+													echo "<select name='edit_idmodul'>";
+													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
+													{
+														echo "<option value='" . $row1['idmodul'] . "'>" . $row1['idmodul'] . "</option>";
+													}
+													echo "</select>";
+													
+													//$con->close();*/
+												?>
+												<br><br>
+												<div class="modal-footer">
+													<button class="btn btn-default btn-success" type="submit" name="editModul" id="editModul" action="m-modul.php?id=<?php echo $row['idmodul']; ?>">Simpan</button>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<a class='btn btn-danger btn-xs' data-toggle='modal' href="#modalDelModul<?php echo $row['idmodul']; ?>"><span class='glyphicon glyphicon-trash'></span></a></td>
+							
+							<!-- Modal Delete modul -->
+							<div id="modalDelModul<?php echo $row['idmodul']; ?>" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Hapus Modul</h4>
+										</div>
+										  
+										<div class="modal-body"><h5>
+											<form action="" method="POST" name="formDelmodul">
+												<label>Anda yakin akan menghapus Modul</label>
+												<label type="text" id="modulToDel" name="modulToDel"><?php echo $row['idmodul']; ?> <?php echo $row['namemodul']; ?>?</label>
+												<br><br>
+												<div class="modal-footer">
+													<a class="btn btn-default btn-success" type="submit" name="delmodul" id="delmodul" method="POST" href="m-modul.php?delmodul=x&idmodul=<?php echo $row['idmodul']; ?>">Hapus</a>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+			<?php
+						}
+						else
+						{
+							
+						}
 					echo "</tr>";
 				}
 

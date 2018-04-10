@@ -1,15 +1,3 @@
-DELETE FROM `m_uat_scn` WHERE uat_id="0";
-
------
-
-Pembelian Barang Dagangan Gas
-Pembelian Bahan Baku	  
-
-Penjualan Botolan IB MTS (INTERBRANCH)
-Penjualan gas dalam botol hasil produksi & sparepart ke Customer & IB Sales Order, Terima Botol Kosong, Produksi, Distribusi , Billing , Pelunasan A/R
-
------
-
 *untuk add primary key di table yg sudah ada*
 ALTER TABLE m_uat_scn CHANGE uat_id uat_id INT(10)AUTO_INCREMENT PRIMARY KEY;
 
@@ -18,7 +6,17 @@ ALTER TABLE m_uat_scn AUTO_INCREMENT=3;
 
 -----
 
-- edit delete button blm bisa point ke ID spesifik (m-user)
-- blm ada button add new BA (m-ba)
-- bgmn cara menampilkan isi dari tiap skenario UAT? (m-uat)
-- table blm auto-update dengan AJAX (checklist dan UAT)
+- edit delete button blm bisa point ke ID spesifik (m-user) OK
+- blm ada button add new BA (m-ba) OK
+- bgmn cara menampilkan isi dari tiap skenario UAT? (m-uat) ONTHEWAY
+- table blm auto-update dengan AJAX (checklist dan UAT) OK
+
+-----
+
+- revisi table dengan primary key (auto increment)
+- pertimbangkan foreign key relationship
+- session untuk keperluan hak akses, dari nama user/modul user?
+- menu pengaturan user blm dibuat
+- bisa ubah visi misi di home
+- pertimbangkan delete sebagai flagged not shown, bukan delete record sesungguhnya
+- kesesuaian bahasa yg digunakan (masih campur aduk)

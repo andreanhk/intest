@@ -57,66 +57,6 @@
 	}
 </script>
 
-<script language = "javascript" type = "text/javascript">
-    <!-- 
-    //Browser Support Code
-    function ajaxFunction()
-	{
-        var ajaxRequest;  // The variable that makes Ajax possible!
-            
-        try
-		{        
-            // Opera 8.0+, Firefox, Safari
-            ajaxRequest = new XMLHttpRequest();
-        }
-			catch (e)
-		{
-            // Internet Explorer Browsers
-            try
-			{
-                ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-            }
-			catch (e)
-			{
-				try
-				{
-					ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
-				}
-				catch (e)
-				{
-					// Something went wrong
-					alert("Browser anda bermasalah!");
-					return false;
-				}
-			}
-        }
-            
-            // Create a function that will receive data
-            // sent from the server and will update
-            // div section in the same page.
-            ajaxRequest.onreadystatechange = function()
-			{
-				if(ajaxRequest.readyState == 4)
-				{
-					var ajaxDisplay = document.getElementById('ajaxDiv');
-					ajaxDisplay.innerHTML = ajaxRequest.responseText;
-				}
-            }
-            
-            // Now get the value from user and pass it to
-            // server script.
-            var age = document.getElementById('no_scn').value;
-            var wpm = document.getElementById('uat_scn').value;
-            var sex = document.getElementById('uat_desc').value;
-            var queryString = "?age = " + age ;
-            
-            queryString +=  "&wpm = " + wpm + "&sex = " + sex;
-            ajaxRequest.open("GET", "uat.php" + queryString, true);
-            ajaxRequest.send(null); 
-         }
-         //-->
-</script>
-
 <body>
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
@@ -176,8 +116,6 @@
 			?>
 		</select>
 		
-		<!-- Untuk tabel php auto-refresh https://www.w3schools.com/php/php_ajax_database.asp -->
-		
 		<br><br>Deskripsi UAT: <label for="uatDesc" id="uatDesc"></label>
 		
 		<br><br>
@@ -225,6 +163,8 @@
 								
 	$(document).ready(function() {
 		$('#tableUAT').DataTable( {
+			
+			"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]],
 			
 			"columnDefs": [
 				{
