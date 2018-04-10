@@ -41,6 +41,10 @@
 <script src="<?php echo $root; ?>assets/js/jquery.min.js"></script>
 <script src="<?php echo $root; ?>assets/js/bootstrap.min.js"></script>
 
+<!-- DataTables -->
+<link href="<?php echo $root; ?>assets/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="<?php echo $root; ?>assets/datatables/media/js/jquery.dataTables.min.js"></script>
+
 <!-- Fav Icon -->
 <link rel="icon" href="<?php echo $root; ?>assets/images/samator.ico" type="image/ico">
 
@@ -86,7 +90,7 @@
 	</div><br>
 	
 	<div class="container container-fluid">
-		<table class="table table-hover text-center">
+		<table id="tableModul" class="table table-hover text-center table-striped compact">
 			<thead>
 				<tr>
 					<td><b>ID Modul</b></td>
@@ -114,3 +118,9 @@
 		</table>
 	</div>
 </body>
+
+<script>
+	$(document).ready( function () {
+    $('#tableModul').DataTable();
+	} );
+</script>

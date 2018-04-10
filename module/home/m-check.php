@@ -41,6 +41,10 @@
 <script src="<?php echo $root; ?>assets/js/jquery.min.js"></script>
 <script src="<?php echo $root; ?>assets/js/bootstrap.min.js"></script>
 
+<!-- DataTables -->
+<link href="<?php echo $root; ?>assets/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="<?php echo $root; ?>assets/datatables/media/js/jquery.dataTables.min.js"></script>
+
 <!-- Fav Icon -->
 <link rel="icon" href="<?php echo $root; ?>assets/images/samator.ico" type="image/ico">
 
@@ -164,7 +168,7 @@
 	</div><br>
 	
 	<div class="container container-fluid">
-		<table class="table table-hover text-center">
+		<table id="tableMCheck" class="table table-hover text-center table-striped compact">
 			<thead>
 				<tr>
 					<td><b>Custom Type</b></td>
@@ -172,6 +176,7 @@
 					<td><b>Tcode</b></td>
 					<td><b>Table</b></td>
 					<td><b>Custom Status</b></td>
+					<td class="col-md-1"></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -192,7 +197,7 @@
 					if ($_SESSION['username']=="Admin")
 						{
 			?>
-							<td><button type='button' class='btn btn-info btn-xs' data-toggle='modal' data-target='#modalEditUser'><span class='glyphicon glyphicon-pencil'></span></button>&nbsp
+							<td><button type='button' class='btn btn-info btn-xs' data-toggle='modal' data-target='#modalEditUser'><span class='glyphicon glyphicon-pencil'></span></button> 
 							<button type='button' class='btn btn-danger btn-xs' data-toggle='modal' data-target='#modalDelUser'><span class='glyphicon glyphicon-trash'></span></button></td>
 			<?php
 						}
@@ -209,3 +214,9 @@
 		</table>
 	</div>
 </body>
+
+<script>
+	$(document).ready( function () {
+    $('#tableMCheck').DataTable();
+	} );
+</script>

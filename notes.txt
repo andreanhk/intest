@@ -1,14 +1,24 @@
 DELETE FROM `m_uat_scn` WHERE uat_id="0";
 
+-----
+
 Pembelian Barang Dagangan Gas
 Pembelian Bahan Baku	  
 
 Penjualan Botolan IB MTS (INTERBRANCH)
 Penjualan gas dalam botol hasil produksi & sparepart ke Customer & IB Sales Order, Terima Botol Kosong, Produksi, Distribusi , Billing , Pelunasan A/R
 
+-----
 
 *untuk add primary key di table yg sudah ada*
 ALTER TABLE m_uat_scn CHANGE uat_id uat_id INT(10)AUTO_INCREMENT PRIMARY KEY;
 
 *untuk edit/reset counter awal primary key auto increment*
 ALTER TABLE m_uat_scn AUTO_INCREMENT=3;
+
+-----
+
+- edit delete button blm bisa point ke ID spesifik (m-user)
+- blm ada button add new BA (m-ba)
+- bgmn cara menampilkan isi dari tiap skenario UAT? (m-uat)
+- table blm auto-update dengan AJAX (checklist dan UAT)

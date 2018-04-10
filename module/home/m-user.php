@@ -115,8 +115,8 @@
 <link rel="icon" href="<?php echo $root; ?>assets/images/samator.ico" type="image/ico">
 
 <!-- DataTables -->
-<link href="<?php echo $root; ?>assets/DataTables/DataTables.min.css" rel="stylesheet">
-<script src="<?php echo $root; ?>assets/DataTables/DataTables.min.js"></script>
+<link href="<?php echo $root; ?>assets/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="<?php echo $root; ?>assets/datatables/media/js/jquery.dataTables.min.js"></script>
 
 <body>
 	<nav class="navbar navbar-default">
@@ -219,12 +219,13 @@
 	</div><br>
 	
 	<div class="container container-fluid">
-		<table id="tableUser" class="table table-hover text-center table-striped">
+		<table id="tableUser" class="table table-hover text-center table-striped compact">
 			<thead>
 				<tr>
 					<td><b>ID Login</b></td>
 					<td><b>Nama User</b></td>
 					<td><b>Modul User</b></td>
+					<td class="col-md-1"></td>
 				</tr>
 			</thead>
 			<tbody data-link="row">
@@ -301,14 +302,13 @@
 									<div class="modal-content">
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal">&times;</button>
-											<h4 class="modal-title">Edit User</h4>
+											<h4 class="modal-title">Hapus User</h4>
 										</div>
 										  
 										<div class="modal-body"><h5>
 											<form action="" method="POST" name="formDelUser">
 												<label>Anda yakin akan menghapus user ID</label>
 												<label type="text" id="userToDel" name="userToDel"><?php echo $row['userid']; ?>?</label>
-												<!--visit https://stackoverflow.com/questions/26107666/delete-a-specific-row-of-a-table-using-php-->
 												<br><br>
 												<div class="modal-footer">
 													<a class="btn btn-default btn-success" type="submit" name="delUser" id="delUser" method="POST" href="m-user.php?del=x&id=<?php echo $row['userid']; ?>">Hapus</a>

@@ -181,15 +181,15 @@
 		<br><br>Deskripsi UAT: <label for="uatDesc" id="uatDesc"></label>
 		
 		<br><br>
-		<table id="tableUAT" class="table table-hover text-center">
+		<table id="tableUAT" class="table table-hover text-center table-striped compact">
 			<thead>
 				<tr>
-					<th><b>No step</b></th>
-					<th><b>Skenario</b></th>
-					<th><b>Deskripsi Skenario</b></th>
-					<th><b>Deskripsi Step</b></th>
-					<th><b>Tcode</b></th>
-					<th><b>User</b></th>
+					<th class="text-center"><b>No. Step</b></th>
+					<th class="text-center"><b>Skenario</b></th>
+					<th class="text-center"><b>Deskripsi Skenario</b></th>
+					<th class="text-center"><b>Deskripsi Step</b></th>
+					<th class="text-center"><b>Tcode</b></th>
+					<th class="text-center"><b>User</b></th>
 				</tr>
 			</thead>
 			<tbody>

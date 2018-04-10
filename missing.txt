@@ -1,4 +1,0 @@
-- edit delete button blm bisa point ke ID spesifik (m-user)
-- blm ada button add new BA (m-ba)
-- bgmn cara menampilkan isi dari tiap skenario UAT? (m-uat)
-- table blm auto-update dengan AJAX (checklist dan UAT)

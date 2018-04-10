@@ -38,6 +38,33 @@
 			echo '</script>';
 		}
 	}
+	
+	if (isset($_GET['delBA']))
+	{
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$id = $_GET['idba'];
+		
+		mysqli_query($con,"DELETE FROM m_ba WHERE idba='".$id."'");
+		mysqli_close($con);
+		header("Location:m-ba.php");
+	}
+	
+	if (isset($_POST['editBA']))
+	{	
+		$con = mysqli_connect("localhost","root","","saptest");
+		$editnameba = mysqli_real_escape_string($con,$_POST['edit_nameba']);
+		
+		$id = mysqli_real_escape_string($con,$_POST['idba']);
+		
+		if(!mysqli_query($con,"UPDATE m_ba SET nameba='$editnameba' WHERE idba='$id'"))
+		{
+			echo mysqli_error($con);
+		}
+		
+		mysqli_close($con);
+		#header("Location:m-ba.php");
+	}
 ?>
 
 <!DOCTYPE html>
@@ -67,6 +94,10 @@
 <!-- Javascript -->
 <script src="<?php echo $root; ?>assets/js/jquery.min.js"></script>
 <script src="<?php echo $root; ?>assets/js/bootstrap.min.js"></script>
+
+<!-- DataTables -->
+<link href="<?php echo $root; ?>assets/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="<?php echo $root; ?>assets/datatables/media/js/jquery.dataTables.min.js"></script>
 
 <!-- Fav Icon -->
 <link rel="icon" href="<?php echo $root; ?>assets/images/samator.ico" type="image/ico">
@@ -136,7 +167,7 @@
 						
 						<br><br>
 						<div class="modal-footer">
-							<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-user.php">Tambah</button>
+							<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-ba.php">Tambah</button>
 							<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
 						</div>
 					</form>
@@ -157,14 +188,15 @@
 	</div><br>
 	
 	<div class="container container-fluid">
-		<table class="table table-hover text-center">
+		<table id="tableBA" class="table table-hover text-center table-striped compact">
 			<thead>
 				<tr>
 					<td><b>Kode BA</b></td>
 					<td><b>Nama BA</b></td>
+					<td class="col-md-1"></td>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody data-link="row">
 			<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 
@@ -179,8 +211,78 @@
 					if ($_SESSION['username']=="Admin")
 						{
 			?>
-							<td><button type='button' class='btn btn-info btn-xs' data-toggle='modal' data-target='#modalEditUser'><span class='glyphicon glyphicon-pencil'></span></button>&nbsp
-							<button type='button' class='btn btn-danger btn-xs' data-toggle='modal' data-target='#modalDelUser'><span class='glyphicon glyphicon-trash'></span></button></td>
+							<td><button type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditBA<?php echo $row['idba']; ?>"><span class='glyphicon glyphicon-pencil'></span></button> 
+							
+							<!-- Modal Edit BA -->
+							<div id="modalEditBA<?php echo $row['idba']; ?>" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Edit Business Area <?php echo $row['idba']; ?></h4>
+										</div>
+									  
+										<div class="modal-body"><h5>
+											<form action="" method="POST" name="formEditBA">
+												<input type='hidden' name='idba' value='<?php echo $row['idba']; ?>' />
+												<label for="edit_nameba">Edit nama BA:</label>
+												<input type="text" id="edit_nameba" name="edit_nameba" class="form-control" placeholder="Nama BA" required=""><br>
+												<!--<label for="new_pwduser">Edit password:</label>
+												<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" placeholder="Password" required=""><br>
+												<label for="new_usermodul">Edit modul:</label>-->
+												<?php
+													/*$con = mysqli_connect("localhost","root","","saptest");
+
+													$query = "SELECT idmodul FROM m_modul";
+													$result1 = mysqli_query($con,$query);
+
+													echo "<select name='edit_idmodul'>";
+													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
+													{
+														echo "<option value='" . $row1['idmodul'] . "'>" . $row1['idmodul'] . "</option>";
+													}
+													echo "</select>";
+													
+													//$con->close();*/
+												?>
+												<br><br>
+												<div class="modal-footer">
+													<button class="btn btn-default btn-success" type="submit" name="editBA" id="editBA" action="m-ba.php?id=<?php echo $row['idba']; ?>">Simpan</button>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<a type='button' class='btn btn-danger btn-xs' data-toggle='modal' href="#modalDelBA<?php echo $row['idba']; ?>"><span class='glyphicon glyphicon-trash'></span></button></td>
+							
+							<!-- Modal Delete BA -->
+							<div id="modalDelBA<?php echo $row['idba']; ?>" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Hapus Business Area</h4>
+										</div>
+										  
+										<div class="modal-body"><h5>
+											<form action="" method="POST" name="formDelBA">
+												<label>Anda yakin akan menghapus Business Area</label>
+												<label type="text" id="BAToDel" name="BAToDel"><?php echo $row['idba']; ?> <?php echo $row['nameba']; ?>?</label>
+												<br><br>
+												<div class="modal-footer">
+													<a class="btn btn-default btn-success" type="submit" name="delBA" id="delBA" method="POST" href="m-ba.php?delBA=x&id=<?php echo $row['idba']; ?>">Hapus</a>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
 			<?php
 						}
 						else
@@ -196,3 +298,9 @@
 		</table>
 	</div>
 </body>
+
+<script>
+	$(document).ready( function () {
+    $('#tableBA').DataTable();
+	} );
+</script>
