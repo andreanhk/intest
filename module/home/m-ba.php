@@ -302,6 +302,8 @@
 
 <script>
 	$(document).ready( function () {
-    $('#tableBA').DataTable();
+    $('#tableBA').DataTable( {
+		"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]]
+		} );
 	} );
 </script>

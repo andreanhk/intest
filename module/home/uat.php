@@ -105,9 +105,11 @@
 				
 				$query = "SELECT uat_scn, uat_desc FROM m_uat_scn";
 				$result = mysqli_query($con,$query);
-
+				
+				echo "<option disabled selected value>-- Pilih Skenario UAT --</option>";
 				while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
+					
 					echo "<option value='$row[uat_desc]'>$row[uat_scn]</option>";
 					$uat_desc = $_GET['uat_desc'];
 				}
@@ -170,10 +172,12 @@
 				{
 					"targets": [ 1 ],
 					"visible": false,
+					"searchable": false,
 				},
 				{
 					"targets": [ 2 ],
-					"visible": false
+					"visible": false,
+					"searchable": false
 				}
 			],
 			

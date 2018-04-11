@@ -78,6 +78,35 @@
 			echo '</script>';
 		}
 	}
+	
+	if (isset($_GET['del']))
+	{
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$id = $_GET['id'];
+		
+		mysqli_query($con,"DELETE FROM m_uat_scn WHERE no_scn='".$id."'");
+		mysqli_close($con);
+		header("Location:m-uat.php");
+	}
+		
+	if (isset($_POST['editScn']))
+	{	
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$editscnname = mysqli_real_escape_string($con,$_POST['edit_scnname']);
+		$editscndesc = mysqli_real_escape_string($con,$_POST['edit_scndesc']);
+		
+		$id = mysqli_real_escape_string($con,$_POST['no_scn']);
+		
+		if(!mysqli_query($con,"UPDATE m_uat_scn SET uat_scn='$editscnname',uat_desc='$editscndesc' WHERE no_scn='$id'"))
+		{
+			echo mysqli_error($con);
+		}
+		
+		mysqli_close($con);
+		#header("Location:m-uat.php");
+	}
 ?>
 
 <!DOCTYPE html>
@@ -159,7 +188,7 @@
 				{
 			?>
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
-			<a class="btn btn-success text-right" data-toggle="modal" data-target="#modaladd_uatscn"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Skenario</b></a>
+			<a class="btn btn-success text-right pull-right" data-toggle="modal" data-target="#modaladd_uatscn"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Skenario</b></a>
 			
 			<!-- Modal Add Skenario UAT -->
 			<div id="modaladd_uatscn" class="modal fade" role="dialog">
@@ -243,8 +272,8 @@
 								?>
 								<br><br>
 								<div class="modal-footer">
-									<button class="btn btn-default btn-success" type="submit" name="submit2" id="submit2" method="POST" action="m-uat.php">Tambah</button>
-									<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+									<a class="btn btn-default btn-success" type="submit" name="submit2" id="submit2" method="POST" action="m-uat.php?id=<?php echo $row['no_scn']; ?>">Tambah</a>
+									<a class="btn btn-default btn-danger" data-dismiss="modal">Batal</a>
 								</div>
 							</form>
 						</div>
@@ -291,9 +320,80 @@
 					if ($_SESSION['username']=="Admin")
 						{
 			?>
-							<td><a class='btn btn-warning btn-xs' data-toggle='modal' data-target='#modalEditScn'><span class='glyphicon glyphicon-th-list'></span></a> 
-							<a class='btn btn-info btn-xs' data-toggle='modal' data-target='#modalEditScn'><span class='glyphicon glyphicon-pencil'></span></a> 
-							<a class='btn btn-danger btn-xs' data-toggle='modal' data-target='#modalDelScn'><span class='glyphicon glyphicon-trash'></span></a></td>
+							<!-- Button Edit Scenario UAT -->
+							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditScn<?php echo $row['no_scn']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
+							
+							<!-- Modal Edit Scenario UAT -->
+							<div id="modalEditScn<?php echo $row['no_scn']; ?>" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Edit Skenario UAT <?php echo $row['uat_scn']; ?></h4>
+										</div>
+									  
+										<div class="modal-body"><h5>
+											<form action="" method="POST" name="formEditScn">
+												<input type='hidden' name='no_scn' value='<?php echo $row['no_scn']; ?>' />
+												<label for="edit_scnname">Edit nama skenario:</label>
+												<input type="text" id="edit_scnname" name="edit_scnname" class="form-control" placeholder="Contoh: Pembelian Bahan Baku" required=""><br>
+												<label for="edit_scndesc">Edit deskripsi skenario:</label>
+												<input type="text" id="edit_scndesc" name="edit_scndesc" class="form-control" placeholder="Contoh: Tes Pembelian Bahan Baku dari Vendor" required=""><br>
+												<label for="new_usermodul">Edit modul:</label>
+												<?php
+													$con = mysqli_connect("localhost","root","","saptest");
+
+													$query = "SELECT idmodul FROM m_modul";
+													$result1 = mysqli_query($con,$query);
+
+													echo "<select name='edit_idmodul'>";
+													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
+													{
+														echo "<option value='" . $row1['idmodul'] . "'>" . $row1['idmodul'] . "</option>";
+													}
+													echo "</select>";
+													
+													//$con->close();
+												?>
+												<br><br>
+												<div class="modal-footer">
+													<button class="btn btn-default btn-success" type="submit" name="editScn" id="editScn" action="m-uat.php?id=<?php echo $row['no_scn']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Button Delete Scenario UAT -->
+							<a type='button' class='btn btn-danger btn-xs' data-toggle='modal' href="#modalDelScn<?php echo $row['no_scn']; ?>"><span class='glyphicon glyphicon-trash'></span></a></td>
+
+							<!-- Modal Delete Scenario UAT -->
+							<div id="modalDelScn<?php echo $row['no_scn']; ?>" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Hapus Skenario UAT</h4>
+										</div>
+										  
+										<div class="modal-body"><h5>
+											<form action="" method="POST" name="formDelScn">
+												<label>Anda yakin akan menghapus skenario </label>
+												<label type="text" id="scnToDel" name="scnToDel"><?php echo $row['uat_scn']; ?>?</label>
+												<br><br>
+												<div class="modal-footer">
+													<a class="btn btn-default btn-success" name="del" id="del" href="m-uat.php?del=x&id=<?php echo $row['no_scn']; ?>">Hapus</a>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
 			<?php
 						}
 						else
@@ -312,6 +412,8 @@
 
 <script>
 	$(document).ready( function () {
-    $('#tableMUAT').DataTable();
+    $('#tableMUAT').DataTable( {
+		"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]]
+		} );
 	} );
 </script>

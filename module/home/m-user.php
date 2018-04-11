@@ -45,7 +45,6 @@
 		}
 	}
 	
-	
 	if (isset($_GET['del']))
 	{
 		$con = mysqli_connect("localhost","root","","saptest");
@@ -283,8 +282,8 @@
 												?>
 												<br><br>
 												<div class="modal-footer">
-													<button class="btn btn-default btn-success" type="submit" name="editUser" id="editUser" action="m-user.php?id=<?php echo $row['userid']; ?>">Simpan</button>
-													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+													<button class="btn btn-default btn-success" type="submit" name="editUser" id="editUser" action="m-user.php?id=<?php echo $row['userid']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 												</div>
 											</form>
 										</div>
@@ -338,6 +337,8 @@
 
 <script>
 	$(document).ready( function () {
-    $('#tableUser').DataTable();
+    $('#tableUser').DataTable( {
+		"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]]
+		} );
 	} );
 </script>
