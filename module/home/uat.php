@@ -172,12 +172,10 @@
 				{
 					"targets": [ 1 ],
 					"visible": false,
-					"searchable": false,
 				},
 				{
 					"targets": [ 2 ],
 					"visible": false,
-					"searchable": false
 				}
 			],
 			
