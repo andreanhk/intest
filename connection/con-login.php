@@ -30,6 +30,7 @@
 		{
 			$_SESSION["username"]=$row->userid;
 			$_SESSION["longname"]=$row->userlname;
+			$_SESSION["modul"]=$row->usermodul;
 		}
 
 		echo header('Location: ../index.php');

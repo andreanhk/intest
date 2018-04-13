@@ -194,7 +194,9 @@
 				<tr>
 					<td><b>ID Modul</b></td>
 					<td><b>Nama Modul</b></td>
-					<td class="col-md-2"></td>
+					<?php if ($_SESSION['username']=="Admin" || $_SESSION['username']=="Andrean") { ?>
+					<td class="col-md-1"></td>
+					<?php } else {} ?>
 				</tr>
 			</thead>
 			<tbody>

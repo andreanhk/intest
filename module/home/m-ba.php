@@ -194,7 +194,9 @@
 				<tr>
 					<td><b>Kode BA</b></td>
 					<td><b>Nama BA</b></td>
+					<?php if ($_SESSION['username']=="Admin" || $_SESSION['username']=="Andrean") { ?>
 					<td class="col-md-1"></td>
+					<?php } else {} ?>
 				</tr>
 			</thead>
 			<tbody data-link="row">
