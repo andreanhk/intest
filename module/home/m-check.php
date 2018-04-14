@@ -11,6 +11,74 @@
 	{
 		header("Location: login.php");
 	}
+	
+	$ctype = "";
+	$ctypedesc = "";
+	$ctcode = "";
+	$cstat = "";
+	$ctable = "";
+	$cmodul = "";
+	
+	if (isset($_POST['submit']))
+	{
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$ctype = mysqli_real_escape_string($con,$_POST['new_ctype']);
+		$ctypedesc = mysqli_real_escape_string($con,$_POST['new_ctypedesc']);
+		$ctcode = mysqli_real_escape_string($con,$_POST['new_ctcode']);
+		$cstat = mysqli_real_escape_string($con,$_POST['new_cstat']);
+		$ctable = mysqli_real_escape_string($con,$_POST['new_ctable']);
+		$cmodul = mysqli_real_escape_string($con,$_POST['new_cmodul']);
+		
+		$query = 'SELECT * FROM m_check WHERE ctype="'.$ctype.'" AND ctypedesc="'.$ctypedesc.'"';
+		$result = mysqli_query($con,$query);
+		
+		if($result->num_rows == 0)
+		{
+			$query = 'INSERT INTO m_check(ctype,ctypedesc,ctcode,ctable,cstat,cmodul) VALUES ("'.$ctype.'","'.$ctypedesc.'","'.$ctcode.'","'.$ctable.'","'.$cstat.'","'.$cmodul.'")';
+			$result = mysqli_query($con,$query);
+			header("location:m-check.php");
+		}
+		else
+		{
+			echo '<script language="javascript">';
+			echo 'alert("Checklist tersebut sudah ada!")';
+			echo '</script>';
+		}
+	}
+	
+	if (isset($_GET['del']))
+	{
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$id = $_GET['id'];
+		
+		mysqli_query($con,"DELETE FROM m_check WHERE c_id='".$id."'");
+		mysqli_close($con);
+		header("Location:m-check.php");
+	}
+	
+	if (isset($_POST['editCheck']))
+	{	
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$editCtype = mysqli_real_escape_string($con,$_POST['edit_ctype']);
+		$editCtypedesc = mysqli_real_escape_string($con,$_POST['edit_ctypedesc']);
+		$editCtcode = mysqli_real_escape_string($con,$_POST['edit_ctcode']);
+		$editCstat = mysqli_real_escape_string($con,$_POST['edit_cstat']);
+		$editCtable = mysqli_real_escape_string($con,$_POST['edit_ctable']);
+		$editCmodul = mysqli_real_escape_string($con,$_POST['edit_cmodul']);
+		
+		$id = mysqli_real_escape_string($con,$_POST['c_id']);
+		
+		if(!mysqli_query($con,"UPDATE m_check SET ctype='$editCtype',ctypedesc='$editCtypedesc',ctcode='$editCtcode',cstat='$editCstat',ctable='$editCtable',cmodul='$editCmodul' WHERE c_id='$id'"))
+		{
+			echo mysqli_error($con);
+		}
+		
+		mysqli_close($con);
+		#header("Location:m-user.php");
+	}
 ?>
 
 <!DOCTYPE html>
@@ -93,52 +161,55 @@
 				{
 			?>
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
-			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modaladdchecklist"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Checklist</b></button>
+			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modalAddCheck"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Checklist</b></button>
 			
 			<!-- Modal Add Checklist -->
-			<div id="modaladdchecklist" class="modal fade" role="dialog">
-			  <div class="modal-dialog">
+			<div id="modalAddCheck" class="modal fade" role="dialog">
+				<div class="modal-dialog">
 
 				<!-- Open modal add checklist -->
-				<div class="modal-content">
-				  <div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Tambah Checklist Baru</h4>
-				  </div>
-				  <div class="modal-body"><h5>
-					<label for="new_ctype">Tipe custom:</label>
-					<input type="text" id="new_ctype" name="new_ctype" class="form-control" placeholder="Contoh: Enterprise Structure" required="" autofocus=""><br>
-					<label for="new_cdesc">Deskripsi custom:</label>
-					<input type="text" id="new_cdesc" name="new_cdesc" class="form-control" placeholder="Contoh: Define Business Area" required=""><br>
-					<label for="new_ctcode">Tcode custom:</label>
-					<input type="text" id="new_ctcode" name="new_ctcode" class="form-control" placeholder="Contoh: SPRO" required=""><br>
-					<label for="new_ctable">Tabel:</label>
-					<input type="text" id="new_ctable" name="new_ctable" class="form-control" placeholder="Contoh: V_TGSB" required=""><br>
-					<label for="new_cstat">Status custom:</label>
-					<input type="text" id="new_cstat" name="new_cstat" class="form-control" placeholder="Contoh: Create/Check" required=""><br>
-					<label for="new_cmodul">Modul checklist:</label>
-					<?php
-						$con = mysqli_connect("localhost","root","","saptest");
-
-						$sql = "SELECT idmodul FROM m_modul";
-						$result = mysqli_query($con,$sql);
-
-						echo "<select name='idmodul'>";
-						while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
-							echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
-						}
-						echo "</select>";
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Tambah Checklist Baru</h4>
+						</div>
 						
-						$con->close();
-					?>
-				  </div>
-				  <div class="modal-footer">
-					<button type="button" class="btn btn-default btn-success" type="submit" data-dismiss="modal" href="#">Tambah</button>
-					<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
-				  </div>
-				</div>
+						<div class="modal-body"><h5>
+							<form action="" method="POST" name="form_addchecklist">
+								<label for="new_ctype">Tipe custom:</label>
+								<input type="text" id="new_ctype" name="new_ctype" class="form-control" placeholder="Contoh: Enterprise Structure" required="" autofocus=""><br>
+								<label for="new_cdesc">Deskripsi custom:</label>
+								<input type="text" id="new_ctypedesc" name="new_ctypedesc" class="form-control" placeholder="Contoh: Define Business Area" required=""><br>
+								<label for="new_ctcode">Tcode custom:</label>
+								<input type="text" id="new_ctcode" name="new_ctcode" class="form-control" placeholder="Contoh: SPRO" required=""><br>
+								<label for="new_ctable">Tabel:</label>
+								<input type="text" id="new_ctable" name="new_ctable" class="form-control" placeholder="Contoh: V_TGSB"><br>
+								<label for="new_cstat">Status custom:</label>
+								<input type="text" id="new_cstat" name="new_cstat" class="form-control" placeholder="Contoh: Create/Check" required=""><br>
+								<label for="new_cmodul">Modul checklist:</label>
+								<?php
+									$con = mysqli_connect("localhost","root","","saptest");
 
-			  </div>
+									$sql = "SELECT idmodul FROM m_modul";
+									$result = mysqli_query($con,$sql);
+
+									echo "<select name='idmodul'>";
+									while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
+										echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
+									}
+									echo "</select>";
+									
+									$con->close();
+								?>
+					  
+								<div class="modal-footer">
+									<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-check.php">Tambah</button>
+									<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
 			<?php
 				}
@@ -179,11 +250,11 @@
 					<td class="col-md-1"></td>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody data-link="row">
 			<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 
-				$query = "SELECT ctype,ctypedesc,ctcode,ctable,cstat FROM m_check";
+				$query = "SELECT * FROM m_check";
 				$result = mysqli_query($con,$query);
 
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
@@ -194,11 +265,89 @@
 						echo "<td style:'border=1px solid black'>".$row['ctcode']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctable']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['cstat']."</td>";
-					if ($_SESSION['username']=="Admin")
+					if ($_SESSION['username']=="Admin" || $_SESSION['username']=="Andrean")
 						{
 			?>
-							<td><button type='button' class='btn btn-info btn-xs' data-toggle='modal' data-target='#modalEditUser'><span class='glyphicon glyphicon-pencil'></span></button> 
-							<button type='button' class='btn btn-danger btn-xs' data-toggle='modal' data-target='#modalDelUser'><span class='glyphicon glyphicon-trash'></span></button></td>
+							<!-- Button Edit Checklist -->
+							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditCheck<?php echo $row['c_id']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
+							
+							<!-- Modal Edit Checklist -->
+							<div id="modalEditCheck<?php echo $row['c_id']; ?>" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Edit Checklist</h4>
+										</div>
+									  
+										<div class="modal-body"><h5>
+											<form action="" method="POST" name="formEditCheck">
+												<input type='hidden' name='c_id' value='<?php echo $row['c_id']; ?>' />
+												<label for="new_userlname"class="text-left">Edit tipe custom:</label>
+												<input type="text" id="edit_userlname" name="edit_ctype" class="form-control" placeholder="Contoh: Enterprise Structure" required=""><br>
+												<label for="edit_ctypedesc">Edit deskripsi custom:</label>
+												<input type="text" id="edit_ctypedesc" name="edit_ctypedesc" class="form-control" placeholder="Contoh: Define Business Area" required=""><br>
+												<label for="edit_ctcode">Edit Tcode:</label>
+												<input type="text" id="edit_ctcode" name="edit_ctcode" class="form-control" placeholder="Contoh: SPRO" required=""><br>
+												<label for="edit_ctable">Edit tabel custom:</label>
+												<input type="text" id="edit_ctable" name="edit_ctable" class="form-control" placeholder="Contoh: V_TGSB"><br>
+												<label for="edit_cstat">Edit status:</label>
+												<input type="text" id="edit_cstat" name="edit_cstat" class="form-control" placeholder="Contoh: Create/Check" required=""><br>
+												<label for="edit_cmodul">Edit modul:</label>
+												<?php
+													$con = mysqli_connect("localhost","root","","saptest");
+
+													$query = "SELECT idmodul FROM m_modul";
+													$result1 = mysqli_query($con,$query);
+
+													echo "<select name='edit_cmodul'>";
+													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
+													{
+														echo "<option value='" . $row1['idmodul'] . "'>" . $row1['idmodul'] . "</option>";
+													}
+													echo "</select>";
+													
+													//$con->close();
+												?>
+												<br><br>
+												<div class="modal-footer">
+													<button class="btn btn-default btn-success" type="submit" name="editCheck" c_id="editCheck" action="m-check.php?id=<?php echo $row['c_id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- Button Delete Checklist -->
+							<a type='button' class='btn btn-danger btn-xs' data-toggle='modal' href="#modalDelCheck<?php echo $row['c_id']; ?>"><span class='glyphicon glyphicon-trash'></span></a></td>
+
+							<!-- Modal Delete Checklist -->
+							<div id="modalDelCheck<?php echo $row['c_id']; ?>" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Hapus Checklist</h4>
+										</div>
+										  
+										<div class="modal-body"><h5>
+											<form action="" method="POST" name="formDelCheck">
+												<label>Anda yakin akan menghapus checklist</label>
+												<label type="text" id="checkToDel" name="checkToDel"><?php echo $row['ctypedesc']; ?>?</label>
+												<br><br>
+												<div class="modal-footer">
+													<a class="btn btn-default btn-success" type="submit" name="delCheck" c_id="delCheck" method="POST" href="m-check.php?del=x&c_id=<?php echo $row['c_id']; ?>">Hapus</a>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
 			<?php
 						}
 						else

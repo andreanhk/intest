@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2018 at 10:42 AM
+-- Generation Time: Apr 14, 2018 at 12:50 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -61,7 +61,15 @@ INSERT INTO `m_ba` (`idba`, `nameba`) VALUES
 (1000, 'Samator'),
 (2000, 'Aneka Gas Industri'),
 (3000, 'Samator Gas Industri'),
-(5000, 'Samator Wase Gas');
+(3016, 'SGI Rantau Prapat'),
+(3916, 'SGI Depo Sibolga'),
+(2072, 'AGI Manado'),
+(2073, 'AGI Ternate'),
+(2065, 'AGI Luwuk'),
+(5000, 'Samator Wase Gas'),
+(5020, 'Sandana Istana Multigas'),
+(5010, 'Sandana Mulia Gas'),
+(6000, 'Samabayu Mandala');
 
 -- --------------------------------------------------------
 
@@ -70,8 +78,8 @@ INSERT INTO `m_ba` (`idba`, `nameba`) VALUES
 --
 
 CREATE TABLE `m_check` (
-  `customid` int(11) NOT NULL,
-  `ctype` varchar(255) NOT NULL,
+  `c_id` int(11) NOT NULL,
+  `ctype` varchar(255) DEFAULT NULL,
   `ctypedesc` varchar(255) NOT NULL,
   `ctcode` varchar(255) NOT NULL,
   `ctable` varchar(255) NOT NULL,
@@ -83,9 +91,11 @@ CREATE TABLE `m_check` (
 -- Dumping data for table `m_check`
 --
 
-INSERT INTO `m_check` (`customid`, `ctype`, `ctypedesc`, `ctcode`, `ctable`, `cstat`, `cmodul`) VALUES
-(300001, 'Enterprise Structure', 'Define BA', 'SPRO', 'V_TGSB', 'Create', 'FICO'),
-(300002, 'Enterprise Structure', 'Assign Business Area to Consolidation Business Area', 'SPRO', 'V_GSB_A', 'Check', 'FICO');
+INSERT INTO `m_check` (`c_id`, `ctype`, `ctypedesc`, `ctcode`, `ctable`, `cstat`, `cmodul`) VALUES
+(1, 'Enterprise Structure', 'Define BA', 'SPRO', 'V_TGSB', 'Create', 'FICO'),
+(2, 'Enterprise Structure', 'Assign Business Area to Consolidation Business Area', 'SPRO', 'V_GSB_A', 'Check', 'FICO'),
+(6, 'Financial Accounting (Bank Accounting)', 'Set Up Cash Journal', 'FBCJC0', '', 'Create', ''),
+(7, 'Financial Accounting (Bank Accounting)', 'Define House Banks', 'F112', '', 'Create', '');
 
 -- --------------------------------------------------------
 
@@ -109,7 +119,8 @@ INSERT INTO `m_modul` (`idmodul`, `namemodul`) VALUES
 ('MM', 'Materials Management'),
 ('PM', 'Plant Maintenance'),
 ('PP', 'Production Planning'),
-('SD', 'Sales & Distribution');
+('SD', 'Sales & Distribution'),
+('HR', 'Human Resource');
 
 -- --------------------------------------------------------
 
@@ -131,7 +142,9 @@ CREATE TABLE `m_uat_scn` (
 
 INSERT INTO `m_uat_scn` (`uat_id`, `uat_modul`, `uat_scn`, `uat_desc`, `no_scn`) VALUES
 (1, 'PP', 'Penjualan Botolan Reguler (MTS)', 'Penjualan gas dalam botol hasil produksi & sparepart ke Customer & IB Sales Order, Terima Botol Kosong, Produksi, Distribusi , Billing , Pelunasan A/R', 'PP01'),
-(2, 'PP', 'Pembelian Bahan Baku', 'Pembelian bahan baku', 'PP02');
+(2, 'PP', 'Pembelian Bahan Baku', 'Pembelian Bahan Baku', 'PP02'),
+(0, 'PP', 'Pembelian Barang Dagangan Gas', 'Pembelian Bahan Baku', 'PP03'),
+(0, 'PP', 'Penjualan Botolan IB MTS (INTERBRANCH)', 'Penjualan gas dalam botol hasil produksi & sparepart ke Customer & IB Sales Order, Terima Botol Kosong, Produksi, Distribusi, Billing, Pelunasan A/R', 'PP04');
 
 -- --------------------------------------------------------
 
@@ -173,7 +186,22 @@ INSERT INTO `m_uat_step` (`no_scn`, `no_step`, `bp_step`, `tcode_step`, `modul_s
 ('PP01', 18, 'Cetak Invoice', 'VF03', 'PP', 'Adm.Penjualan'),
 ('PP01', 19, 'Cetak Faktur Pajak', 'ZFIRPT038', 'PP', 'Adm.Penjualan'),
 ('PP01', 20, 'Terima Plns dari Customer via Bank BCA Test Transfer', 'F-21', 'PP', 'GL Bank'),
-('PP01', 21, 'Account Clear AR', 'F-32', 'PP', 'Adm.Piutang');
+('PP01', 21, 'Account Clear AR', 'F-32', 'PP', 'Adm.Piutang'),
+('PP02', 1, 'Bon Permintaan Manual', 'MANUAL', 'PP', 'Marketing'),
+('PP02', 2, 'Create PR', 'ME51N', 'PP', 'Gudang'),
+('PP02', 3, 'Release PR (diwakilkan oleh Akuntansi)', 'ME55', 'PP', 'Kepala Filling'),
+('PP02', 4, 'Create PO', 'ME21N', 'PP', 'Pembelian'),
+('PP02', 5, 'Release PO (Hubungi tim untuk release PO)', 'ME28', 'PP', 'Manager/GM/Direktur'),
+('PP02', 6, 'Cetak PO - 1', 'ME22N', 'PP', 'Pembelian'),
+('PP02', 7, 'Cetak PO - 2', 'ZMMRPT001', 'PP', 'Pembelian'),
+('PP02', 8, 'LPB Bahan Baku Liquid', 'MIGO', 'PP', 'Gudang'),
+('PP02', 9, 'Losses Pembelian', 'ZMMENH012', 'PP', 'Gudang'),
+('PP02', 10, 'Transfer SLOC LIQUID', 'ZMMENH012', 'PP', 'Gudang'),
+('PP02', 11, 'Print LPB', 'ZMMRPT001', 'PP', 'Gudang'),
+('PP02', 12, 'Pengakuan Hutang', 'MIRO', 'PP', 'Akuntansi'),
+('PP02', 13, 'Pelunasan Hutang via Cash', 'FBCJ', 'PP', 'Kasir'),
+('PP02', 14, 'Pelunasan Hutang via Bank', 'F-42', 'PP', 'Kasir'),
+('PP02', 15, 'Clear Hutang', 'F-44', 'PP', 'Akuntansi');
 
 -- --------------------------------------------------------
 
@@ -195,7 +223,45 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`userno`, `userid`, `userpwd`, `userlname`, `usermodul`) VALUES
 (1, 'Admin', 'admin', 'Administrator', 'ABAP'),
-(2, 'Andrean', 'andrean', 'Andrean HK', 'Basis');
+(2, 'Andrean', 'andrean', 'Andrean HK', 'BASIS'),
+(3, 'SAPFICO', 'sapfico', 'SAP Financial Controlling', 'FICO'),
+(4, 'SAPMM', 'sapmm', 'SAP Materials Management', 'MM'),
+(5, 'SAPPM', 'sappm', 'SAP Plant Maintenance', 'PM'),
+(6, 'SAPPP', 'sappp', 'SAP Production Planning', 'PP'),
+(7, 'SAPSD', 'sapsd', 'SAP Sales & Distribution', 'SD'),
+(8, 'SAPHR', 'saphr', 'SAP Human Resources', 'ABAP');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `m_check`
+--
+ALTER TABLE `m_check`
+  ADD PRIMARY KEY (`c_id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`userno`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `m_check`
+--
+ALTER TABLE `m_check`
+  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `userno` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
