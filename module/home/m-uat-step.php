@@ -328,6 +328,7 @@
 <script>
 	$(document).ready( function () {
     $('#tableMUAT').DataTable( {
+		"order": [[ 1, "asc" ]],
 		"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]]
 		} );
 	} );
