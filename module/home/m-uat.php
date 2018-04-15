@@ -155,14 +155,16 @@
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="<?php echo $root; ?>module/home/home.php">Beranda</a></li>
 			<li class="dropdown active">
-				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Master
-				<span class="caret"></span></a>
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><b>Master
+				<span class="caret"></span></b></a>
 				<ul class="dropdown-menu">
 					<li><a href="<?php echo $root; ?>module/home/m-user.php">User</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-modul.php">Modul</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-ba.php">Business Area</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-check.php">Checklist</a></li>
-					<li><a href="<?php echo $root; ?>module/home/m-uat.php">User Acceptance Test</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="<?php echo $root; ?>module/home/m-uat.php">Skenario UAT</a></li>
+					<li><a href="<?php echo $root; ?>module/home/m-uat-step.php">Step UAT</a></li>
 				</ul>
 			</li>
 			<li><a href="<?php echo $root; ?>module/home/checklist.php">Checklist</a></li>
@@ -337,9 +339,9 @@
 											<form action="" method="POST" name="formEditScn">
 												<input type='hidden' name='no_scn' value='<?php echo $row['no_scn']; ?>' />
 												<label for="edit_scnname">Edit nama skenario:</label>
-												<input type="text" id="edit_scnname" name="edit_scnname" class="form-control" placeholder="Contoh: Pembelian Bahan Baku" required=""><br>
+												<input type="text" id="edit_scnname" name="edit_scnname" class="form-control" value="<?php echo $row['uat_scn']; ?>" required=""><br>
 												<label for="edit_scndesc">Edit deskripsi skenario:</label>
-												<input type="text" id="edit_scndesc" name="edit_scndesc" class="form-control" placeholder="Contoh: Tes Pembelian Bahan Baku dari Vendor" required=""><br>
+												<input type="text" id="edit_scndesc" name="edit_scndesc" class="form-control" value="<?php echo $row['uat_desc']; ?>" required=""><br>
 												<label for="new_usermodul">Edit modul:</label>
 												<?php
 													$con = mysqli_connect("localhost","root","","saptest");

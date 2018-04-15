@@ -128,14 +128,16 @@
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="<?php echo $root; ?>module/home/home.php">Beranda</a></li>
 			<li class="dropdown active">
-				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Master
-				<span class="caret"></span></a>
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><b>Master
+				<span class="caret"></span></b></a>
 				<ul class="dropdown-menu">
 					<li><a href="<?php echo $root; ?>module/home/m-user.php">User</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-modul.php">Modul</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-ba.php">Business Area</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-check.php">Checklist</a></li>
-					<li><a href="<?php echo $root; ?>module/home/m-uat.php">User Acceptance Test</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="<?php echo $root; ?>module/home/m-uat.php">Skenario UAT</a></li>
+					<li><a href="<?php echo $root; ?>module/home/m-uat-step.php">Step UAT</a></li>
 				</ul>
 			</li>
 			<li><a href="<?php echo $root; ?>module/home/checklist.php">Checklist</a></li>
@@ -233,7 +235,7 @@
 			<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 
-				$query = "SELECT userid,userlname,usermodul FROM user";
+				$query = "SELECT * FROM user";
 				$result = mysqli_query($con,$query);
 
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
@@ -263,9 +265,9 @@
 											<form action="" method="POST" name="formEditUser">
 												<input type='hidden' name='userid' value='<?php echo $row['userid']; ?>' />
 												<label for="new_userlname">Edit nama:</label>
-												<input type="text" id="edit_userlname" name="edit_userlname" class="form-control" placeholder="Nama Lengkap" required=""><br>
+												<input type="text" id="edit_userlname" name="edit_userlname" class="form-control" value="<?php echo $row['userlname']; ?>" required=""><br>
 												<label for="new_pwduser">Edit password:</label>
-												<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" placeholder="Password" required=""><br>
+												<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" value="<?php echo $row['userpwd']; ?>" required=""><br>
 												<label for="new_usermodul">Edit modul:</label>
 												<?php
 													$con = mysqli_connect("localhost","root","","saptest");

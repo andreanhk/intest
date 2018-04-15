@@ -62,14 +62,16 @@
 					<li><a href="<?php echo $root; ?>module/home/m-user.php">User</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-ba.php">Business Area</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-check.php">Checklist</a></li>
-					<li><a href="<?php echo $root; ?>module/home/m-uat.php">User Acceptance Test</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="<?php echo $root; ?>module/home/m-uat.php">Skenario UAT</a></li>
+					<li><a href="<?php echo $root; ?>module/home/m-uat-step.php">Step UAT</a></li>
 				</ul>
 			</li>
 			<li><a href="<?php echo $root; ?>module/home/checklist.php">Checklist</a></li>
 			<li><a href="<?php echo $root; ?>module/home/uat.php">U A T</a></li>
 			<li class="dropdown active">
-				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-				<?php echo $_SESSION["longname"]; ?>
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><b><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+				<?php echo $_SESSION["longname"]; ?></b>
 				<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="<?php echo $root; ?>module/home/user.php">Pengaturan</a></li>

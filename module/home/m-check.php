@@ -127,14 +127,16 @@
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="<?php echo $root; ?>module/home/home.php">Beranda</a></li>
 			<li class="dropdown active">
-				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Master
-				<span class="caret"></span></a>
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><b>Master
+				<span class="caret"></span></b></a>
 				<ul class="dropdown-menu">
 					<li><a href="<?php echo $root; ?>module/home/m-user.php">User</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-modul.php">Modul</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-ba.php">Business Area</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-check.php">Checklist</a></li>
-					<li><a href="<?php echo $root; ?>module/home/m-uat.php">User Acceptance Test</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="<?php echo $root; ?>module/home/m-uat.php">Skenario UAT</a></li>
+					<li><a href="<?php echo $root; ?>module/home/m-uat-step.php">Step UAT</a></li>
 				</ul>
 			</li>
 			<li><a href="<?php echo $root; ?>module/home/checklist.php">Checklist</a></li>
@@ -285,15 +287,15 @@
 											<form action="" method="POST" name="formEditCheck">
 												<input type='hidden' name='c_id' value='<?php echo $row['c_id']; ?>' />
 												<label for="new_userlname"class="text-left">Edit tipe custom:</label>
-												<input type="text" id="edit_userlname" name="edit_ctype" class="form-control" placeholder="Contoh: Enterprise Structure" required=""><br>
+												<input type="text" id="edit_userlname" name="edit_ctype" class="form-control" value="<?php echo $row['ctype']; ?>" required=""><br>
 												<label for="edit_ctypedesc">Edit deskripsi custom:</label>
-												<input type="text" id="edit_ctypedesc" name="edit_ctypedesc" class="form-control" placeholder="Contoh: Define Business Area" required=""><br>
+												<input type="text" id="edit_ctypedesc" name="edit_ctypedesc" class="form-control" value="<?php echo $row['ctypedesc']; ?>" required=""><br>
 												<label for="edit_ctcode">Edit Tcode:</label>
-												<input type="text" id="edit_ctcode" name="edit_ctcode" class="form-control" placeholder="Contoh: SPRO" required=""><br>
+												<input type="text" id="edit_ctcode" name="edit_ctcode" class="form-control" value="<?php echo $row['ctcode']; ?>" required=""><br>
 												<label for="edit_ctable">Edit tabel custom:</label>
-												<input type="text" id="edit_ctable" name="edit_ctable" class="form-control" placeholder="Contoh: V_TGSB"><br>
+												<input type="text" id="edit_ctable" name="edit_ctable" class="form-control" value="<?php echo $row['ctable']; ?>"><br>
 												<label for="edit_cstat">Edit status:</label>
-												<input type="text" id="edit_cstat" name="edit_cstat" class="form-control" placeholder="Contoh: Create/Check" required=""><br>
+												<input type="text" id="edit_cstat" name="edit_cstat" class="form-control" value="<?php echo $row['cstat']; ?>" required=""><br>
 												<label for="edit_cmodul">Edit modul:</label>
 												<?php
 													$con = mysqli_connect("localhost","root","","saptest");

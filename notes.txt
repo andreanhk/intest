@@ -13,10 +13,10 @@ ALTER TABLE m_uat_scn AUTO_INCREMENT=3;
 
 -----
 
-- revisi table dengan primary key (auto increment)
-- pertimbangkan foreign key relationship
-- session untuk keperluan hak akses, dari nama user/modul user?
+- revisi table dengan primary key (auto increment) OK di m_check
+- pertimbangkan foreign key relationship NO NEED FOR NOW
+- session untuk keperluan hak akses, dari nama user/modul user? SEMENTARA NAMA USER
 - menu pengaturan user blm dibuat
 - bisa ubah visi misi di home
 - pertimbangkan delete sebagai flagged not shown, bukan delete record sesungguhnya
-- kesesuaian bahasa yg digunakan (masih campur aduk)
+- kesesuaian bahasa yg digunakan (masih campur aduk) DATATABLE BLM BISA DIUBAH KE BHS.INDONESIA

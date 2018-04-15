@@ -114,14 +114,16 @@
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="<?php echo $root; ?>module/home/home.php">Beranda</a></li>
 			<li class="dropdown active">
-				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Master
-				<span class="caret"></span></a>
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><b>Master
+				<span class="caret"></span></b></a>
 				<ul class="dropdown-menu">
 					<li><a href="<?php echo $root; ?>module/home/m-user.php">User</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-modul.php">Modul</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-ba.php">Business Area</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-check.php">Checklist</a></li>
-					<li><a href="<?php echo $root; ?>module/home/m-uat.php">User Acceptance Test</a></li>
+					<li role="separator" class="divider"></li>
+					<li><a href="<?php echo $root; ?>module/home/m-uat.php">Skenario UAT</a></li>
+					<li><a href="<?php echo $root; ?>module/home/m-uat-step.php">Step UAT</a></li>
 				</ul>
 			</li>
 			<li><a href="<?php echo $root; ?>module/home/checklist.php">Checklist</a></li>
@@ -230,7 +232,7 @@
 											<form action="" method="POST" name="formEditmodul">
 												<input type='hidden' name='idmodul' value='<?php echo $row['idmodul']; ?>' />
 												<label for="edit_namemodul">Edit nama modul:</label>
-												<input type="text" id="edit_namemodul" name="edit_namemodul" class="form-control" placeholder="Nama modul" required=""><br>
+												<input type="text" id="edit_namemodul" name="edit_namemodul" class="form-control" value="<?php echo $row['namemodul']; ?>" required=""><br>
 												<!--<label for="new_pwduser">Edit password:</label>
 												<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" placeholder="Password" required=""><br>
 												<label for="new_usermodul">Edit modul:</label>-->
