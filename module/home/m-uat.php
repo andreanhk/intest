@@ -45,40 +45,6 @@
 		}
 	}
 	
-	$stepname = "";
-	$steptcode = "";
-	$stepuser = "";
-	$stepscn = "";
-	$stepmodul = "";
-	$result2 = "";
-	
-	if (isset($_POST['submit2']))
-	{
-		$con = mysqli_connect("localhost","root","","saptest");
-		
-		$stepname = mysqli_real_escape_string($con, $_POST['new_stepname']);
-		$steptcode = mysqli_real_escape_string($con, $_POST['new_steptcode']);
-		$stepuser = mysqli_real_escape_string($con, $_POST['new_stepuser']);
-		$stepscn = mysqli_real_escape_string($con, $_POST['new_stepscn']);
-		$stepmodul = mysqli_real_escape_string($con, $_POST['new_stepmodul']);
-		
-		$query = 'SELECT * FROM m_uat_step WHERE bp_step="'.$stepname.'" AND stepscn="'.$stepscn.'"';  //Coba JOIN 2 tabel untuk insert value PP02 di table step -> cek value dari tabel scn
-		$result = mysqli_query($con,$query);
-		
-		if($result->num_rows == 0)
-		{
-			$query = 'INSERT INTO m_uat_step(bp_step, tcode_step, user_step, modul_step) VALUES ()';
-			$result2 = mysqli_query($con,$query);
-			header("location:m-uat.php");
-		}
-		else
-		{
-			echo '<script language="javascript">';
-			echo 'alert("Step UAT tersebut sudah ada di skenario terpilih!")';
-			echo '</script>';
-		}
-	}
-	
 	if (isset($_GET['del']))
 	{
 		$con = mysqli_connect("localhost","root","","saptest");
@@ -184,7 +150,7 @@
 	</nav>
 
 	<div class="container container-fluid">
-		<h1>Master Data User Acceptance Test
+		<h1>Master Data Skenario UAT
 		<?php
 				if ($_SESSION['username']=="Admin")
 				{
@@ -233,54 +199,6 @@
 							</form>
 						</div>
 					</div>
-				</div>
-			</div>
-			
-			<a class="btn btn-success text-right" data-toggle="modal" data-target="#modaladd_uatstep"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Step</b></a>
-			
-			<!-- Modal Add Step Baru -->
-			<div id="modaladd_uatstep" class="modal fade" role="dialog">
-				<div class="modal-dialog">
-
-				<!-- Modal content-->
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">Tambah Step UAT Baru</h4>
-						</div>
-						<div class="modal-body"><h5>
-							<form action="" method="POST" name="form_addstep">
-								<label for="new_stepname">Nama step:</label>
-								<input type="text" id="new_stepname" name="new_stepname" class="form-control" placeholder="Contoh: Buat Sales Order" required="" autofocus=""><br>
-								<label for="new_steptcode">Tcode step:</label>
-								<input type="text" id="new_steptcode" name="new_steptcode" class="form-control" placeholder="Contoh: VA01" required=""><br>
-								<label for="new_stepuser">User step:</label>
-								<input type="text" id="new_stepuser" name="new_stepuser" class="form-control" placeholder="Contoh: Sales Counter" required=""><br>
-								<label for="new_stepscn">Skenario step:</label><br />
-								<?php
-									$con = mysqli_connect("localhost","root","","saptest");
-
-									$sql = "SELECT uat_scn FROM m_uat_scn";
-									$result = mysqli_query($con,$sql);
-
-									echo "<select name='uat_scn'>";
-									while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
-									{
-										echo "<option value='" . $row['uat_scn'] . "'>" . $row['uat_scn'] . "</option>";
-									}
-									echo "</select>";
-									
-									$con->close();
-								?>
-								<br><br>
-								<div class="modal-footer">
-									<a class="btn btn-default btn-success" type="submit" name="submit2" id="submit2" method="POST" action="m-uat.php?id=<?php echo $row['no_scn']; ?>">Tambah</a>
-									<a class="btn btn-default btn-danger" data-dismiss="modal">Batal</a>
-								</div>
-							</form>
-						</div>
-					</div>
-
 				</div>
 			</div>
 			
