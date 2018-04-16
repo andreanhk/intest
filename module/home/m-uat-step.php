@@ -61,19 +61,19 @@
 	{	
 		$con = mysqli_connect("localhost","root","","saptest");
 		
-		$editStepName = mysqli_real_escape_string($con,$_POST['edit_scnname']);
-		$editStepTcode = mysqli_real_escape_string($con,$_POST['edit_scndesc']);
-		$editStepUser = mysqli_real_escape_string($con,$_POST['edit_scndesc']);
+		$editStepName = mysqli_real_escape_string($con,$_POST['edit_stepname']);
+		$editStepTcode = mysqli_real_escape_string($con,$_POST['edit_steptcode']);
+		$editStepUser = mysqli_real_escape_string($con,$_POST['edit_stepuser']);
 		
 		$id = mysqli_real_escape_string($con,$_POST['id_step']);
 		
-		if(!mysqli_query($con,"UPDATE m_uat_step SET bp_step='$editStepName',tcode_step='$editStepTcode',user_step='$editStepUser' WHERE no_scn='$id'"))
+		if(!mysqli_query($con,"UPDATE m_uat_step SET bp_step='$editStepName',tcode_step='$editStepTcode',user_step='$editStepUser' WHERE id_step='$id'"))
 		{
 			echo mysqli_error($con);
 		}
 		
 		mysqli_close($con);
-		#header("Location:m-uat.php");
+		#header("Location:m-uat-step.php");
 	}
 ?>
 
@@ -88,7 +88,7 @@
 <!-- Meta Tags -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>Master Data: User Acceptance Test</title>
+<title>Master Data: Step UAT</title>
 
 <!-- Mobile Specifics -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -217,7 +217,27 @@
 	</div><br>
 	
 	<div class="container container-fluid">
-		<table id="tableMUAT" class="table table-hover text-center table-striped compact">
+		<select id="select1" onchange="getval(this);" >     <!-- edit onChange event ini/edit javascript supaya include semua -->
+			<?php
+				$con = mysqli_connect("localhost","root","","saptest");
+				
+				$query = "SELECT uat_scn, uat_desc FROM m_uat_scn";
+				$result = mysqli_query($con,$query);
+				
+				echo "<option disabled selected value>-- Pilih Skenario UAT --</option>";
+				while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
+				{
+					
+					echo "<option value='$row[uat_desc]'>$row[uat_scn]</option>";
+					$uat_desc = $_GET['uat_desc'];
+				}
+				
+				$con->close();
+			?>
+		</select><br /><br />
+	
+	<div class="container container-fluid">
+		<table id="tableStep" class="table table-hover text-center table-striped compact">
 			<thead>
 				<tr>
 					<!--<td><b>Modul</b></td>-->
@@ -249,31 +269,31 @@
 						{
 			?>
 							<!-- Button Edit Step UAT -->
-							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditScn<?php echo $row['id_step']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
+							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditStep<?php echo $row['id_step']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
 							
 							<!-- Modal Edit Scenario UAT -->
-							<div id="modalEditScn<?php echo $row['id_step']; ?>" class="modal fade" role="dialog">
+							<div id="modalEditStep<?php echo $row['id_step']; ?>" class="modal fade" role="dialog">
 								<div class="modal-dialog">
 									<!-- Modal content-->
 									<div class="modal-content">
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal">&times;</button>
-											<h4 class="modal-title">Edit Skenario UAT <?php echo $row['bp_step']; ?></h4>
+											<h4 class="modal-title">Edit Step UAT <?php echo $row['bp_step']; ?></h4>
 										</div>
 									  
 										<div class="modal-body"><h5>
-											<form action="" method="POST" name="formEditScn">
-												<input type='hidden' name='no_scn' value='<?php echo $row['id_step']; ?>' />
-												<label for="edit_scnname">Edit nama step:</label>
-												<input type="text" id="edit_scnname" name="edit_scnname" class="form-control" value="<?php echo $row['bp_step']; ?>" required=""><br>
-												<label for="edit_scnname">Edit Tcode:</label>
-												<input type="text" id="edit_scnname" name="edit_scnname" class="form-control" value="<?php echo $row['tcode_step']; ?>" required=""><br>
+											<form action="" method="POST" name="formEditStep">
+												<input type='hidden' name='id_step' value='<?php echo $row['id_step']; ?>' />
+												<label for="edit_stepname">Edit nama step:</label>
+												<input type="text" id="edit_stepname" name="edit_stepname" class="form-control" value="<?php echo $row['bp_step']; ?>" required=""><br>
+												<label for="edit_steptcode">Edit Tcode:</label>
+												<input type="text" id="edit_steptcode" name="edit_steptcode" class="form-control" value="<?php echo $row['tcode_step']; ?>" required=""><br>
 												<label for="edit_scndesc">Edit user:</label>
-												<input type="text" id="edit_scndesc" name="edit_scndesc" class="form-control" value="<?php echo $row['user_step']; ?>" required=""><br>
+												<input type="text" id="edit_stepuser" name="edit_stepuser" class="form-control" value="<?php echo $row['user_step']; ?>" required=""><br>
 												
 												<br><br>
 												<div class="modal-footer">
-													<button class="btn btn-default btn-success" type="submit" name="editScn" id="editScn" action="m-uat.php?id=<?php echo $row['no_scn']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
+													<button class="btn btn-default btn-success" type="submit" name="editStep" id="editStep" action="m-uat-step.php?id=<?php echo $row['id_step']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
 													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 												</div>
 											</form>
@@ -326,10 +346,31 @@
 </body>
 
 <script>
-	$(document).ready( function () {
-    $('#tableMUAT').DataTable( {
-		"order": [[ 1, "asc" ]],
-		"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]]
+	var idxCols=0;
+	var cols=[];
+								
+	$(document).ready(function() {
+		$('#tableStep').DataTable( {
+			"order": [[ 1, "asc" ]],
+			"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]],
+			
+			initComplete: function () {
+				this.api().columns().every( function () {
+					cols.push(this);
+					idxCols++;
+				} );
+			}
+		} );
+		
+		$('#select1').on( 'change', function () {
+			column = cols[1];
+			var val = $.fn.dataTable.util.escapeRegex(
+				$(this).find(":selected").text()
+			);
+			
+			column
+				.search( val ? '^'+val+'$' : '', true, false )
+				.draw();
 		} );
 	} );
 </script>

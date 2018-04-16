@@ -21,8 +21,8 @@
 	
 	$query="SELECT * FROM user WHERE userid='".$uname."' AND BINARY userpwd= BINARY '".$pass."'";
 	
-	$result=mysqli_query($con,$query) or die(mysqli_error($con));
-	$count=mysqli_num_rows($result);
+	$result = mysqli_query($con,$query) or die(mysqli_error($con));
+	$count = mysqli_num_rows($result);
 	
 	if ($count==1)
 	{

@@ -87,9 +87,34 @@
 		<h1>Dashboard Pengaturan User</h1>
 	</div>
 	
+	<?php
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$session = mysqli_real_escape_string($con,$_SESSION['username']);
+		
+		$query = 'SELECT * FROM user WHERE userid="'.$session.'"';
+		$result = mysqli_query($con,$query);
+		
+		if($result->num_rows == 0)
+		{
+			$query = '';
+			$result1 = mysqli_query($con,$query);
+			header("location:user.php");
+		}
+		else
+		{
+			
+		}
+	?>
+	
 	<div class="container container-fluid">
-		<li>Edit user</li>
-		<li>Edit nama user</li>
-		<li>Edit modul user</li>
+		<label for="username">ID user:</label>
+		<label for="val_username"><?php echo $_SESSION['username']; ?></label><br />
+		<label for="username">Nama user:</label>
+		<label for="val_username"><?php echo $_SESSION['longname']; ?></label><br />
+		<label for="usermodul">Modul user:</label>
+		<label for="val_usermodul"><?php echo $_SESSION['modul']; ?></label><br />
+		<label for="userpwd">Password user:</label>
+		<label for="val_userpwd"><?php echo $_SESSION['userpwd']; ?></label><br />
 	</div>
 </body>

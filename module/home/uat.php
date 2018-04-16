@@ -138,7 +138,7 @@
 			<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 
-				$query = "SELECT c.no_scn, c.uat_scn, c.uat_desc, t.bp_step, t.tcode_step, t.user_step, t.no_step, t.no_scn FROM m_uat_scn c JOIN m_uat_step t ON c.no_scn = t.no_scn";
+				$query = "SELECT * FROM m_uat_scn c JOIN m_uat_step t ON c.uat_scn = t.uat_scn";
 				$result = mysqli_query($con,$query);
 
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
