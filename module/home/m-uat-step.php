@@ -188,7 +188,7 @@
 									echo "<select name='uat_scn'>";
 									while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 									{
-										echo "<option value='" . $row['uat_scn'] . "'>" . $row['uat_scn'] . "</option>";
+										echo "<option value='$row[uat_scn]'>$row[uat_scn]</option>";
 									}
 									echo "</select>";
 									

@@ -197,12 +197,12 @@
 
 									echo "<select name='idmodul'>";
 									while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
-										echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
+										echo "<option value='$row[idmodul]'>$row[idmodul]</option>";
 									}
 									echo "</select>";
 									
 									$con->close();
-								?>
+								?><br /><br />
 					  
 								<div class="modal-footer">
 									<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-check.php">Tambah</button>
@@ -222,21 +222,23 @@
 			?>
 		</h1>
 		
+		<select id="select1" onChange="getval(this);">
 		<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 
 				$sql = "SELECT idmodul FROM m_modul";
 				$result = mysqli_query($con,$sql);
 
-				echo "<select name='idmodul'>";
+				echo "<option disabled selected value>-- Pilih Modul Checklist --</option>";
 				while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
-					echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
+					echo "<option value='$row[idmodul]'>$row[idmodul]</option>";
+					$idmodul = $_GET['idmodul'];
 				}
-				echo "</select>";
 				
 				$con->close();
 			?>
+		</select>
 		
 	</div><br>
 	
@@ -244,6 +246,7 @@
 		<table id="tableMCheck" class="table table-hover text-center table-striped compact">
 			<thead>
 				<tr>
+					<td><b>Modul</b></td>
 					<td><b>Custom Type</b></td>
 					<td><b>Custom Description</b></td>
 					<td><b>Tcode</b></td>
@@ -262,6 +265,7 @@
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					echo "<tr>";
+						echo "<td style:'border=1px solid black'>".$row['cmodul']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctype']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctypedesc']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctcode']."</td>";
@@ -306,7 +310,7 @@
 													echo "<select name='edit_cmodul'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 													{
-														echo "<option value='" . $row1['idmodul'] . "'>" . $row1['idmodul'] . "</option>";
+														echo "<option value='$row1[idmodul]'>$row1[idmodul]</option>";
 													}
 													echo "</select>";
 													
@@ -367,9 +371,38 @@
 </body>
 
 <script>
+	var idxCols=0;
+	var cols=[];
+
 	$(document).ready( function () {
     $('#tableMCheck').DataTable( {
-		"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]]
+		
+		"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]],
+		
+		"columnDefs": [
+				{
+					"targets": [ 0 ],
+					"visible": false,
+				},
+			],
+		
+			initComplete: function () {
+				this.api().columns().every( function () {
+					cols.push(this);
+					idxCols++;
+				} );
+			}
+		} );
+		
+		$('#select1').on( 'change', function () {
+			column = cols[0];
+			var val = $.fn.dataTable.util.escapeRegex(
+				$(this).find(":selected").text()
+			);
+			
+			column
+				.search( val ? '^'+val+'$' : '', true, false )
+				.draw();
 		} );
 	} );
 </script>
