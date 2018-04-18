@@ -217,7 +217,7 @@
 			<thead>
 				<tr>
 					<!--<td><b>Modul</b></td>-->
-					<td><b>No. Skenario</b></td>
+					<!--<td><b>No. Skenario</b></td>-->
 					<td><b>Nama Skenario</b></td>
 					<td><b>Deskripsi Skenario</b></td>
 					<td class="col-md-1"></td>
@@ -234,7 +234,7 @@
 				{
 					echo "<tr>";
 						//echo "<td style:'border=1px solid black'>".$row['uat_modul']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['no_scn']."</td>";
+						//echo "<td style:'border=1px solid black'>".$row['no_scn']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['uat_scn']."</td>";
 						echo "<td style:'border=1px solid black' class='col-md-7'>".$row['uat_desc']."</td>";
 					if ($_SESSION['username']=="Admin")

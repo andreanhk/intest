@@ -253,7 +253,7 @@
 			<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 
-				$query = "SELECT * FROM m_uat_scn c JOIN m_uat_step t WHERE c.no_scn = t.no_scn";
+				$query = "SELECT * FROM m_uat_scn c JOIN m_uat_step t WHERE c.uat_scn = t.uat_scn";
 				$result = mysqli_query($con,$query);
 
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
@@ -342,7 +342,7 @@
 			?>
 			</tbody>
 		</table>
-	</div>
+	</div><br /><br />
 </body>
 
 <script>
