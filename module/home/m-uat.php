@@ -193,8 +193,8 @@
 									$con->close();
 								?>
 								<div class="modal-footer">
-									<button class="btn btn-default btn-success" type="submit" name="submit1" id="submit1" method="POST" action="m-uat.php">Tambah</button>
-									<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+									<button class="btn btn-default btn-success" type="submit" name="submit1" id="submit1" method="POST" action="m-uat.php"><span class="glyphicon glyphicon-plus"></span> Tambah</button>
+									<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 								</div>
 							</form>
 						</div>
@@ -210,7 +210,7 @@
 				}
 			?>
 		</h1>
-	</div><br>
+	</div>
 	
 	<div class="container container-fluid">
 		<table id="tableMUAT" class="table table-hover text-center table-striped compact">
@@ -241,10 +241,10 @@
 						{
 			?>
 							<!-- Button Edit Scenario UAT -->
-							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditScn<?php echo $row['no_scn']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
+							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditScn<?php echo $row['uat_id']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
 							
 							<!-- Modal Edit Scenario UAT -->
-							<div id="modalEditScn<?php echo $row['no_scn']; ?>" class="modal fade" role="dialog">
+							<div id="modalEditScn<?php echo $row['uat_id']; ?>" class="modal fade" role="dialog">
 								<div class="modal-dialog">
 									<!-- Modal content-->
 									<div class="modal-content">
@@ -255,7 +255,7 @@
 									  
 										<div class="modal-body"><h5>
 											<form action="" method="POST" name="formEditScn">
-												<input type='hidden' name='no_scn' value='<?php echo $row['no_scn']; ?>' />
+												<input type='hidden' name='no_scn' value='<?php echo $row['uat_id']; ?>' />
 												<label for="edit_scnname">Edit nama skenario:</label>
 												<input type="text" id="edit_scnname" name="edit_scnname" class="form-control" value="<?php echo $row['uat_scn']; ?>" required=""><br>
 												<label for="edit_scndesc">Edit deskripsi skenario:</label>
@@ -278,7 +278,7 @@
 												?>
 												<br><br>
 												<div class="modal-footer">
-													<button class="btn btn-default btn-success" type="submit" name="editScn" id="editScn" action="m-uat.php?id=<?php echo $row['no_scn']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
+													<button class="btn btn-default btn-success" type="submit" name="editScn" id="editScn" action="m-uat.php?id=<?php echo $row['uat_id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
 													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 												</div>
 											</form>
@@ -288,10 +288,10 @@
 							</div>
 
 							<!-- Button Delete Scenario UAT -->
-							<a type='button' class='btn btn-danger btn-xs' data-toggle='modal' href="#modalDelScn<?php echo $row['no_scn']; ?>"><span class='glyphicon glyphicon-trash'></span></a></td>
+							<a type='button' class='btn btn-danger btn-xs' data-toggle='modal' href="#modalDelScn<?php echo $row['uat_id']; ?>"><span class='glyphicon glyphicon-trash'></span></a></td>
 
 							<!-- Modal Delete Scenario UAT -->
-							<div id="modalDelScn<?php echo $row['no_scn']; ?>" class="modal fade" role="dialog">
+							<div id="modalDelScn<?php echo $row['uat_id']; ?>" class="modal fade" role="dialog">
 								<div class="modal-dialog">
 									<!-- Modal content-->
 									<div class="modal-content">
@@ -306,8 +306,8 @@
 												<label type="text" id="scnToDel" name="scnToDel"><?php echo $row['uat_scn']; ?>?</label>
 												<br><br>
 												<div class="modal-footer">
-													<a class="btn btn-default btn-success" name="del" id="del" href="m-uat.php?del=x&id=<?php echo $row['no_scn']; ?>">Hapus</a>
-													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+													<a class="btn btn-default btn-success" name="del" id="del" href="m-uat.php?del=x&id=<?php echo $row['uat_id']; ?>"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 												</div>
 											</form>
 										</div>

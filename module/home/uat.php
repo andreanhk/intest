@@ -97,7 +97,7 @@
 	</nav>
 	
 	<div class="container container-fluid">
-		<h1>User Acceptance Test</h1><br>
+		<h1>User Acceptance Test</h1>
 	</div>
 	
 	<div class="container container-fluid">
@@ -119,8 +119,10 @@
 				$con->close();
 			?>
 		</select>
+	</div>
 		
-		<br><br>Deskripsi UAT: <label for="uatDesc" id="uatDesc"></label>
+	<div class="container container-fluid">
+		<br>Deskripsi UAT: <label for="uatDesc" id="uatDesc"></label>
 		
 		<br><br>
 		<table id="tableUAT" class="table table-hover text-center table-striped compact">

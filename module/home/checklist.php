@@ -88,7 +88,61 @@
 	</nav>
 	
 	<div class="container container-fluid">
-		<h1>Checklist</h1><br>
+		<h1>Checklist
+		<?php
+				if ($_SESSION['username']=="Admin")
+				{
+			?>
+			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
+			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modaladdba"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Checklist BA Baru</b></button>
+			
+			<!-- Modal Add User -->
+			<div id="modaladdba" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+				  <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Tambah Checklist BA Baru</h4>
+				  </div>
+				  <div class="modal-body"><h5>
+					<form action="" method="POST" name="form_addba">
+						<label>Kode business area:</label>
+						<?php
+							$con = mysqli_connect("localhost","root","","saptest");
+
+							$sql = "SELECT idba FROM m_ba";
+							$result = mysqli_query($con,$sql);
+
+							echo "<select name='idba'>";
+							while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
+							{
+								echo "<option value='$row[idba]'>$row[idba]</option>";
+							}
+							echo "</select>";
+						?>
+								<br><br>
+						<br><br>
+						<div class="modal-footer">
+							<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-ba.php"><span class="glyphicon glyphicon-floppy-disk"></span> Tambah</button>
+							<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
+						</div>
+					</form>
+				  </div>
+				  
+				</div>
+
+			  </div>
+			</div>
+			<?php
+				}
+				else
+				{
+					
+				}
+			?>
+		</h1>
 	</div>
 	
 	<div class="container container-fluid">

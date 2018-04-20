@@ -196,8 +196,8 @@
 								?>
 								<br><br>
 								<div class="modal-footer">
-									<a class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-uat-step.php">Tambah</a>
-									<a class="btn btn-default btn-danger" data-dismiss="modal">Batal</a>
+									<a class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-uat-step.php"><span class="glyphicon glyphicon-plus"></span> Tambah</a>
+									<a class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</a>
 								</div>
 							</form>
 						</div>
@@ -214,7 +214,7 @@
 				}
 			?>
 		</h1>
-	</div><br>
+	</div>
 	
 	<div class="container container-fluid">
 		<select id="select1" onchange="getval(this);" >     <!-- edit onChange event ini/edit javascript supaya include semua -->
@@ -234,7 +234,8 @@
 				
 				$con->close();
 			?>
-		</select><br /><br />
+		</select>
+	</div><br>
 	
 	<div class="container container-fluid">
 		<table id="tableStep" class="table table-hover text-center table-striped compact">
@@ -321,8 +322,8 @@
 												<label type="text" id="stepToDel" name="stepToDel"><?php echo $row['bp_step']; ?>?</label>
 												<br><br>
 												<div class="modal-footer">
-													<a class="btn btn-default btn-success" name="del" id="del" href="m-uat-step.php?del=x&id=<?php echo $row['id_step']; ?>">Hapus</a>
-													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+													<a class="btn btn-default btn-success" name="del" id="del" href="m-uat-step.php?del=x&id=<?php echo $row['id_step']; ?>"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 												</div>
 											</form>
 										</div>

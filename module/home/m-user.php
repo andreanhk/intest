@@ -201,8 +201,8 @@
 								?>
 								<br><br>
 								<div class="modal-footer">
-									<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-user.php">Tambah</button>
-									<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+									<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-user.php"><span class="glyphicon glyphicon-plus"></span> Tambah</button>
+									<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 								</div>
 							</form>
 						</div>
@@ -217,7 +217,7 @@
 				}
 			?>
 		</h1>
-	</div><br>
+	</div>
 	
 	<div class="container container-fluid">
 		<table id="tableUser" class="table table-hover text-center table-striped compact">
@@ -314,8 +314,8 @@
 												<label type="text" id="userToDel" name="userToDel"><?php echo $row['userid']; ?>?</label>
 												<br><br>
 												<div class="modal-footer">
-													<a class="btn btn-default btn-success" type="submit" name="delUser" id="delUser" method="POST" href="m-user.php?del=x&id=<?php echo $row['userid']; ?>">Hapus</a>
-													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+													<a class="btn btn-default btn-success" type="submit" name="delUser" id="delUser" method="POST" href="m-user.php?del=x&id=<?php echo $row['userid']; ?>"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 												</div>
 											</form>
 										</div>

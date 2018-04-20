@@ -205,8 +205,8 @@
 								?><br /><br />
 					  
 								<div class="modal-footer">
-									<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-check.php">Tambah</button>
-									<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+									<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-check.php"><span class="glyphicon glyphicon-plus"></span> Tambah</button>
+									<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 								</div>
 							</form>
 						</div>
@@ -221,7 +221,9 @@
 				}
 			?>
 		</h1>
+	</div>	
 		
+	<div class="container container-fluid">
 		<select id="select1" onChange="getval(this);">
 		<?php
 				$con = mysqli_connect("localhost","root","","saptest");
@@ -239,7 +241,6 @@
 				$con->close();
 			?>
 		</select>
-		
 	</div><br>
 	
 	<div class="container container-fluid">
@@ -346,8 +347,8 @@
 												<label type="text" id="checkToDel" name="checkToDel"><?php echo $row['ctypedesc']; ?>?</label>
 												<br><br>
 												<div class="modal-footer">
-													<a class="btn btn-default btn-success" type="submit" name="delCheck" c_id="delCheck" method="POST" href="m-check.php?del=x&c_id=<?php echo $row['c_id']; ?>">Hapus</a>
-													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+													<a class="btn btn-default btn-success" type="submit" name="delCheck" c_id="delCheck" method="POST" href="m-check.php?del=x&c_id=<?php echo $row['c_id']; ?>"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 												</div>
 											</form>
 										</div>

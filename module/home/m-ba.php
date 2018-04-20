@@ -170,8 +170,8 @@
 						
 						<br><br>
 						<div class="modal-footer">
-							<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-ba.php">Tambah</button>
-							<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+							<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-ba.php"><span class="glyphicon glyphicon-plus"></span> Tambah</button>
+							<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 						</div>
 					</form>
 				  </div>
@@ -188,7 +188,7 @@
 				}
 			?>
 		</h1>
-	</div><br>
+	</div>
 	
 	<div class="container container-fluid">
 		<table id="tableBA" class="table table-hover text-center table-striped compact">
@@ -253,8 +253,8 @@
 												?>
 												<br><br>
 												<div class="modal-footer">
-													<button class="btn btn-default btn-success" type="submit" name="editBA" id="editBA" action="m-ba.php?id=<?php echo $row['idba']; ?>">Simpan</button>
-													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+													<button class="btn btn-default btn-success" type="submit" name="editBA" id="editBA" action="m-ba.php?id=<?php echo $row['idba']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 												</div>
 											</form>
 										</div>
@@ -280,8 +280,8 @@
 												<label type="text" id="BAToDel" name="BAToDel"><?php echo $row['idba']; ?> <?php echo $row['nameba']; ?>?</label>
 												<br><br>
 												<div class="modal-footer">
-													<a class="btn btn-default btn-success" type="submit" name="delBA" id="delBA" method="POST" href="m-ba.php?delBA=x&idba=<?php echo $row['idba']; ?>">Hapus</a>
-													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+													<a class="btn btn-default btn-success" type="submit" name="delBA" id="delBA" method="POST" href="m-ba.php?delBA=x&idba=<?php echo $row['idba']; ?>"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 												</div>
 											</form>
 										</div>

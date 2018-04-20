@@ -170,8 +170,8 @@
 						
 						<br><br>
 						<div class="modal-footer">
-							<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-modul.php">Tambah</button>
-							<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+							<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-modul.php"><span class="glyphicon glyphicon-plus"></span> Tambah</button>
+							<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 						</div>
 					</form>
 				  </div>
@@ -188,7 +188,7 @@
 				}
 			?>
 		</h1>
-	</div><br>
+	</div>
 	
 	<div class="container container-fluid">
 		<table id="tableModul" class="table table-hover text-center table-striped compact">
@@ -253,8 +253,8 @@
 												?>
 												<br><br>
 												<div class="modal-footer">
-													<button class="btn btn-default btn-success" type="submit" name="editModul" id="editModul" action="m-modul.php?id=<?php echo $row['idmodul']; ?>">Simpan</button>
-													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+													<button class="btn btn-default btn-success" type="submit" name="editModul" id="editModul" action="m-modul.php?id=<?php echo $row['idmodul']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 												</div>
 											</form>
 										</div>
@@ -277,11 +277,11 @@
 										<div class="modal-body"><h5>
 											<form action="" method="POST" name="formDelmodul">
 												<label>Anda yakin akan menghapus Modul</label>
-												<label type="text" id="modulToDel" name="modulToDel"><?php echo $row['idmodul']; ?> <?php echo $row['namemodul']; ?>?</label>
+												<label type="text" id="modulToDel" name="modulToDel"><?php echo $row['idmodul']; ?> (<?php echo $row['namemodul']; ?>)?</label>
 												<br><br>
 												<div class="modal-footer">
-													<a class="btn btn-default btn-success" type="submit" name="delmodul" id="delmodul" method="POST" href="m-modul.php?delmodul=x&idmodul=<?php echo $row['idmodul']; ?>">Hapus</a>
-													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Batal</button>
+													<a class="btn btn-default btn-success" type="submit" name="delmodul" id="delmodul" method="POST" href="m-modul.php?delmodul=x&idmodul=<?php echo $row['idmodul']; ?>"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 												</div>
 											</form>
 										</div>
