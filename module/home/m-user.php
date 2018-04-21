@@ -117,6 +117,10 @@
 <link href="<?php echo $root; ?>assets/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="<?php echo $root; ?>assets/datatables/media/js/jquery.dataTables.min.js"></script>
 
+<!-- Bootstrap Select -->
+<link href="<?php echo $root; ?>assets/bs-select/css/bootstrap-select.min.css" rel="stylesheet">
+<script src="<?php echo $root; ?>assets/bs-select/js/bootstrap-select.min.js"></script>
+
 <body>
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
@@ -159,7 +163,7 @@
 	<div class="container container-fluid">
 		<h1>Master Data User 
 			<?php
-				if ($_SESSION['username']=="Admin" || $_SESSION['username']=="Andrean")
+				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
 				{
 			?>
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
@@ -186,16 +190,16 @@
 								<input type="password" id="new_pwduser" name="new_pwduser" class="form-control" placeholder="Password" required=""><br>
 								<label for="new_repeatpwd">Ulangi password:</label>
 								<input type="password" id="new_repeatpwd" name="new_repeatpwd" class="form-control" placeholder="Ulangi Password" required=""><br>
-								<label for="new_idmodul">Modul user:</label>
+								<label for="new_idmodul">Modul user:</label><br>
 								<?php
 									$con = mysqli_connect("localhost","root","","saptest");
 
 									$sql = "SELECT idmodul FROM m_modul";
 									$result = mysqli_query($con,$sql);
 
-									echo "<select name='idmodul'>";
+									echo "<select name='idmodul' class='selectpicker' title='Pilih Modul' data-width='auto'>";
 									while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
-										echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
+										echo "<option value='$row[idmodul]'>$row[idmodul]</option>";
 									}
 									echo "</select>";
 								?>
@@ -226,7 +230,7 @@
 					<td><b>ID Login</b></td>
 					<td><b>Nama User</b></td>
 					<td><b>Modul User</b></td>
-					<?php if ($_SESSION['username']=="Admin" || $_SESSION['username']=="Andrean") { ?>
+					<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") { ?>
 					<td class="col-md-1"></td>
 					<?php } else {} ?>
 				</tr>
@@ -245,7 +249,7 @@
 						echo "<td style:'border=1px solid black'>".$row['userlname']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['usermodul']."</td>";
 						
-						if ($_SESSION['username']=="Admin" || $_SESSION['username']=="Andrean")
+						if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
 						{
 			?>
 							<!-- Button Edit User -->
@@ -264,21 +268,21 @@
 										<div class="modal-body"><h5>
 											<form action="" method="POST" name="formEditUser">
 												<input type='hidden' name='userid' value='<?php echo $row['userid']; ?>' />
-												<label for="new_userlname">Edit nama:</label>
+												<label for="edit_userlname">Edit nama:</label>
 												<input type="text" id="edit_userlname" name="edit_userlname" class="form-control" value="<?php echo $row['userlname']; ?>" required=""><br>
-												<label for="new_pwduser">Edit password:</label>
+												<label for="edit_userpwd">Edit password:</label>
 												<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" value="<?php echo $row['userpwd']; ?>" required=""><br>
-												<label for="new_usermodul">Edit modul:</label>
+												<label for="new_usermodul">Edit modul:</label><br>
 												<?php
 													$con = mysqli_connect("localhost","root","","saptest");
 
 													$query = "SELECT idmodul FROM m_modul";
 													$result1 = mysqli_query($con,$query);
 
-													echo "<select name='edit_idmodul'>";
+													echo "<select name='edit_idmodul' class='selectpicker' title='Pilih Modul' data-width='auto'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 													{
-														echo "<option value='" . $row1['idmodul'] . "'>" . $row1['idmodul'] . "</option>";
+														echo "<option value='$row1[idmodul]'>$row1[idmodul]</option>";
 													}
 													echo "</select>";
 													

@@ -25,15 +25,13 @@
 
 		$scnname = mysqli_real_escape_string($con, $_POST['new_scnname']);
 		$scndesc = mysqli_real_escape_string($con, $_POST['new_scndesc']);
-		$scnNo = mysqli_real_escape_string($con, $_POST['new_scnNo']);
-		$scnmodul = mysqli_real_escape_string($con, $_POST['uat_modul']);
 		
-		$query = 'SELECT * FROM m_uat_scn WHERE uat_scn="'.$scnname.'" AND no_scn="'.$scnNo.'"';
+		$query = 'SELECT * FROM m_uat_scn WHERE uat_scn="'.$scnname.'"';
 		$result = mysqli_query($con,$query);
 		
 		if($result->num_rows == 0)
 		{
-			$query = 'INSERT INTO m_uat_scn(uat_scn, uat_desc, uat_modul, no_scn) VALUES ("'.$scnname.'","'.$scndesc.'","'.$scnmodul.'","'.$scnNo.'")';
+			$query = 'INSERT INTO m_uat_scn(uat_scn, uat_desc) VALUES ("'.$scnname.'","'.$scndesc.'")';
 			$result1 = mysqli_query($con,$query);
 			header("location:m-uat.php");
 		}
@@ -51,7 +49,7 @@
 		
 		$id = $_GET['id'];
 		
-		mysqli_query($con,"DELETE FROM m_uat_scn WHERE no_scn='".$id."'");
+		mysqli_query($con,"DELETE FROM m_uat_scn WHERE uat_id='".$id."'");
 		mysqli_close($con);
 		header("Location:m-uat.php");
 	}
@@ -63,9 +61,9 @@
 		$editscnname = mysqli_real_escape_string($con,$_POST['edit_scnname']);
 		$editscndesc = mysqli_real_escape_string($con,$_POST['edit_scndesc']);
 		
-		$id = mysqli_real_escape_string($con,$_POST['no_scn']);
+		$id = mysqli_real_escape_string($con,$_POST['uat_id']);
 		
-		if(!mysqli_query($con,"UPDATE m_uat_scn SET uat_scn='$editscnname',uat_desc='$editscndesc' WHERE no_scn='$id'"))
+		if(!mysqli_query($con,"UPDATE m_uat_scn SET uat_scn='$editscnname',uat_desc='$editscndesc' WHERE uat_id='$id'"))
 		{
 			echo mysqli_error($con);
 		}
@@ -106,6 +104,10 @@
 <!-- DataTables -->
 <link href="<?php echo $root; ?>assets/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="<?php echo $root; ?>assets/datatables/media/js/jquery.dataTables.min.js"></script>
+
+<!-- Bootstrap Select -->
+<link href="<?php echo $root; ?>assets/bs-select/css/bootstrap-select.min.css" rel="stylesheet">
+<script src="<?php echo $root; ?>assets/bs-select/js/bootstrap-select.min.js"></script>
 
 <!-- Fav Icon -->
 <link rel="icon" href="<?php echo $root; ?>assets/images/samator.ico" type="image/ico">
@@ -152,7 +154,7 @@
 	<div class="container container-fluid">
 		<h1>Master Data Skenario UAT
 		<?php
-				if ($_SESSION['username']=="Admin")
+				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
 				{
 			?>
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
@@ -175,23 +177,6 @@
 								<input type="text" id="new_scnname" name="new_scnname" class="form-control" placeholder="Contoh: Pembelian Bahan Baku" required="" autofocus=""><br>
 								<label for="new_scndesc">Deskripsi skenario:</label>
 								<input type="text" id="new_scndesc" name="new_scndesc" class="form-control" placeholder="Contoh: Tes Pembelian Bahan Baku dari Vendor" required=""><br>
-								<label for="new_scnNo">No. skenario:</label>
-								<input type="text" id="new_scnNo" name="new_scnNo" class="form-control" placeholder="Contoh: PP01" required=""><br>
-								<label for="new_scnmodul">Modul skenario:</label>
-								<?php
-									$con = mysqli_connect("localhost","root","","saptest");
-
-									$sql = "SELECT idmodul FROM m_modul";
-									$result = mysqli_query($con,$sql);
-
-									echo "<select name='uat_modul'>";
-									while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
-										echo "<option value='" . $row['idmodul'] . "'>" . $row['idmodul'] . "</option>";
-									}
-									echo "</select>";
-									
-									$con->close();
-								?>
 								<div class="modal-footer">
 									<button class="btn btn-default btn-success" type="submit" name="submit1" id="submit1" method="POST" action="m-uat.php"><span class="glyphicon glyphicon-plus"></span> Tambah</button>
 									<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
@@ -220,7 +205,9 @@
 					<!--<td><b>No. Skenario</b></td>-->
 					<td><b>Nama Skenario</b></td>
 					<td><b>Deskripsi Skenario</b></td>
+					<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") { ?>
 					<td class="col-md-1"></td>
+					<?php } else {} ?>
 				</tr>
 			</thead>
 			<tbody>
@@ -233,11 +220,9 @@
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					echo "<tr>";
-						//echo "<td style:'border=1px solid black'>".$row['uat_modul']."</td>";
-						//echo "<td style:'border=1px solid black'>".$row['no_scn']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['uat_scn']."</td>";
 						echo "<td style:'border=1px solid black' class='col-md-7'>".$row['uat_desc']."</td>";
-					if ($_SESSION['username']=="Admin")
+					if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
 						{
 			?>
 							<!-- Button Edit Scenario UAT -->
@@ -260,23 +245,6 @@
 												<input type="text" id="edit_scnname" name="edit_scnname" class="form-control" value="<?php echo $row['uat_scn']; ?>" required=""><br>
 												<label for="edit_scndesc">Edit deskripsi skenario:</label>
 												<input type="text" id="edit_scndesc" name="edit_scndesc" class="form-control" value="<?php echo $row['uat_desc']; ?>" required=""><br>
-												<label for="new_usermodul">Edit modul:</label>
-												<?php
-													$con = mysqli_connect("localhost","root","","saptest");
-
-													$query = "SELECT idmodul FROM m_modul";
-													$result1 = mysqli_query($con,$query);
-
-													echo "<select name='edit_idmodul'>";
-													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
-													{
-														echo "<option value='" . $row1['idmodul'] . "'>" . $row1['idmodul'] . "</option>";
-													}
-													echo "</select>";
-													
-													//$con->close();
-												?>
-												<br><br>
 												<div class="modal-footer">
 													<button class="btn btn-default btn-success" type="submit" name="editScn" id="editScn" action="m-uat.php?id=<?php echo $row['uat_id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
 													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>

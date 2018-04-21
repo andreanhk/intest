@@ -11,6 +11,29 @@
 	{
 		header("Location: login.php");
 	}
+	
+	if (isset($_POST['submit']))
+	{
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$idBA = mysqli_real_escape_string($con, $_POST['idba']);
+		
+		$query = 'SELECT * FROM m_uat_step t JOIN m_uat_scn c WHERE t.bp_step="'.$stepname.'" AND c.uat_scn="'.$stepscn.'"';
+		$result = mysqli_query($con,$query);
+		
+		if($result->num_rows == 0)
+		{
+			$query = 'INSERT INTO ';
+			$result1 = mysqli_query($con,$query);
+			header("location:checklist.php");
+		}
+		else
+		{
+			echo '<script language="javascript">';
+			echo 'alert("Checklist BA sudah ada!")';
+			echo '</script>';
+		}
+	}
 ?>
 
 <!DOCTYPE html>
@@ -45,8 +68,19 @@
 <link href="<?php echo $root; ?>assets/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="<?php echo $root; ?>assets/datatables/media/js/jquery.dataTables.min.js"></script>
 
+<!-- Bootstrap Select -->
+<link href="<?php echo $root; ?>assets/bs-select/css/bootstrap-select.min.css" rel="stylesheet">
+<script src="<?php echo $root; ?>assets/bs-select/js/bootstrap-select.min.js"></script>
+
 <!-- Fav Icon -->
 <link rel="icon" href="<?php echo $root; ?>assets/images/samator.ico" type="image/ico">
+
+<script type="text/javascript">
+	function getval(sel)
+	{
+		$('#nameBA').text(sel.value);
+	}
+</script>
 
 <body>
 	<nav class="navbar navbar-default">
@@ -90,14 +124,14 @@
 	<div class="container container-fluid">
 		<h1>Checklist
 		<?php
-				if ($_SESSION['username']=="Admin")
+				if ($_SESSION['modul']!="")
 				{
 			?>
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
-			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modaladdba"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Checklist BA Baru</b></button>
+			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modalAddCL"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Checklist BA Baru</b></button>
 			
 			<!-- Modal Add User -->
-			<div id="modaladdba" class="modal fade" role="dialog">
+			<div id="modalAddCL" class="modal fade" role="dialog">
 			  <div class="modal-dialog">
 
 				<!-- Modal content-->
@@ -107,25 +141,25 @@
 					<h4 class="modal-title">Tambah Checklist BA Baru</h4>
 				  </div>
 				  <div class="modal-body"><h5>
-					<form action="" method="POST" name="form_addba">
-						<label>Kode business area:</label>
+					<form action="" method="POST" name="form_addCL">
+						<label>Kode business area:</label><br>
 						<?php
 							$con = mysqli_connect("localhost","root","","saptest");
 
-							$sql = "SELECT idba FROM m_ba";
+							$sql = "SELECT * FROM m_ba";
 							$result = mysqli_query($con,$sql);
 
-							echo "<select name='idba'>";
+							echo "<select name='idba' class='selectpicker' title='Pilih BA' onchange='getval(this);'>";
 							while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 							{
-								echo "<option value='$row[idba]'>$row[idba]</option>";
+								echo "<option value='$row[nameba]'>$row[idba]</option>";
 							}
 							echo "</select>";
 						?>
-								<br><br>
-						<br><br>
+						<br><br>BA yang dipilih: <label for="nameBA" id="nameBA"></label><br><br>
+						
 						<div class="modal-footer">
-							<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-ba.php"><span class="glyphicon glyphicon-floppy-disk"></span> Tambah</button>
+							<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="checklist.php"><span class="glyphicon glyphicon-floppy-disk"></span> Tambah</button>
 							<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 						</div>
 					</form>
@@ -145,10 +179,32 @@
 		</h1>
 	</div>
 	
+	<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") { ?>
+	<div class="container container-fluid">
+		<select id="select1" onChange="getval(this);" class='selectpicker' title='Pilih Modul'>
+		<?php
+				$con = mysqli_connect("localhost","root","","saptest");
+
+				$sql = "SELECT idmodul FROM m_modul";
+				$result = mysqli_query($con,$sql);
+
+				while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
+				{
+					echo "<option value='$row[idmodul]'>$row[idmodul]</option>";
+					$idmodul = $_GET['idmodul'];
+				}
+				
+				$con->close();
+			?>
+		</select>
+	</div><br>
+	<?php } else {} ?>
+	
 	<div class="container container-fluid">
 		<table id="tableChecklist" class="table table-hover text-center table-striped compact">
 			<thead>
 				<tr>
+					<td><b>Modul</b></td>
 					<td><b>Custom Type</b></td>
 					<td><b>Custom Description</b></td>
 					<td><b>Tcode</b></td>
@@ -160,12 +216,20 @@
 			<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 
-				$query = "SELECT ctype,ctypedesc,ctcode,ctable,cstat FROM m_check";
+				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+				{
+					$query = "SELECT * FROM m_check";
+				}
+				else
+				{
+					$query = "SELECT * FROM m_check WHERE cmodul='$_SESSION[modul]'";
+				}
 				$result = mysqli_query($con,$query);
 
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					echo "<tr>";
+						echo "<td style:'border=1px solid black'>".$row['cmodul']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctype']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctypedesc']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctcode']."</td>";
@@ -182,9 +246,38 @@
 </body>
 
 <script>
+	var idxCols=0;
+	var cols=[];
+
 	$(document).ready( function () {
     $('#tableChecklist').DataTable( {
-		"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]]
+		
+		"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]],
+		
+		"columnDefs": [
+				{
+					"targets": [ 0 ],
+					"visible": false,
+				},
+			],
+		
+			initComplete: function () {
+				this.api().columns().every( function () {
+					cols.push(this);
+					idxCols++;
+				} );
+			}
+		} );
+		
+		$('#select1').on( 'change', function () {
+			column = cols[0];
+			var val = $.fn.dataTable.util.escapeRegex(
+				$(this).find(":selected").text()
+			);
+			
+			column
+				.search( val ? '^'+val+'$' : '', true, false )
+				.draw();
 		} );
 	} );
 </script>

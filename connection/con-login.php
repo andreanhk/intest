@@ -7,7 +7,7 @@
 	$password="";
 	$dbname="saptest";
 	
-	$con=new mysqli($servername,$username,$password,$dbname);
+	$con = new mysqli($servername,$username,$password,$dbname);
 	
 	if($con->connect_error)
 	{
@@ -19,7 +19,7 @@
 	$uname = mysqli_real_escape_string($con,$_POST["username"]);
 	$pass = mysqli_real_escape_string($con,$_POST["password"]);
 	
-	$query="SELECT * FROM user WHERE userid='".$uname."' AND BINARY userpwd= BINARY '".$pass."'";
+	$query = "SELECT * FROM user WHERE userid='".$uname."' AND BINARY userpwd= BINARY '".$pass."'";
 	
 	$result = mysqli_query($con,$query) or die(mysqli_error($con));
 	$count = mysqli_num_rows($result);

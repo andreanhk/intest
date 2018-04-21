@@ -100,6 +100,10 @@
 <link href="<?php echo $root; ?>assets/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="<?php echo $root; ?>assets/datatables/media/js/jquery.dataTables.min.js"></script>
 
+<!-- Bootstrap Select -->
+<link href="<?php echo $root; ?>assets/bs-select/css/bootstrap-select.min.css" rel="stylesheet">
+<script src="<?php echo $root; ?>assets/bs-select/js/bootstrap-select.min.js"></script>
+
 <!-- Fav Icon -->
 <link rel="icon" href="<?php echo $root; ?>assets/images/samator.ico" type="image/ico">
 
@@ -145,7 +149,7 @@
 	<div class="container container-fluid">
 		<h1>Master Data Modul
 			<?php
-				if ($_SESSION['username']=="Admin")
+				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
 				{
 			?>
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
@@ -196,7 +200,7 @@
 				<tr>
 					<td><b>ID Modul</b></td>
 					<td><b>Nama Modul</b></td>
-					<?php if ($_SESSION['username']=="Admin" || $_SESSION['username']=="Andrean") { ?>
+					<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") { ?>
 					<td class="col-md-1"></td>
 					<?php } else {} ?>
 				</tr>
@@ -213,7 +217,7 @@
 					echo "<tr>";
 						echo "<td style:'border=1px solid black'>".$row['idmodul']."</td>";
 						echo "<td style:'border=1px solid black>".$row['namemodul']."</td>";
-					if ($_SESSION['username']=="Admin")
+					if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
 						{
 			?>
 							<td><a class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditModul<?php echo $row['idmodul']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
@@ -233,24 +237,6 @@
 												<input type='hidden' name='idmodul' value='<?php echo $row['idmodul']; ?>' />
 												<label for="edit_namemodul">Edit nama modul:</label>
 												<input type="text" id="edit_namemodul" name="edit_namemodul" class="form-control" value="<?php echo $row['namemodul']; ?>" required=""><br>
-												<!--<label for="new_pwduser">Edit password:</label>
-												<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" placeholder="Password" required=""><br>
-												<label for="new_usermodul">Edit modul:</label>-->
-												<?php
-													/*$con = mysqli_connect("localhost","root","","saptest");
-
-													$query = "SELECT idmodul FROM m_modul";
-													$result1 = mysqli_query($con,$query);
-
-													echo "<select name='edit_idmodul'>";
-													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
-													{
-														echo "<option value='" . $row1['idmodul'] . "'>" . $row1['idmodul'] . "</option>";
-													}
-													echo "</select>";
-													
-													//$con->close();*/
-												?>
 												<br><br>
 												<div class="modal-footer">
 													<button class="btn btn-default btn-success" type="submit" name="editModul" id="editModul" action="m-modul.php?id=<?php echo $row['idmodul']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>

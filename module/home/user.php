@@ -24,7 +24,7 @@
 <!-- Meta Tags -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>Beranda</title>
+<title>Pengaturan</title>
 
 <!-- Mobile Specifics -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,6 +40,10 @@
 <!-- Javascript -->
 <script src="<?php echo $root; ?>assets/js/jquery.min.js"></script>
 <script src="<?php echo $root; ?>assets/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap Select -->
+<link href="<?php echo $root; ?>assets/bs-select/css/bootstrap-select.min.css" rel="stylesheet">
+<script src="<?php echo $root; ?>assets/bs-select/js/bootstrap-select.min.js"></script>
 
 <!-- Fav Icon -->
 <link rel="icon" href="<?php echo $root; ?>assets/images/samator.ico" type="image/ico">
@@ -83,10 +87,6 @@
 	  </div>
 	</nav>
 	
-	<div class="container container-fluid">
-		<h1>Dashboard Pengaturan User</h1>
-	</div>
-	
 	<?php
 		$con = mysqli_connect("localhost","root","","saptest");
 		
@@ -101,20 +101,62 @@
 			$result1 = mysqli_query($con,$query);
 			header("location:user.php");
 		}
-		else
-		{
-			
-		}
+		else {}
 	?>
 	
 	<div class="container container-fluid">
-		<label for="username">ID user:</label>
-		<label for="val_username"><?php echo $_SESSION['username']; ?></label><br />
-		<label for="username">Nama user:</label>
-		<label for="val_username"><?php echo $_SESSION['longname']; ?></label><br />
-		<label for="usermodul">Modul user:</label>
-		<label for="val_usermodul"><?php echo $_SESSION['modul']; ?></label><br />
-		<label for="userpwd">Password user:</label>
-		<label for="val_userpwd"><?php echo $_SESSION['userpwd']; ?></label><br />
+		<h1>Dashboard User</h1><br />
+		<p><span class="glyphicon glyphicon-chevron-right"></span> <label for="username">ID user: <?php echo $_SESSION['username']; ?></label><br /></p>
+		<p><span class="glyphicon glyphicon-chevron-right"></span> <label for="username">Nama user: <?php echo $_SESSION['longname']; ?></label><br /></p>
+		<p><span class="glyphicon glyphicon-chevron-right"></span> <label for="usermodul">Modul user: <?php echo $_SESSION['modul']; ?></label><br /></p>
+		<!-- Button Edit User -->
+							<td><a type='button' class='btn btn-info btn-lg' data-toggle='modal' href="#modalEditUser<?php echo $_SESSION['username']; ?>"><span class='glyphicon glyphicon-pencil'></span> <b>Edit user</b></a> 
+							
+							<!-- Modal Edit User -->
+							<div id="modalEditUser<?php echo $_SESSION['username']; ?>" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Edit User</h4>
+										</div>
+									  
+										<div class="modal-body"><h5>
+											<form action="" method="POST" name="formEditUser">
+												<input type='hidden' name='userid' value='<?php echo $_SESSION['username']; ?>' />
+												<label for="edit_userlname">Edit nama:</label>
+												<input type="text" id="edit_userlname" name="edit_userlname" class="form-control" value="<?php echo $_SESSION['longname']; ?>" required=""><br>
+												<label for="edit_userpwd">Edit password:</label>
+												<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" value="<?php echo $_SESSION['password']; ?>" required=""><br>
+												<label for="new_usermodul">Edit modul:</label><br>
+												<?php
+													$con = mysqli_connect("localhost","root","","saptest");
+
+													$query = "SELECT idmodul FROM m_modul";
+													$result1 = mysqli_query($con,$query);
+
+													echo "<select name='edit_idmodul' class='selectpicker' title='Pilih Modul' data-width='auto'>";
+													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
+													{
+														echo "<option value='$row1[idmodul]'>$row1[idmodul]</option>";
+													}
+													echo "</select>";
+													
+													//$con->close();
+												?>
+												<br><br>
+												<div class="modal-footer">
+													<button class="btn btn-default btn-success" type="submit" name="editUser" id="editUser" action="m-user.php?id=<?php echo $row['userid']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+		<hr />
+		<h1>Pengaturan Beranda</h1><br />
+		Put "VISIMISI" here to be edited/displayed
 	</div>
 </body>

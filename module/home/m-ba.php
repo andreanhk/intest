@@ -100,6 +100,10 @@
 <link href="<?php echo $root; ?>assets/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="<?php echo $root; ?>assets/datatables/media/js/jquery.dataTables.min.js"></script>
 
+<!-- Bootstrap Select -->
+<link href="<?php echo $root; ?>assets/bs-select/css/bootstrap-select.min.css" rel="stylesheet">
+<script src="<?php echo $root; ?>assets/bs-select/js/bootstrap-select.min.js"></script>
+
 <!-- Fav Icon -->
 <link rel="icon" href="<?php echo $root; ?>assets/images/samator.ico" type="image/ico">
 
@@ -145,7 +149,7 @@
 	<div class="container container-fluid">
 		<h1>Master Data Business Area
 			<?php
-				if ($_SESSION['username']=="Admin")
+				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
 				{
 			?>
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
@@ -196,7 +200,7 @@
 				<tr>
 					<td><b>Kode BA</b></td>
 					<td><b>Nama BA</b></td>
-					<?php if ($_SESSION['username']=="Admin" || $_SESSION['username']=="Andrean") { ?>
+					<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") { ?>
 					<td class="col-md-1"></td>
 					<?php } else {} ?>
 				</tr>
@@ -213,7 +217,7 @@
 					echo "<tr>";
 						echo "<td style:'border=1px solid black'>".$row['idba']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['nameba']."</td>";
-					if ($_SESSION['username']=="Admin")
+					if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
 						{
 			?>
 							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditBA<?php echo $row['idba']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
@@ -231,6 +235,7 @@
 										<div class="modal-body"><h5>
 											<form action="" method="POST" name="formEditBA">
 												<input type='hidden' name='idba' value='<?php echo $row['idba']; ?>' />
+												<label>Kode BA: <?php echo $row['idba']; ?></label><br>
 												<label for="edit_nameba">Edit nama BA:</label>
 												<input type="text" id="edit_nameba" name="edit_nameba" class="form-control" value="<?php echo $row['nameba']; ?>" required=""><br>
 												<!--<label for="new_pwduser">Edit password:</label>

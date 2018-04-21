@@ -48,6 +48,10 @@
 <link href="<?php echo $root; ?>assets/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="<?php echo $root; ?>assets/datatables/media/js/jquery.dataTables.min.js"></script>
 
+<!-- Bootstrap Select -->
+<link href="<?php echo $root; ?>assets/bs-select/css/bootstrap-select.min.css" rel="stylesheet">
+<script src="<?php echo $root; ?>assets/bs-select/js/bootstrap-select.min.js"></script>
+
 <script type="text/javascript">
 	function getval(sel)
 	{
@@ -101,14 +105,13 @@
 	</div>
 	
 	<div class="container container-fluid">
-		<select id="select1" onchange="getval(this);" >     <!-- edit onChange event ini/edit javascript supaya include semua -->
+		<select class="selectpicker" title="Pilih Skenario UAT" id="select1" onchange="getval(this);" >     <!-- edit onChange event ini/edit javascript supaya include semua -->
 			<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 				
 				$query = "SELECT uat_scn, uat_desc FROM m_uat_scn";
 				$result = mysqli_query($con,$query);
 				
-				echo "<option disabled selected value>-- Pilih Skenario UAT --</option>";
 				while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					
