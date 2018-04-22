@@ -18,12 +18,13 @@
 		
 		$idBA = mysqli_real_escape_string($con, $_POST['idba']);
 		
-		$query = 'SELECT * FROM m_uat_step t JOIN m_uat_scn c WHERE t.bp_step="'.$stepname.'" AND c.uat_scn="'.$stepscn.'"';
+		$query = "SELECT * FROM v_check WHERE vcba = $idBA";
+		echo $query;
 		$result = mysqli_query($con,$query);
 		
 		if($result->num_rows == 0)
 		{
-			$query = 'INSERT INTO ';
+			$query = "INSERT INTO v_check (ctype,ctypedesc,ctcode,ctable,cstat,cmodul,vcba) SELECT ctype,ctypedesc,ctcode,ctable,cstat,cmodul, $idBA as vcba FROM m_check";
 			$result1 = mysqli_query($con,$query);
 			header("location:checklist.php");
 		}
@@ -74,13 +75,6 @@
 
 <!-- Fav Icon -->
 <link rel="icon" href="<?php echo $root; ?>assets/images/samator.ico" type="image/ico">
-
-<script type="text/javascript">
-	function getval(sel)
-	{
-		$('#nameBA').text(sel.value);
-	}
-</script>
 
 <body>
 	<nav class="navbar navbar-default">
@@ -152,11 +146,10 @@
 							echo "<select name='idba' class='selectpicker' title='Pilih BA' onchange='getval(this);'>";
 							while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 							{
-								echo "<option value='$row[nameba]'>$row[idba]</option>";
+								echo "<option value='$row[idba]'>$row[idba] - $row[nameba]</option>";
 							}
 							echo "</select>";
-						?>
-						<br><br>BA yang dipilih: <label for="nameBA" id="nameBA"></label><br><br>
+						?><br /><br />
 						
 						<div class="modal-footer">
 							<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="checklist.php"><span class="glyphicon glyphicon-floppy-disk"></span> Tambah</button>
@@ -210,6 +203,11 @@
 					<td><b>Tcode</b></td>
 					<td><b>Table</b></td>
 					<td><b>Custom Status</b></td>
+					<td><b>V</b></td>
+					<td><b>BA</b></td>
+					<td><b>TR</b></td>
+					<td><b>Date</b></td>
+					<td><b>PIC</b></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -218,11 +216,11 @@
 
 				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
 				{
-					$query = "SELECT * FROM m_check";
+					$query = "SELECT * FROM v_check";
 				}
 				else
 				{
-					$query = "SELECT * FROM m_check WHERE cmodul='$_SESSION[modul]'";
+					$query = "SELECT * FROM v_check WHERE cmodul='$_SESSION[modul]'";
 				}
 				$result = mysqli_query($con,$query);
 
@@ -235,6 +233,11 @@
 						echo "<td style:'border=1px solid black'>".$row['ctcode']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctable']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['cstat']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['vcheck']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['vcba']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['vctransreqs']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['vcdate']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['vcpic']."</td>";
 					echo "</tr>";
 				}
 

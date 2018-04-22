@@ -166,10 +166,7 @@
 	<div class="container container-fluid">
 		<h1>Master Data Checklist
 			
-			<?php
-				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
-				{
-			?>
+			
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
 			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modalAddCheck"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Checklist</b></button>
 			
@@ -200,7 +197,7 @@
 								<?php
 									$con = mysqli_connect("localhost","root","","saptest");
 
-									if ($_SESSION['modul']="ABAP" || $_SESSION['modul']=="BASIS")
+									if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
 									{
 										$sql = "SELECT idmodul FROM m_modul";
 									}
@@ -229,13 +226,7 @@
 					</div>
 				</div>
 			</div>
-			<?php
-				}
-				else
-				{
-					
-				}
-			?>
+			
 		</h1>
 	</div>	
 		
