@@ -19,7 +19,6 @@
 		$idBA = mysqli_real_escape_string($con, $_POST['idba']);
 		
 		$query = "SELECT * FROM v_check WHERE vcba = $idBA";
-		echo $query;
 		$result = mysqli_query($con,$query);
 		
 		if($result->num_rows == 0)
@@ -203,11 +202,12 @@
 					<td><b>Tcode</b></td>
 					<td><b>Table</b></td>
 					<td><b>Custom Status</b></td>
-					<td><b>V</b></td>
+					<td><b><span class="glyphicon glyphicon-ok"></span></b></td>
 					<td><b>BA</b></td>
 					<td><b>TR</b></td>
 					<td><b>Date</b></td>
 					<td><b>PIC</b></td>
+					<td></td>
 				</tr>
 			</thead>
 			<tbody>
@@ -238,6 +238,60 @@
 						echo "<td style:'border=1px solid black'>".$row['vctransreqs']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['vcdate']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['vcpic']."</td>";
+			?>
+						<!-- Button Edit Checklist -->
+							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditCL<?php echo $row['id']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
+							
+							<!-- Modal Edit Checklist -->
+							<div id="modalEditCL<?php echo $row['id']; ?>" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Edit Checklist</h4>
+										</div>
+									  
+										<div class="modal-body"><h5>
+											<form action="" method="POST" name="formEditCheck">
+												<input type='hidden' name='c_id' value='<?php echo $row['id']; ?>' />
+												<label for="new_userlname"class="text-left">Edit tipe custom:</label>
+												<input type="text" id="edit_userlname" name="edit_ctype" class="form-control" value="<?php echo $row['ctype']; ?>" required=""><br>
+												<label for="edit_ctypedesc">Edit deskripsi custom:</label>
+												<input type="text" id="edit_ctypedesc" name="edit_ctypedesc" class="form-control" value="<?php echo $row['ctypedesc']; ?>" required=""><br>
+												<label for="edit_ctcode">Edit Tcode:</label>
+												<input type="text" id="edit_ctcode" name="edit_ctcode" class="form-control" value="<?php echo $row['ctcode']; ?>" required=""><br>
+												<label for="edit_ctable">Edit tabel custom:</label>
+												<input type="text" id="edit_ctable" name="edit_ctable" class="form-control" value="<?php echo $row['ctable']; ?>"><br>
+												<label for="edit_cstat">Edit status:</label>
+												<input type="text" id="edit_cstat" name="edit_cstat" class="form-control" value="<?php echo $row['cstat']; ?>" required=""><br>
+												<label for="edit_cmodul">Edit modul:</label><br>
+												<?php
+													$con = mysqli_connect("localhost","root","","saptest");
+
+													$query = "SELECT idmodul FROM m_modul";
+													$result1 = mysqli_query($con,$query);
+
+													echo "<select name='edit_cmodul' class='selectpicker' title='Pilih Modul' data-width='auto'>";
+													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
+													{
+														echo "<option value='$row1[idmodul]'>$row1[idmodul]</option>";
+													}
+													echo "</select>";
+													
+													//$con->close();
+												?>
+												<br><br>
+												<div class="modal-footer">
+													<button class="btn btn-default btn-success" type="submit" name="editCheck" c_id="editCheck" action="m-check.php?id=<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+			<?php
 					echo "</tr>";
 				}
 

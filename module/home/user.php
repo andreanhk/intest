@@ -105,12 +105,12 @@
 	?>
 	
 	<div class="container container-fluid">
-		<h1>Dashboard User</h1><br />
+		<h1><span class="glyphicon glyphicon-user"></span> Dasbor User</h1><br />
 		<p><span class="glyphicon glyphicon-chevron-right"></span> <label for="username">ID user: <?php echo $_SESSION['username']; ?></label><br /></p>
 		<p><span class="glyphicon glyphicon-chevron-right"></span> <label for="username">Nama user: <?php echo $_SESSION['longname']; ?></label><br /></p>
 		<p><span class="glyphicon glyphicon-chevron-right"></span> <label for="usermodul">Modul user: <?php echo $_SESSION['modul']; ?></label><br /></p>
 		<!-- Button Edit User -->
-							<td><a type='button' class='btn btn-info btn-lg' data-toggle='modal' href="#modalEditUser<?php echo $_SESSION['username']; ?>"><span class='glyphicon glyphicon-pencil'></span> <b>Edit user</b></a> 
+							<td><a type='button' class='btn btn-info btn-md' data-toggle='modal' href="#modalEditUser<?php echo $_SESSION['username']; ?>"><span class='glyphicon glyphicon-pencil'></span> <b>Edit user</b></a> 
 							
 							<!-- Modal Edit User -->
 							<div id="modalEditUser<?php echo $_SESSION['username']; ?>" class="modal fade" role="dialog">
@@ -156,7 +156,7 @@
 								</div>
 							</div>
 		<hr />
-		<h1>Pengaturan Beranda</h1><br />
+		<h1><span class="glyphicon glyphicon-home"></span> Dasbor Beranda</h1><br />
 		Put "VISIMISI" here to be edited/displayed
 	</div>
 </body>
