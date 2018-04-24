@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <?php
 	$root = "../../";
 	require "../template/setting.php";
@@ -34,9 +36,27 @@
 			echo '</script>';
 		}
 	}
+	
+	if (isset($_POST['editCL']))
+	{	
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$editvcheck = mysqli_real_escape_string($con,$_POST['edit_vcheck']);
+		$editvctr = mysqli_real_escape_string($con,$_POST['edit_vctransreqs']);
+		$editvcdate = mysqli_real_escape_string($con,$_POST['edit_vcdate']);
+		$editvcpic = mysqli_real_escape_string($con,$_POST['edit_vcpic']);
+		
+		$id = mysqli_real_escape_string($con,$_POST['id']);
+		
+		if(!mysqli_query($con,"UPDATE v_check SET vcheck='$editvcheck',vctransreqs='$editvctr',vcdate='$editvcdate',vcpic='$editvcpic' WHERE id='$id'"))
+		{
+			echo mysqli_error($con);
+		}
+		
+		mysqli_close($con);
+	}
 ?>
 
-<!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
 <!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
@@ -151,7 +171,7 @@
 						?><br /><br />
 						
 						<div class="modal-footer">
-							<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="checklist.php"><span class="glyphicon glyphicon-floppy-disk"></span> Tambah</button>
+							<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="checklist.php"><span class="glyphicon glyphicon-plus"></span> Tambah</button>
 							<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 						</div>
 					</form>
@@ -173,7 +193,7 @@
 	
 	<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") { ?>
 	<div class="container container-fluid">
-		<select id="select1" onChange="getval(this);" class='selectpicker' title='Pilih Modul'>
+		<select id="select1" class='selectpicker' title='Pilih Modul' data-width='auto'>
 		<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 
@@ -189,19 +209,41 @@
 				$con->close();
 			?>
 		</select>
+	
+	<?php } else {
+		?> <div class="container container-fluid">
+		<?php
+	} ?>
+	
+	
+		<select id="select2" class='selectpicker' title='Pilih BA' data-width='auto'>
+		<?php
+				$con = mysqli_connect("localhost","root","","saptest");
+
+				$sql = "SELECT * FROM m_ba ORDER BY idba ASC";
+				$result = mysqli_query($con,$sql);
+
+				while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
+				{
+					echo "<option value='$row[idba]'>$row[idba] - $row[nameba]</option>";
+					$idba = $_GET['idba'];
+				}
+				
+				$con->close();
+			?>
+		</select>
 	</div><br>
-	<?php } else {} ?>
 	
 	<div class="container container-fluid">
-		<table id="tableChecklist" class="table table-hover text-center table-striped compact">
+		<table id="tableChecklist" class="table table-hover text-center table-striped compact cell-border">
 			<thead>
 				<tr>
 					<td><b>Modul</b></td>
-					<td><b>Custom Type</b></td>
-					<td><b>Custom Description</b></td>
+					<td class="col-md-2"><b>Tipe Custom</b></td>
+					<td class="col-md-3"><b>Deskripsi Custom</b></td>
 					<td><b>Tcode</b></td>
-					<td><b>Table</b></td>
-					<td><b>Custom Status</b></td>
+					<td><b>Tabel</b></td>
+					<td><b>Status Custom</b></td>
 					<td><b><span class="glyphicon glyphicon-ok"></span></b></td>
 					<td><b>BA</b></td>
 					<td><b>TR</b></td>
@@ -236,7 +278,10 @@
 						echo "<td style:'border=1px solid black'>".$row['vcheck']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['vcba']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['vctransreqs']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['vcdate']."</td>";
+						$origDate = $row['vcdate'];
+						$newDate = date("d-m-Y", strtotime($origDate));
+						//echo "<td style:'border=1px solid black'>".$row['vcdate']."</td>";
+						echo "<td style:'border=1px solid black'>".$newDate."</td>";
 						echo "<td style:'border=1px solid black'>".$row['vcpic']."</td>";
 			?>
 						<!-- Button Edit Checklist -->
@@ -253,37 +298,42 @@
 										</div>
 									  
 										<div class="modal-body"><h5>
-											<form action="" method="POST" name="formEditCheck">
-												<input type='hidden' name='c_id' value='<?php echo $row['id']; ?>' />
-												<label for="new_userlname"class="text-left">Edit tipe custom:</label>
-												<input type="text" id="edit_userlname" name="edit_ctype" class="form-control" value="<?php echo $row['ctype']; ?>" required=""><br>
-												<label for="edit_ctypedesc">Edit deskripsi custom:</label>
-												<input type="text" id="edit_ctypedesc" name="edit_ctypedesc" class="form-control" value="<?php echo $row['ctypedesc']; ?>" required=""><br>
-												<label for="edit_ctcode">Edit Tcode:</label>
-												<input type="text" id="edit_ctcode" name="edit_ctcode" class="form-control" value="<?php echo $row['ctcode']; ?>" required=""><br>
-												<label for="edit_ctable">Edit tabel custom:</label>
-												<input type="text" id="edit_ctable" name="edit_ctable" class="form-control" value="<?php echo $row['ctable']; ?>"><br>
-												<label for="edit_cstat">Edit status:</label>
-												<input type="text" id="edit_cstat" name="edit_cstat" class="form-control" value="<?php echo $row['cstat']; ?>" required=""><br>
-												<label for="edit_cmodul">Edit modul:</label><br>
+											<form action="" method="POST" name="formEditCL" class="text-left">
+												<input type='hidden' name='id' value='<?php echo $row['id']; ?>' />
+												<label><span class="glyphicon glyphicon-tasks"></span> <?php echo $row['ctype']; ?>: <?php echo $row['ctypedesc'];?></label><br>
+												<label><span class="glyphicon glyphicon-briefcase"></span> Untuk BA: <?php echo $row['vcba']; ?></label><br><br>
+												<label for="edit_vcheck">Cek status custom?</label><br>
+												<?php
+													if ($row['vcheck']=="OK")
+													{
+														echo "<input type='radio' name='edit_vcheck' value='OK' checked> OK<br><input type='radio' name='edit_vcheck' value=' '> Belum<br><br>";
+													}
+													else
+													{
+														echo "<input type='radio' name='edit_vcheck' value='OK'> OK<br><input type='radio' name='edit_vcheck' value=' ' checked> Belum<br><br>";
+													}
+												?>
+												<label for="edit_vctransreqs">No. <i>Transport Request</i>:</label>
+												<input type="text" id="edit_vctransreqs" name="edit_vctransreqs" class="form-control" value="<?php echo $row['vctransreqs']; ?>"><br>
+												<label for="edit_vcdate">Tanggal cek:</label>
+												<input type="date" id="edit_vcdate" name="edit_vcdate" class="form-control" value="<?php echo $row['vcdate']; ?>"><br>
+												<label for="edit_vcpic">PIC:</label><br>
 												<?php
 													$con = mysqli_connect("localhost","root","","saptest");
 
-													$query = "SELECT idmodul FROM m_modul";
+													$query = "SELECT * FROM user";
 													$result1 = mysqli_query($con,$query);
 
-													echo "<select name='edit_cmodul' class='selectpicker' title='Pilih Modul' data-width='auto'>";
+													echo "<select name='edit_vcpic' class='selectpicker' title='Pilih User' data-width='auto'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
-													{
-														echo "<option value='$row1[idmodul]'>$row1[idmodul]</option>";
+														{
+														echo "<option value='$row1[userid]'>$row1[userid] - $row1[userlname]</option>";
 													}
 													echo "</select>";
-													
-													//$con->close();
 												?>
 												<br><br>
 												<div class="modal-footer">
-													<button class="btn btn-default btn-success" type="submit" name="editCheck" c_id="editCheck" action="m-check.php?id=<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
+													<button class="btn btn-default btn-success" type="submit" name="editCL" c_id="editCL" action="checklist.php?id=<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
 													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 												</div>
 											</form>
@@ -305,6 +355,7 @@
 <script>
 	var idxCols=0;
 	var cols=[];
+	var cols1=[];
 
 	$(document).ready( function () {
     $('#tableChecklist').DataTable( {
@@ -335,6 +386,20 @@
 			column
 				.search( val ? '^'+val+'$' : '', true, false )
 				.draw();
+				
+		} );
+		
+		$('#select2').on( 'change', function () {
+			column = cols[7];
+			console.log(column);
+			var val = $.fn.dataTable.util.escapeRegex(
+				$(this).find(":selected").val()
+			);
+			console.log(val	);
+			column
+				.search( val ? '^'+val+'$' : '', true, false )
+				.draw();
+				
 		} );
 	} );
 </script>

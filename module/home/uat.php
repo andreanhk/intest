@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <?php
 	$root = "../../";
 	require "../template/setting.php";
@@ -13,7 +15,7 @@
 	}
 ?>
 
-<!DOCTYPE html>
+
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
 <!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
@@ -105,7 +107,7 @@
 	</div>
 	
 	<div class="container container-fluid">
-		<select class="selectpicker" title="Pilih Skenario UAT" id="select1" onchange="getval(this);" >     <!-- edit onChange event ini/edit javascript supaya include semua -->
+		<select class="selectpicker" title="Pilih Skenario UAT" id="select1" onchange="getval(this);" data-width="auto">     <!-- edit onChange event ini/edit javascript supaya include semua -->
 			<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 				

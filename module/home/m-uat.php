@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <?php
 	$root = "../../";
 	require "../template/setting.php";
@@ -73,7 +75,7 @@
 	}
 ?>
 
-<!DOCTYPE html>
+
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
 <!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
@@ -239,7 +241,7 @@
 										</div>
 									  
 										<div class="modal-body"><h5>
-											<form action="" method="POST" name="formEditScn">
+											<form action="" method="POST" name="formEditScn" class="text-left">
 												<input type='hidden' name='no_scn' value='<?php echo $row['uat_id']; ?>' />
 												<label for="edit_scnname">Edit nama skenario:</label>
 												<input type="text" id="edit_scnname" name="edit_scnname" class="form-control" value="<?php echo $row['uat_scn']; ?>" required=""><br>

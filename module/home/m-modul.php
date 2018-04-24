@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <?php
 	$root = "../../";
 	require "../template/setting.php";
@@ -68,7 +70,7 @@
 	}
 ?>
 
-<!DOCTYPE html>
+
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
 <!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
@@ -233,7 +235,7 @@
 										</div>
 									  
 										<div class="modal-body"><h5>
-											<form action="" method="POST" name="formEditmodul">
+											<form action="" method="POST" name="formEditmodul" class="text-left">
 												<input type='hidden' name='idmodul' value='<?php echo $row['idmodul']; ?>' />
 												<label for="edit_namemodul">Edit nama modul:</label>
 												<input type="text" id="edit_namemodul" name="edit_namemodul" class="form-control" value="<?php echo $row['namemodul']; ?>" required=""><br>

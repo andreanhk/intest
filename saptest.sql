@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 21, 2018 at 09:31 PM
--- Server version: 10.1.30-MariaDB
+-- Generation Time: 24 Apr 2018 pada 19.50
+-- Versi Server: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `login_data`
+-- Struktur dari tabel `login_data`
 --
 
 CREATE TABLE `login_data` (
@@ -36,7 +36,7 @@ CREATE TABLE `login_data` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `login_data`
+-- Dumping data untuk tabel `login_data`
 --
 
 INSERT INTO `login_data` (`loginuid`, `loginuname`, `loginpwd`, `loginright`) VALUES
@@ -45,7 +45,7 @@ INSERT INTO `login_data` (`loginuid`, `loginuname`, `loginpwd`, `loginright`) VA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_ba`
+-- Struktur dari tabel `m_ba`
 --
 
 CREATE TABLE `m_ba` (
@@ -54,7 +54,7 @@ CREATE TABLE `m_ba` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `m_ba`
+-- Dumping data untuk tabel `m_ba`
 --
 
 INSERT INTO `m_ba` (`idba`, `nameba`) VALUES
@@ -65,16 +65,12 @@ INSERT INTO `m_ba` (`idba`, `nameba`) VALUES
 (3916, 'SGI Depo Sibolga'),
 (2072, 'AGI Manado'),
 (2073, 'AGI Ternate'),
-(2065, 'AGI Luwuk'),
-(5000, 'Samator Wase Gas'),
-(5020, 'Sandana Istana Multigas'),
-(5010, 'Sandana Mulia Gas'),
-(6000, 'Samabayu Mandala');
+(2065, 'AGI Luwuk');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_check`
+-- Struktur dari tabel `m_check`
 --
 
 CREATE TABLE `m_check` (
@@ -88,7 +84,7 @@ CREATE TABLE `m_check` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `m_check`
+-- Dumping data untuk tabel `m_check`
 --
 
 INSERT INTO `m_check` (`c_id`, `ctype`, `ctypedesc`, `ctcode`, `ctable`, `cstat`, `cmodul`) VALUES
@@ -100,7 +96,7 @@ INSERT INTO `m_check` (`c_id`, `ctype`, `ctypedesc`, `ctcode`, `ctable`, `cstat`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_modul`
+-- Struktur dari tabel `m_modul`
 --
 
 CREATE TABLE `m_modul` (
@@ -110,7 +106,7 @@ CREATE TABLE `m_modul` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `m_modul`
+-- Dumping data untuk tabel `m_modul`
 --
 
 INSERT INTO `m_modul` (`id`, `idmodul`, `namemodul`) VALUES
@@ -126,7 +122,7 @@ INSERT INTO `m_modul` (`id`, `idmodul`, `namemodul`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_uat_scn`
+-- Struktur dari tabel `m_uat_scn`
 --
 
 CREATE TABLE `m_uat_scn` (
@@ -136,7 +132,7 @@ CREATE TABLE `m_uat_scn` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `m_uat_scn`
+-- Dumping data untuk tabel `m_uat_scn`
 --
 
 INSERT INTO `m_uat_scn` (`uat_id`, `uat_scn`, `uat_desc`) VALUES
@@ -148,7 +144,7 @@ INSERT INTO `m_uat_scn` (`uat_id`, `uat_scn`, `uat_desc`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `m_uat_step`
+-- Struktur dari tabel `m_uat_step`
 --
 
 CREATE TABLE `m_uat_step` (
@@ -161,7 +157,7 @@ CREATE TABLE `m_uat_step` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `m_uat_step`
+-- Dumping data untuk tabel `m_uat_step`
 --
 
 INSERT INTO `m_uat_step` (`id_step`, `uat_scn`, `no_step`, `bp_step`, `tcode_step`, `user_step`) VALUES
@@ -205,7 +201,7 @@ INSERT INTO `m_uat_step` (`id_step`, `uat_scn`, `no_step`, `bp_step`, `tcode_ste
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `user`
 --
 
 CREATE TABLE `user` (
@@ -217,7 +213,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user`
+-- Dumping data untuk tabel `user`
 --
 
 INSERT INTO `user` (`userno`, `userid`, `userpwd`, `userlname`, `usermodul`) VALUES
@@ -233,7 +229,7 @@ INSERT INTO `user` (`userno`, `userid`, `userpwd`, `userlname`, `usermodul`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `v_check`
+-- Struktur dari tabel `v_check`
 --
 
 CREATE TABLE `v_check` (
@@ -244,17 +240,27 @@ CREATE TABLE `v_check` (
   `ctable` varchar(45) DEFAULT NULL,
   `cstat` varchar(45) NOT NULL,
   `cmodul` varchar(45) NOT NULL,
-  `vcheck` varchar(45) NOT NULL,
-  `vcba` varchar(45) NOT NULL,
-  `vctransreqs` varchar(45) NOT NULL,
-  `vcdate` date NOT NULL,
-  `vcpic` varchar(45) NOT NULL
+  `vcheck` varchar(45) DEFAULT NULL,
+  `vcba` int(11) NOT NULL,
+  `vctransreqs` varchar(45) DEFAULT NULL,
+  `vcdate` date DEFAULT NULL,
+  `vcpic` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `v_check`
+--
+
+INSERT INTO `v_check` (`id`, `ctype`, `ctypedesc`, `ctcode`, `ctable`, `cstat`, `cmodul`, `vcheck`, `vcba`, `vctransreqs`, `vcdate`, `vcpic`) VALUES
+(15, 'Enterprise Structure', 'Define BA', 'SPRO', 'V_TGSB', 'Create', 'FICO', 'OK', 1000, 'SMDK900000', '2018-04-24', 'Andrean'),
+(16, 'Enterprise Structure', 'Assign Business Area to Consolidation Business Area', 'SPRO', 'V_GSB_A', 'Check', 'FICO', '', 1000, '', '0000-00-00', ''),
+(17, 'Financial Accounting (Bank Accounting)', 'Set Up Cash Journal', 'FBCJC0', '', 'Create', 'FICO', NULL, 1000, NULL, NULL, NULL),
+(18, 'Financial Accounting (Bank Accounting)', 'Define House Banks', 'F112', '', 'Create', 'FICO', NULL, 1000, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `v_uat`
+-- Struktur dari tabel `v_uat`
 --
 
 CREATE TABLE `v_uat` (
@@ -265,10 +271,10 @@ CREATE TABLE `v_uat` (
   `tcode_step` varchar(45) NOT NULL,
   `user_step` varchar(45) NOT NULL,
   `vuba` varchar(45) NOT NULL,
-  `vuinput` varchar(45) NOT NULL,
-  `vuoutput` varchar(45) NOT NULL,
-  `vupic` varchar(45) NOT NULL,
-  `vudate` varchar(45) NOT NULL
+  `vuinput` varchar(45) DEFAULT NULL,
+  `vuoutput` varchar(45) DEFAULT NULL,
+  `vupic` varchar(45) DEFAULT NULL,
+  `vudate` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -349,7 +355,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `v_check`
 --
 ALTER TABLE `v_check`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `v_uat`

@@ -23,3 +23,11 @@ INSERT INTO TARGET_TABLE (`col1`,`col2`) SELECT `col1`,`col2` FROM SOURCE_TABLE;
 - bisa ubah visi misi di home -ONTHEWAY
 - pertimbangkan delete sebagai flagged not shown, bukan delete record sesungguhnya -BELUM BUAT COLUMN KHUSUS
 - kesesuaian bahasa yg digunakan (masih campur aduk) -DATATABLE BLM BISA DIUBAH KE BHS.INDONESIA
+
+-----
+
+- integrasi dengan sissup -BLM ADA RENCANA/SELESAIKAN PROGRES WEB UTAMA DL
+- tambah tanggal live di master ba -ONTHEWAY
+- sort hasil dropdown yg memerlukan sorting, misal sort BA scr ascending, sort modul scr ascending -OK
+- fitur filter/search dropdown 2 buah, contoh by modul dan by BA -OK
+- update checklist/uat jika ditambahkan entry baru di masternya -BLM (mySQL Transaction)
