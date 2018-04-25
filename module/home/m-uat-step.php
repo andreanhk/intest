@@ -244,7 +244,7 @@
 	</div><br>
 	
 	<div class="container container-fluid">
-		<table id="tableStep" class="table table-hover text-center table-striped compact">
+		<table id="tableStep" class="table table-hover text-center table-striped compact cell-border">
 			<thead>
 				<tr>
 					<!--<td><b>Modul</b></td>-->
@@ -360,6 +360,7 @@
 								
 	$(document).ready(function() {
 		$('#tableStep').DataTable( {
+			stateSave: true,
 			"order": [[ 1, "asc" ]],
 			"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]],
 			

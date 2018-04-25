@@ -197,7 +197,7 @@
 	</div>
 	
 	<div class="container container-fluid">
-		<table id="tableBA" class="table table-hover text-center table-striped compact">
+		<table id="tableBA" class="table table-hover text-center table-striped compact cell-border">
 			<thead>
 				<tr>
 					<td><b>Kode BA</b></td>
@@ -313,6 +313,7 @@
 <script>
 	$(document).ready( function () {
     $('#tableBA').DataTable( {
+		stateSave: true,
 		"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]]
 		} );
 	} );

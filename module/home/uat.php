@@ -13,8 +13,50 @@
 	{
 		header("Location: login.php");
 	}
+	
+	if (isset($_POST['submit']))
+	{
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$idBA = mysqli_real_escape_string($con, $_POST['idba']);
+		$uatScn = mysqli_real_escape_string($con, $_POST['uat_scn']);
+		
+		$query = "SELECT * FROM v_uat WHERE vuba = $idBA AND uat_scn = $uatScn";
+		$result = mysqli_query($con,$query);
+		
+		if($result->num_rows == 0)
+		{
+			$query = "INSERT INTO v_uat (uat_scn,no_step,bp_step,tcode_step,user_step,vuba) SELECT uat_scn,no_step,bp_step,tcode_step,user_step, $idBA as vuba FROM m_uat_step WHERE uat_scn = '$uatScn'";
+			mysqli_query($con,$query);
+			header("location:uat.php");
+		}
+		else
+		{
+			echo '<script language="javascript">';
+			echo 'alert("Skenario UAT sudah ada!")';
+			echo '</script>';
+		}
+	}
+	
+	if (isset($_POST['editUAT']))
+	{	
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$editvuin = mysqli_real_escape_string($con,$_POST['edit_vuinput']);
+		$editvuout = mysqli_real_escape_string($con,$_POST['edit_vuoutput']);
+		$editvudate = mysqli_real_escape_string($con,$_POST['edit_vudate']);
+		$editvupic = mysqli_real_escape_string($con,$_POST['edit_vupic']);
+		
+		$id = mysqli_real_escape_string($con,$_POST['id']);
+		
+		if(!mysqli_query($con,"UPDATE v_uat SET vuinput='$editvuin',vuoutput='$editvuout',vudate='$editvudate',vupic='$editvupic' WHERE id='$id'"))
+		{
+			echo mysqli_error($con);
+		}
+		
+		mysqli_close($con);
+	}
 ?>
-
 
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
@@ -103,7 +145,64 @@
 	</nav>
 	
 	<div class="container container-fluid">
-		<h1>User Acceptance Test</h1>
+		<h1>User Acceptance Test
+		
+		<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
+			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modalAddUAT"><span class="glyphicon glyphicon-plus"></span> <b>Tambah UAT Baru</b></button>
+			
+			<!-- Modal Add User -->
+			<div id="modalAddUAT" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Tambah UAT Baru</h4>
+						</div>
+						
+						<div class="modal-body"><h5>
+							<form action="" method="POST" name="form_addUAT">
+								<label for="idba">Kode business area:</label><br>
+								<?php
+									$con = mysqli_connect("localhost","root","","saptest");
+
+									$sql = "SELECT * FROM m_ba";
+									$result = mysqli_query($con,$sql);
+
+									echo "<select name='idba' class='selectpicker' title='Pilih BA'>";
+									while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
+									{
+										echo "<option value='$row[idba]'>$row[idba] - $row[nameba]</option>";
+									}
+									echo "</select>";
+									$con->close();
+								?><br /><br />
+								<label for="uat_scn">Skenario UAT:</label><br>
+								<?php
+									$con = mysqli_connect("localhost","root","","saptest");
+
+									$sql1 = "SELECT * FROM m_uat_scn";
+									$result1 = mysqli_query($con,$sql1);
+
+									echo "<select name='uat_scn' class='selectpicker' title='Pilih Skenario UAT'>";
+									while ($row = mysqli_fetch_array($result1,MYSQLI_ASSOC))
+									{
+										echo "<option value='$row[uat_scn]'>$row[uat_scn]</option>";
+									}
+									echo "</select>";
+									$con->close();
+								?><br /><br />
+								<div class="modal-footer">
+									<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="uat.php"><span class="glyphicon glyphicon-plus"></span> Tambah</button>
+									<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h1>
 	</div>
 	
 	<div class="container container-fluid">
@@ -124,28 +223,50 @@
 				$con->close();
 			?>
 		</select>
+		
+		<select id="select2" class='selectpicker' title='Pilih Business Area' data-width='auto'>
+		<?php
+				$con = mysqli_connect("localhost","root","","saptest");
+
+				$sql = "SELECT * FROM m_ba ORDER BY idba ASC";
+				$result = mysqli_query($con,$sql);
+
+				while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
+				{
+					echo "<option value='$row[idba]'>$row[idba] - $row[nameba]</option>";
+					$idba = $_GET['idba'];
+				}
+				
+				$con->close();
+			?>
+		</select>
 	</div>
 		
 	<div class="container container-fluid">
 		<br>Deskripsi UAT: <label for="uatDesc" id="uatDesc"></label>
 		
 		<br><br>
-		<table id="tableUAT" class="table table-hover text-center table-striped compact">
+		<table id="tableUAT" class="table table-hover text-center table-striped compact cell-border">
 			<thead>
 				<tr>
 					<th class="text-center"><b>No. Step</b></th>
-					<th class="text-center"><b>Skenario</b></th>
-					<th class="text-center"><b>Deskripsi Skenario</b></th>
-					<th class="text-center"><b>Deskripsi Step</b></th>
+					<th class="text-center col-md-2 col-lg-2"><b>Skenario</b></th>
+					<th class="text-center col-md-2 col-lg-2"><b>Deskripsi Step</b></th>
 					<th class="text-center"><b>Tcode</b></th>
-					<th class="text-center"><b>User</b></th>
+					<th class="text-center col-md-1 col-lg-1"><b>User</b></th>
+					<th class="text-center"><b>BA</b></th>
+					<th class="text-center"><b>Input</b></th>
+					<th class="text-center"><b>Output</b></th>
+					<th class="text-center"><b>PIC</b></th>
+					<th class="text-center col-md-1 col-lg-1"><b>Run Date</b></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
 			<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 
-				$query = "SELECT * FROM m_uat_scn c JOIN m_uat_step t ON c.uat_scn = t.uat_scn";
+				$query = "SELECT * FROM v_uat";
 				$result = mysqli_query($con,$query);
 
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
@@ -153,10 +274,66 @@
 					echo "<tr>";
 						echo "<td style:'border=1px solid black'>".$row['no_step']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['uat_scn']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['uat_desc']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['bp_step']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['tcode_step']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['user_step']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['vuba']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['vuinput']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['vuoutput']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['vupic']."</td>";
+						$origDate = $row['vudate'];
+						$newDate = date("d-m-Y", strtotime($origDate));
+						echo "<td style:'border=1px solid black'>".$newDate."</td>";
+						?>
+						<!-- Button Edit Checklist -->
+							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditUAT<?php echo $row['id']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
+							
+							<!-- Modal Edit Checklist -->
+							<div id="modalEditUAT<?php echo $row['id']; ?>" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Edit Step UAT</h4>
+										</div>
+									  
+										<div class="modal-body"><h5>
+											<form action="" method="POST" name="formEditUAT" class="text-left">
+												<input type='hidden' name='id' value='<?php echo $row['id']; ?>' />
+												<label><span class="glyphicon glyphicon-tasks"></span> <?php echo $row['uat_scn']; ?>: <?php echo $row['bp_step'];?></label><br>
+												<label><span class="glyphicon glyphicon-briefcase"></span> Untuk BA: <?php echo $row['vuba']; ?></label><br><br>
+												<label for="edit_vuinput">Input Data/<i>Special Information</i>:</label>
+												<input type="text" id="edit_vuinput" name="edit_vuinput" class="form-control" value="<?php echo $row['vuinput']; ?>"><br>
+												<label for="edit_vuoutput">Output Data/<i>Result</i>:</label>
+												<input type="text" id="edit_vuoutput" name="edit_vuoutput" class="form-control" value="<?php echo $row['vuoutput']; ?>"><br>
+												<label for="edit_vcdate">Tanggal run:</label>
+												<input type="date" id="edit_vudate" name="edit_vudate" class="form-control" value="<?php echo $row['vudate']; ?>"><br>
+												<label for="edit_vupic">PIC:</label><br>
+												<?php
+													$con = mysqli_connect("localhost","root","","saptest");
+
+													$query = "SELECT * FROM user";
+													$result1 = mysqli_query($con,$query);
+
+													echo "<select name='edit_vupic' class='selectpicker' title='Pilih User' data-width='auto'>";
+													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
+														{
+														echo "<option value='$row1[userid]'>$row1[userid] - $row1[userlname]</option>";
+													}
+													echo "</select>";
+												?>
+												<br><br>
+												<div class="modal-footer">
+													<button class="btn btn-default btn-success" type="submit" name="editUAT" id="editUAT" action="uat.php?id=<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+			<?php
 					echo "</tr>";
 				}
 
@@ -174,16 +351,12 @@
 								
 	$(document).ready(function() {
 		$('#tableUAT').DataTable( {
-			
+			stateSave: true,
 			"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]],
 			
 			"columnDefs": [
 				{
 					"targets": [ 1 ],
-					"visible": false,
-				},
-				{
-					"targets": [ 2 ],
 					"visible": false,
 				}
 			],
@@ -192,24 +365,6 @@
 				this.api().columns().every( function () {
 					cols.push(this);
 					idxCols++;
-					/*var column = this;
-					var select = $('<select><option value=""></option></select>')
-						.appendTo( $(column.header()) )
-						.on( 'change', function () {
-							var val = $.fn.dataTable.util.escapeRegex(
-								$(this).val()
-							);
-						
-						console.log($(this).val());
-	 
-							column
-								.search( val ? '^'+val+'$' : '', true, false )
-								.draw();
-						} );
-	 
-					column.data().unique().sort().each( function ( d, j ) {
-						select.append( '<option value="'+d+'">'+d+'</option>' )
-					} );*/
 				} );
 			}
 		} );
@@ -223,6 +378,19 @@
 			column
 				.search( val ? '^'+val+'$' : '', true, false )
 				.draw();
+		} );
+		
+		$('#select2').on( 'change', function () {
+			column = cols[5];
+			console.log(column);
+			var val = $.fn.dataTable.util.escapeRegex(
+				$(this).find(":selected").val()
+			);
+			console.log(val	);
+			column
+				.search( val ? '^'+val+'$' : '', true, false )
+				.draw();
+				
 		} );
 	} );
 </script>

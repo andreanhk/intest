@@ -136,10 +136,7 @@
 	
 	<div class="container container-fluid">
 		<h1>Checklist
-		<?php
-				if ($_SESSION['modul']!="")
-				{
-			?>
+		
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
 			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modalAddCL"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Checklist BA Baru</b></button>
 			
@@ -181,13 +178,7 @@
 
 			  </div>
 			</div>
-			<?php
-				}
-				else
-				{
-					
-				}
-			?>
+			
 		</h1>
 	</div>
 	
@@ -216,7 +207,7 @@
 	} ?>
 	
 	
-		<select id="select2" class='selectpicker' title='Pilih BA' data-width='auto'>
+		<select id="select2" class='selectpicker' title='Pilih Business Area' data-width='auto'>
 		<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 
@@ -359,7 +350,7 @@
 
 	$(document).ready( function () {
     $('#tableChecklist').DataTable( {
-		
+		stateSave: true,
 		"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]],
 		
 		"columnDefs": [

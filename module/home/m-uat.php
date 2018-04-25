@@ -200,7 +200,7 @@
 	</div>
 	
 	<div class="container container-fluid">
-		<table id="tableMUAT" class="table table-hover text-center table-striped compact">
+		<table id="tableMUAT" class="table table-hover text-center table-striped compact cell-border">
 			<thead>
 				<tr>
 					<!--<td><b>Modul</b></td>-->
@@ -303,6 +303,7 @@
 <script>
 	$(document).ready( function () {
     $('#tableMUAT').DataTable( {
+		stateSave: true,
 		"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]]
 		} );
 	} );

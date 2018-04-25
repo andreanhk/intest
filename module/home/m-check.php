@@ -256,7 +256,7 @@
 	
 	
 	<div class="container container-fluid">
-		<table id="tableMCheck" class="table table-hover text-center table-striped compact">
+		<table id="tableMCheck" class="table table-hover text-center table-striped compact cell-border">
 			<thead>
 				<tr>
 					<td><b>Modul</b></td>
@@ -398,7 +398,7 @@
 
 	$(document).ready( function () {
     $('#tableMCheck').DataTable( {
-		
+		stateSave: true,
 		"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]],
 		
 		"columnDefs": [
