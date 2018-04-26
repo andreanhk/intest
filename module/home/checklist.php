@@ -156,7 +156,7 @@
 						<?php
 							$con = mysqli_connect("localhost","root","","saptest");
 
-							$sql = "SELECT * FROM m_ba";
+							$sql = "SELECT * FROM m_ba  ORDER BY idba ASC";
 							$result = mysqli_query($con,$sql);
 
 							echo "<select name='idba' class='selectpicker' title='Pilih BA' onchange='getval(this);'>";

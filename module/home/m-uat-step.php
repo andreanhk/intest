@@ -29,14 +29,14 @@
 		$stepname = mysqli_real_escape_string($con, $_POST['new_stepname']);
 		$steptcode = mysqli_real_escape_string($con, $_POST['new_steptcode']);
 		$stepuser = mysqli_real_escape_string($con, $_POST['new_stepuser']);
-		$stepscn = mysqli_real_escape_string($con, $_POST['new_stepscn']);
+		$stepscn = mysqli_real_escape_string($con, $_POST['uat_scn']);
 		
-		$query = 'SELECT * FROM m_uat_step t JOIN m_uat_scn c WHERE t.bp_step="'.$stepname.'" AND c.uat_scn="'.$stepscn.'"';  //Coba JOIN 2 tabel untuk insert value PP02 di table step -> cek value dari tabel scn
+		$query = 'SELECT * FROM m_uat_step WHERE bp_step="'.$stepname.'" AND uat_scn="'.$stepscn.'"';  //Coba JOIN 2 tabel untuk insert value PP02 di table step -> cek value dari tabel scn
 		$result = mysqli_query($con,$query);
 		
 		if($result->num_rows == 0)
 		{
-			$query = 'INSERT INTO m_uat_step(bp_step, tcode_step, user_step) VALUES ("'.$stepname.'","'.$steptcode.'","'.$stepuser.'")';
+			$query = 'INSERT INTO m_uat_step(uat_scn, bp_step, tcode_step, user_step) VALUES ("'.$stepscn.'","'.$stepname.'","'.$steptcode.'","'.$stepuser.'")';
 			$result1 = mysqli_query($con,$query);
 			header("location:m-uat-step.php");
 		}
@@ -184,7 +184,7 @@
 								<input type="text" id="new_steptcode" name="new_steptcode" class="form-control" placeholder="Contoh: VA01" required=""><br>
 								<label for="new_stepuser">User step:</label>
 								<input type="text" id="new_stepuser" name="new_stepuser" class="form-control" placeholder="Contoh: Sales Counter" required=""><br>
-								<label for="new_stepscn">Skenario step:</label><br />
+								<label for="uat_scn">Skenario step:</label><br />
 								<?php
 									$con = mysqli_connect("localhost","root","","saptest");
 
@@ -202,7 +202,7 @@
 								?>
 								<br><br>
 								<div class="modal-footer">
-									<a class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-uat-step.php"><span class="glyphicon glyphicon-plus"></span> Tambah</a>
+									<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-uat-step.php"><span class="glyphicon glyphicon-plus"></span> Tambah</button>
 									<a class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</a>
 								</div>
 							</form>
