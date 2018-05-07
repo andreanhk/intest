@@ -58,8 +58,8 @@
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Master
 				<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="<?php echo $root; ?>module/home/m-user.php">User</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-modul.php">Modul</a></li>
+					<li><a href="<?php echo $root; ?>module/home/m-user.php">User</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-ba.php">Business Area</a></li>
 					<li><a href="<?php echo $root; ?>module/home/m-check.php">Checklist</a></li>
 					<li role="separator" class="divider"></li>
