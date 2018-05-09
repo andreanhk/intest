@@ -38,7 +38,7 @@
 		{
 			$query = 'INSERT INTO m_uat_step(uat_scn, bp_step, tcode_step, user_step) VALUES ("'.$stepscn.'","'.$stepname.'","'.$steptcode.'","'.$stepuser.'")';
 			$result1 = mysqli_query($con,$query);
-			header("location:m-uat-step.php");
+			header("location:m-uat-step.php?submit=1");
 		}
 		else
 		{
@@ -164,7 +164,7 @@
 				{
 			?>
 			
-			<a class="btn btn-success text-right pull-right" data-toggle="modal" data-target="#modaladd_uatstep"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Step</b></a>
+			<a id="btn_tambahstep" class="btn btn-success text-right pull-right" data-toggle="modal" data-target="#modaladd_uatstep"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Step</b></a>
 			
 			<!-- Modal Add Step Baru -->
 			<div id="modaladd_uatstep" class="modal fade" role="dialog">
@@ -177,7 +177,7 @@
 							<h4 class="modal-title">Tambah Step UAT Baru</h4>
 						</div>
 						<div class="modal-body"><h5>
-							<form action="" method="POST" name="form_addstep">
+							<form action="m-uat-step.php" method="POST" name="form_addstep">
 								<label for="new_stepname">Nama step:</label>
 								<input type="text" id="new_stepname" name="new_stepname" class="form-control" placeholder="Contoh: Buat Sales Order" required="" autofocus=""><br>
 								<label for="new_steptcode">Tcode step:</label>
@@ -202,7 +202,7 @@
 								?>
 								<br><br>
 								<div class="modal-footer">
-									<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-uat-step.php"><span class="glyphicon glyphicon-plus"></span> Tambah</button>
+									<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST"><span class="glyphicon glyphicon-plus"></span> Tambah</button>
 									<a class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</a>
 								</div>
 							</form>
@@ -382,5 +382,20 @@
 				.search( val ? '^'+val+'$' : '', true, false )
 				.draw();
 		} );
-	} );
+				
+		var flag = getParameterByName('submit');
+		if (flag == "1") {
+			$("#btn_tambahstep").click();
+		}
+		} );
+		
+	function getParameterByName(name, url) {
+		if (!url) url = window.location.href;
+		name = name.replace(/[\[\]]/g, "\\$&");
+		var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+			results = regex.exec(url);
+		if (!results) return null;
+		if (!results[2]) return '';
+		return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
 </script>
