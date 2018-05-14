@@ -242,7 +242,7 @@
 									  
 										<div class="modal-body"><h5>
 											<form action="" method="POST" name="formEditScn" class="text-left">
-												<input type='hidden' name='no_scn' value='<?php echo $row['uat_id']; ?>' />
+												<input type='hidden' name='uat_id' value='<?php echo $row['uat_id']; ?>' />
 												<label for="edit_scnname">Edit nama skenario:</label>
 												<input type="text" id="edit_scnname" name="edit_scnname" class="form-control" value="<?php echo $row['uat_scn']; ?>" required=""><br>
 												<label for="edit_scndesc">Edit deskripsi skenario:</label>
