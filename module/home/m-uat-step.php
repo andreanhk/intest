@@ -168,7 +168,7 @@
 			
 			<!-- Modal Add Step Baru -->
 			<div id="modaladd_uatstep" class="modal fade" role="dialog">
-				<div class="modal-dialog">
+				<div class="modal-dialog modal-lg">
 
 				<!-- Modal content-->
 					<div class="modal-content">
@@ -282,7 +282,8 @@
 							
 							<!-- Modal Edit Scenario UAT -->
 							<div id="modalEditStep<?php echo $row['id_step']; ?>" class="modal fade" role="dialog">
-								<div class="modal-dialog">
+								<div class="modal-dialog modal-lg">
+								
 									<!-- Modal content-->
 									<div class="modal-content">
 										<div class="modal-header">

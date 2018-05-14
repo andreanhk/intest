@@ -22,15 +22,16 @@
 	{
 		$con = mysqli_connect("localhost","root","","saptest");
 		
-		$idmodul = mysqli_real_escape_string($con,$_POST['new_idModul']);
-		$namemodul = mysqli_real_escape_string($con,$_POST['new_nameModul']);
+		$idmodul = mysqli_real_escape_string($con,$_POST['new_idmodul']);
+		$namemodul = mysqli_real_escape_string($con,$_POST['new_namemodul']);
+		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$query = 'SELECT * FROM m_modul WHERE idmodul="'.$idmodul.'"';
 		$result = mysqli_query($con,$query);
 		
 		if($result->num_rows == 0)
 		{
-			$query = 'INSERT INTO m_modul(idmodul,namemodul) VALUES ("'.$idmodul.'","'.$namemodul.'")';
+			$query = 'INSERT INTO m_modul(idmodul,namemodul,chg_by,chg_date) VALUES ("'.$idmodul.'","'.$namemodul.'","'.$username.'",now())';
 			$result1 = mysqli_query($con,$query);
 			header("location:m-modul.php");
 		}
@@ -57,10 +58,11 @@
 	{	
 		$con = mysqli_connect("localhost","root","","saptest");
 		$editnamemodul = mysqli_real_escape_string($con,$_POST['edit_namemodul']);
+		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$id = mysqli_real_escape_string($con,$_POST['idmodul']);
 		
-		if(!mysqli_query($con,"UPDATE m_modul SET namemodul='$editnamemodul' WHERE idmodul='$id'"))
+		if(!mysqli_query($con,"UPDATE m_modul SET namemodul='$editnamemodul',chg_by='$username',chg_date=now() WHERE idmodul='$id'"))
 		{
 			echo mysqli_error($con);
 		}
@@ -239,6 +241,12 @@
 												<input type='hidden' name='idmodul' value='<?php echo $row['idmodul']; ?>' />
 												<label for="edit_namemodul">Edit nama modul:</label>
 												<input type="text" id="edit_namemodul" name="edit_namemodul" class="form-control" value="<?php echo $row['namemodul']; ?>" required=""><br>
+												Terakhir diubah oleh <label><?php echo $row['chg_by']; ?></label>
+												<?php
+													$origDate = $row['chg_date'];
+													$newDate = date("d-M-Y H:i:s", strtotime($origDate));
+												?>
+												tanggal <label><?php echo $newDate; ?></label>.
 												<br><br>
 												<div class="modal-footer">
 													<button class="btn btn-default btn-success" type="submit" name="editModul" id="editModul" action="m-modul.php?id=<?php echo $row['idmodul']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>

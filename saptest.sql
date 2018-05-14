@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 24 Apr 2018 pada 19.50
+-- Generation Time: 13 Mei 2018 pada 20.03
 -- Versi Server: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -30,17 +30,18 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `login_data` (
   `loginuid` int(11) NOT NULL,
-  `loginuname` varchar(255) NOT NULL,
-  `loginpwd` varchar(255) NOT NULL,
-  `loginright` int(11) NOT NULL
+  `loginuname` varchar(255) DEFAULT NULL,
+  `loginpwd` varchar(255) DEFAULT NULL,
+  `loginright` int(11) DEFAULT NULL,
+  `date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `login_data`
 --
 
-INSERT INTO `login_data` (`loginuid`, `loginuname`, `loginpwd`, `loginright`) VALUES
-(1, 'admin', 'admin', 1);
+INSERT INTO `login_data` (`loginuid`, `loginuname`, `loginpwd`, `loginright`, `date`) VALUES
+(1, 'admin', 'admin', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -102,22 +103,25 @@ INSERT INTO `m_check` (`c_id`, `ctype`, `ctypedesc`, `ctcode`, `ctable`, `cstat`
 CREATE TABLE `m_modul` (
   `id` int(11) NOT NULL,
   `idmodul` varchar(255) NOT NULL,
-  `namemodul` varchar(255) NOT NULL
+  `namemodul` varchar(255) NOT NULL,
+  `chg_by` varchar(255) DEFAULT NULL,
+  `chg_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `m_modul`
 --
 
-INSERT INTO `m_modul` (`id`, `idmodul`, `namemodul`) VALUES
-(1, 'ABAP', 'ABAP'),
-(2, 'BASIS', 'Basis'),
-(3, 'FICO', 'Financial Controlling'),
-(4, 'MM', 'Materials Management'),
-(5, 'PM', 'Plant Maintenance'),
-(6, 'PP', 'Production Planning'),
-(7, 'SD', 'Sales & Distribution'),
-(8, 'HR', 'Human Resource');
+INSERT INTO `m_modul` (`id`, `idmodul`, `namemodul`, `chg_by`, `chg_date`) VALUES
+(1, 'ABAP', 'ABAP', NULL, NULL),
+(2, 'BASIS', 'Basis', NULL, NULL),
+(3, 'FICO', 'Financial Controlling', NULL, NULL),
+(4, 'MM', 'Materials Management', NULL, NULL),
+(5, 'PM', 'Plant Maintenance', NULL, NULL),
+(6, 'PP', 'Production Planning', NULL, NULL),
+(7, 'SD', 'Sales & Distribution', NULL, NULL),
+(8, 'HR', 'Human Resource', NULL, NULL),
+(10, 'TEST', 'Test Modul', 'Admin', '2018-05-13 16:53:07');
 
 -- --------------------------------------------------------
 
@@ -278,8 +282,41 @@ CREATE TABLE `v_uat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data untuk tabel `v_uat`
+--
+
+INSERT INTO `v_uat` (`id`, `uat_scn`, `no_step`, `bp_step`, `tcode_step`, `user_step`, `vuba`, `vuinput`, `vuoutput`, `vupic`, `vudate`) VALUES
+(1, 'Penjualan Botolan Reguler (MTS)', 1, 'Buat Sales Order', 'VA01', 'Sales Counter', '1000', NULL, NULL, NULL, NULL),
+(2, 'Penjualan Botolan Reguler (MTS)', 2, 'Release SO (Credit Management)', 'ZSDENH006', 'Management', '1000', NULL, NULL, NULL, NULL),
+(3, 'Penjualan Botolan Reguler (MTS)', 3, 'Cetak SO', 'VA03', 'Sales Counter', '1000', NULL, NULL, NULL, NULL),
+(4, 'Penjualan Botolan Reguler (MTS)', 4, 'Perintah Packing oleh Sales Counter', 'ZSDENH039', 'Sales Counter', '1000', NULL, NULL, NULL, NULL),
+(5, 'Penjualan Botolan Reguler (MTS)', 5, 'Create TTBK & GR ke Sloc Empty Pack', 'ZMMENH025', 'Adm.Panggung', '1000', NULL, NULL, NULL, NULL),
+(6, 'Penjualan Botolan Reguler (MTS)', 6, 'Konfirmasi SO & Buat Inquiry Jika Ada Pekerjaan Tambahan (Khusus MR)', 'ZSDENH040', 'Panggung', '1000', NULL, NULL, NULL, NULL),
+(7, 'Penjualan Botolan Reguler (MTS)', 7, 'Report', 'ZSDRPT047', 'Panggung', '1000', NULL, NULL, NULL, NULL),
+(8, 'Penjualan Botolan Reguler (MTS)', 8, 'Konversi Inquiry ke SO setelah konfirm ke relasi (Khusus MR)', 'ZSDENH043', 'Sales Counter', '1000', NULL, NULL, NULL, NULL),
+(9, 'Penjualan Botolan Reguler (MTS)', 9, 'Report', 'ZSDRPT047', 'Sales Counter', '1000', NULL, NULL, NULL, NULL),
+(10, 'Penjualan Botolan Reguler (MTS)', 10, 'Prosedur Running MRP & Create PRO MTS', 'ZSDENH043', 'PPIC', '1000', NULL, NULL, NULL, NULL),
+(11, 'Penjualan Botolan Reguler (MTS)', 11, 'Input Hasil Produksi', 'ZPPENH001', 'Produksi', '1000', NULL, NULL, NULL, NULL),
+(12, 'Penjualan Botolan Reguler (MTS)', 12, 'Transfer Packing dari Sloc Full Pack ke Sloc Distribusi', 'ZSDENH040', 'Adm.Panggung', '1000', NULL, NULL, NULL, NULL),
+(13, 'Penjualan Botolan Reguler (MTS)', 13, 'Cetak Packing List (Dilampirkan di SO)', 'ZSDENH040', 'Adm.Panggung', '1000', NULL, NULL, NULL, NULL),
+(14, 'Penjualan Botolan Reguler (MTS)', 14, 'Posting (GI) Surat Jalan', 'VL01N', 'Distribusi/Logistik', '1000', NULL, NULL, NULL, NULL),
+(15, 'Penjualan Botolan Reguler (MTS)', 15, 'Posting (GI) Surat Jalan', 'VL02N', 'Distribusi/Logistik', '1000', NULL, NULL, NULL, NULL),
+(16, 'Penjualan Botolan Reguler (MTS)', 16, 'Cetak Surat Jalan', 'VL03N', 'Distribusi/Logistik', '1000', NULL, NULL, NULL, NULL),
+(17, 'Penjualan Botolan Reguler (MTS)', 17, 'Create Invoice', 'VF01', 'Adm.Penjualan', '1000', NULL, NULL, NULL, NULL),
+(18, 'Penjualan Botolan Reguler (MTS)', 18, 'Cetak Invoice', 'VF03', 'Adm.Penjualan', '1000', NULL, NULL, NULL, NULL),
+(19, 'Penjualan Botolan Reguler (MTS)', 19, 'Cetak Faktur Pajak', 'ZFIRPT038', 'Adm.Penjualan', '1000', NULL, NULL, NULL, NULL),
+(20, 'Penjualan Botolan Reguler (MTS)', 20, 'Terima Plns dari Customer via Bank BCA Test Transfer', 'F-21', 'GL Bank', '1000', NULL, NULL, NULL, NULL),
+(21, 'Penjualan Botolan Reguler (MTS)', 21, 'Account Clear AR', 'F-32', 'Adm.Piutang', '1000', NULL, NULL, NULL, NULL);
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `login_data`
+--
+ALTER TABLE `login_data`
+  ADD PRIMARY KEY (`loginuid`);
 
 --
 -- Indexes for table `m_check`
@@ -328,6 +365,12 @@ ALTER TABLE `v_uat`
 --
 
 --
+-- AUTO_INCREMENT for table `login_data`
+--
+ALTER TABLE `login_data`
+  MODIFY `loginuid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `m_check`
 --
 ALTER TABLE `m_check`
@@ -337,7 +380,7 @@ ALTER TABLE `m_check`
 -- AUTO_INCREMENT for table `m_modul`
 --
 ALTER TABLE `m_modul`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `m_uat_scn`
@@ -361,7 +404,7 @@ ALTER TABLE `v_check`
 -- AUTO_INCREMENT for table `v_uat`
 --
 ALTER TABLE `v_uat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

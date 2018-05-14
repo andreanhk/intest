@@ -164,7 +164,7 @@
 			
 			<!-- Modal Add Skenario UAT -->
 			<div id="modaladd_uatscn" class="modal fade" role="dialog">
-				<div class="modal-dialog">
+				<div class="modal-dialog modal-lg">
 
 					<!-- Modal content-->
 					<div class="modal-content">
@@ -232,7 +232,7 @@
 							
 							<!-- Modal Edit Scenario UAT -->
 							<div id="modalEditScn<?php echo $row['uat_id']; ?>" class="modal fade" role="dialog">
-								<div class="modal-dialog">
+								<div class="modal-dialog modal-lg">
 									<!-- Modal content-->
 									<div class="modal-content">
 										<div class="modal-header">

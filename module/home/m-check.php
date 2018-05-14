@@ -174,7 +174,7 @@
 			
 			<!-- Modal Add Checklist -->
 			<div id="modalAddCheck" class="modal fade" role="dialog">
-				<div class="modal-dialog">
+				<div class="modal-dialog modal-lg">
 
 				<!-- Open modal add checklist -->
 					<div class="modal-content">
@@ -301,7 +301,7 @@
 							
 							<!-- Modal Edit Checklist -->
 							<div id="modalEditCheck<?php echo $row['c_id']; ?>" class="modal fade" role="dialog">
-								<div class="modal-dialog">
+								<div class="modal-dialog modal-lg">
 									<!-- Modal content-->
 									<div class="modal-content">
 										<div class="modal-header">
