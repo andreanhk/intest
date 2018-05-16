@@ -30,4 +30,4 @@ INSERT INTO TARGET_TABLE (`col1`,`col2`) SELECT `col1`,`col2` FROM SOURCE_TABLE;
 - tambah tanggal live di master ba -ONTHEWAY
 - sort hasil dropdown yg memerlukan sorting, misal sort BA scr ascending, sort modul scr ascending -OK
 - fitur filter/search dropdown 2 buah, contoh by modul dan by BA -OK
-- update checklist/uat jika ditambahkan entry baru di masternya -BLM (mySQL Transaction)
+- update checklist/uat jika ditambahkan entry baru di masternya -OK
