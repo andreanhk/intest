@@ -321,7 +321,7 @@
 												<label for="edit_ctable">Edit tabel custom:</label>
 												<input type="text" id="edit_ctable" name="edit_ctable" class="form-control" value="<?php echo $row['ctable']; ?>"><br>
 												<label for="edit_cstat">Edit status:</label>
-												<input type="text" id="edit_cstat" name="edit_cstat" class="form-control" value="<?php echo $row['cstat']; ?>" required=""><br>
+												<input type="text" id="edit_cstat" name="edit_cstat" class="form-control" value="<?php echo $row['cstat']; ?>" required=""><br>												
 												<label for="edit_cmodul">Edit modul:</label><br>
 												<?php
 													$con = mysqli_connect("localhost","root","","saptest");
@@ -332,7 +332,12 @@
 													echo "<select name='edit_cmodul' class='selectpicker' title='Pilih Modul' data-width='auto'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 													{
-														echo "<option value='$row1[idmodul]'>$row1[idmodul]</option>";
+														if ($row['cmodul'] == $row1[idmodul])
+														{
+															echo "<option value='$row1[idmodul]' selected >$row1[idmodul]</option>";
+														} else {
+															echo "<option value='$row1[idmodul]'>$row1[idmodul]</option>";
+														}
 													}
 													echo "</select>";
 													
