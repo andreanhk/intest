@@ -27,13 +27,14 @@
 
 		$scnname = mysqli_real_escape_string($con, $_POST['new_scnname']);
 		$scndesc = mysqli_real_escape_string($con, $_POST['new_scndesc']);
+		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$query = 'SELECT * FROM m_uat_scn WHERE uat_scn="'.$scnname.'"';
 		$result = mysqli_query($con,$query);
 		
 		if($result->num_rows == 0)
 		{
-			$query = 'INSERT INTO m_uat_scn(uat_scn, uat_desc) VALUES ("'.$scnname.'","'.$scndesc.'")';
+			$query = 'INSERT INTO m_uat_scn(uat_scn,uat_desc,chg_by,chg_date) VALUES ("'.$scnname.'","'.$scndesc.'","'.$username.'",now())';
 			$result1 = mysqli_query($con,$query);
 			header("location:m-uat.php");
 		}
@@ -62,10 +63,11 @@
 		
 		$editscnname = mysqli_real_escape_string($con,$_POST['edit_scnname']);
 		$editscndesc = mysqli_real_escape_string($con,$_POST['edit_scndesc']);
+		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$id = mysqli_real_escape_string($con,$_POST['uat_id']);
 		
-		if(!mysqli_query($con,"UPDATE m_uat_scn SET uat_scn='$editscnname',uat_desc='$editscndesc' WHERE uat_id='$id'"))
+		if(!mysqli_query($con,"UPDATE m_uat_scn SET uat_scn='$editscnname',uat_desc='$editscndesc',chg_by='$username',chg_date=now() WHERE uat_id='$id'"))
 		{
 			echo mysqli_error($con);
 		}
@@ -247,6 +249,13 @@
 												<input type="text" id="edit_scnname" name="edit_scnname" class="form-control" value="<?php echo $row['uat_scn']; ?>" required=""><br>
 												<label for="edit_scndesc">Edit deskripsi skenario:</label>
 												<input type="text" id="edit_scndesc" name="edit_scndesc" class="form-control" value="<?php echo $row['uat_desc']; ?>" required=""><br>
+												Terakhir diubah oleh <label><?php echo $row['chg_by']; ?></label>
+												<?php
+													$origDate = $row['chg_date'];
+													$newDate = date("d-M-Y H:i:s", strtotime($origDate));
+												?>
+												tanggal <label><?php echo $newDate; ?></label>.
+												<br><br>
 												<div class="modal-footer">
 													<button class="btn btn-default btn-success" type="submit" name="editScn" id="editScn" action="m-uat.php?id=<?php echo $row['uat_id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
 													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>

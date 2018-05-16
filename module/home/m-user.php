@@ -29,13 +29,14 @@
 		$longname = mysqli_real_escape_string($con,$_POST['new_userlname']);
 		$password = mysqli_real_escape_string($con,$_POST['new_pwduser']);
 		$idmodul = mysqli_real_escape_string($con,$_POST['idmodul']);
+		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$query = 'SELECT * FROM user WHERE userid="'.$userid.'"';
 		$result = mysqli_query($con,$query);
 		
 		if($result->num_rows == 0)
 		{
-			$query = 'INSERT INTO user(userid, userlname, userpwd, usermodul) VALUES ("'.$userid.'","'.$longname.'","'.$password.'","'.$idmodul.'")';
+			$query = 'INSERT INTO user(userid, userlname, userpwd, usermodul,chg_by,chg_date) VALUES ("'.$userid.'","'.$longname.'","'.$password.'","'.$idmodul.'","'.$username.'",now())';
 			$result = mysqli_query($con,$query);
 			header("location:m-user.php");
 		}
@@ -65,10 +66,11 @@
 		$editlname = mysqli_real_escape_string($con,$_POST['edit_userlname']);
 		$editpwd = mysqli_real_escape_string($con,$_POST['edit_userpwd']);
 		$editmodul = mysqli_real_escape_string($con,$_POST['edit_idmodul']);
+		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$id = mysqli_real_escape_string($con,$_POST['userid']);
 		
-		if(!mysqli_query($con,"UPDATE user SET userlname='$editlname',userpwd='$editpwd',usermodul='$editmodul' WHERE userid='$id'"))
+		if(!mysqli_query($con,"UPDATE user SET userlname='$editlname',userpwd='$editpwd',usermodul='$editmodul',chg_by='$username',chg_date=now() WHERE userid='$id'"))
 		{
 			echo mysqli_error($con);
 		}
@@ -284,12 +286,23 @@
 													echo "<select name='edit_idmodul' class='selectpicker' title='Pilih Modul' data-width='auto'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 													{
-														echo "<option value='$row1[idmodul]'>$row1[idmodul]</option>";
+														if ($row['usermodul'] == $row1[idmodul])
+														{
+															echo "<option value='$row1[idmodul]' selected >$row1[idmodul]</option>";
+														} else {
+															echo "<option value='$row1[idmodul]'>$row1[idmodul]</option>";
+														}
 													}
 													echo "</select>";
 													
 													//$con->close();
+												?><br><br>
+												Terakhir diubah oleh <label><?php echo $row['chg_by']; ?></label>
+												<?php
+													$origDate = $row['chg_date'];
+													$newDate = date("d-M-Y H:i:s", strtotime($origDate));
 												?>
+												tanggal <label><?php echo $newDate; ?></label>.
 												<br><br>
 												<div class="modal-footer">
 													<button class="btn btn-default btn-success" type="submit" name="editUser" id="editUser" action="m-user.php?id=<?php echo $row['userid']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>

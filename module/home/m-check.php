@@ -31,13 +31,14 @@
 		$cstat = mysqli_real_escape_string($con,$_POST['new_cstat']);
 		$ctable = mysqli_real_escape_string($con,$_POST['new_ctable']);
 		$cmodul = mysqli_real_escape_string($con,$_POST['new_cmodul']);
+		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$query = 'SELECT * FROM m_check WHERE ctype="'.$ctype.'" AND ctypedesc="'.$ctypedesc.'"';
 		$result = mysqli_query($con,$query);
 		
 		if($result->num_rows == 0)
 		{
-			$query = 'INSERT INTO m_check(ctype,ctypedesc,ctcode,ctable,cstat,cmodul) VALUES ("'.$ctype.'","'.$ctypedesc.'","'.$ctcode.'","'.$ctable.'","'.$cstat.'","'.$cmodul.'")';
+			$query = 'INSERT INTO m_check(ctype,ctypedesc,ctcode,ctable,cstat,cmodul,chg_by,chg_date) VALUES ("'.$ctype.'","'.$ctypedesc.'","'.$ctcode.'","'.$ctable.'","'.$cstat.'","'.$cmodul.'","'.$username.'",now())';
 			$result = mysqli_query($con,$query);
 			header("location:m-check.php");
 		}
@@ -70,10 +71,11 @@
 		$editCstat = mysqli_real_escape_string($con,$_POST['edit_cstat']);
 		$editCtable = mysqli_real_escape_string($con,$_POST['edit_ctable']);
 		$editCmodul = mysqli_real_escape_string($con,$_POST['edit_cmodul']);
+		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$id = mysqli_real_escape_string($con,$_POST['c_id']);
 		
-		if(!mysqli_query($con,"UPDATE m_check SET ctype='$editCtype',ctypedesc='$editCtypedesc',ctcode='$editCtcode',cstat='$editCstat',ctable='$editCtable',cmodul='$editCmodul' WHERE c_id='$id'"))
+		if(!mysqli_query($con,"UPDATE m_check SET ctype='$editCtype',ctypedesc='$editCtypedesc',ctcode='$editCtcode',cstat='$editCstat',ctable='$editCtable',cmodul='$editCmodul',chg_by='$username',chg_date=now() WHERE c_id='$id'"))
 		{
 			echo mysqli_error($con);
 		}
@@ -265,9 +267,7 @@
 					<td><b>Tcode</b></td>
 					<td><b>Table</b></td>
 					<td><b>Custom Status</b></td>
-					<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") { ?>
 					<td class="col-md-1"></td>
-					<?php } else {} ?>
 				</tr>
 			</thead>
 			<tbody data-link="row">
@@ -293,8 +293,6 @@
 						echo "<td style:'border=1px solid black'>".$row['ctcode']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctable']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['cstat']."</td>";
-					if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
-						{
 			?>
 							<!-- Button Edit Checklist -->
 							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditCheck<?php echo $row['c_id']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
@@ -342,7 +340,13 @@
 													echo "</select>";
 													
 													//$con->close();
+												?><br><br>
+												Terakhir diubah oleh <label><?php echo $row['chg_by']; ?></label>
+												<?php
+													$origDate = $row['chg_date'];
+													$newDate = date("d-M-Y H:i:s", strtotime($origDate));
 												?>
+												tanggal <label><?php echo $newDate; ?></label>.
 												<br><br>
 												<div class="modal-footer">
 													<button class="btn btn-default btn-success" type="submit" name="editCheck" c_id="editCheck" action="m-check.php?id=<?php echo $row['c_id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
@@ -382,11 +386,7 @@
 								</div>
 							</div>
 			<?php
-						}
-						else
-						{
-							
-						}
+						
 					echo "</tr>";
 				}
 

@@ -45,10 +45,11 @@
 		$editvctr = mysqli_real_escape_string($con,$_POST['edit_vctransreqs']);
 		$editvcdate = mysqli_real_escape_string($con,$_POST['edit_vcdate']);
 		$editvcpic = mysqli_real_escape_string($con,$_POST['edit_vcpic']);
+		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$id = mysqli_real_escape_string($con,$_POST['id']);
 		
-		if(!mysqli_query($con,"UPDATE v_check SET vcheck='$editvcheck',vctransreqs='$editvctr',vcdate='$editvcdate',vcpic='$editvcpic' WHERE id='$id'"))
+		if(!mysqli_query($con,"UPDATE v_check SET vcheck='$editvcheck',vctransreqs='$editvctr',vcdate='$editvcdate',vcpic='$editvcpic',chg_by='$username',chg_date=now() WHERE id='$id'"))
 		{
 			echo mysqli_error($con);
 		}
@@ -270,7 +271,7 @@
 						echo "<td style:'border=1px solid black'>".$row['vcba']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['vctransreqs']."</td>";
 						$origDate = $row['vcdate'];
-						$newDate = date("d-m-Y", strtotime($origDate));
+						$newDate = date("d-M-Y", strtotime($origDate));
 						//echo "<td style:'border=1px solid black'>".$row['vcdate']."</td>";
 						echo "<td style:'border=1px solid black'>".$newDate."</td>";
 						echo "<td style:'border=1px solid black'>".$row['vcpic']."</td>";
@@ -317,11 +318,22 @@
 
 													echo "<select name='edit_vcpic' class='selectpicker' title='Pilih User' data-width='auto'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
+													{
+														if ($row['vcpic'] == $row1[userid])
 														{
-														echo "<option value='$row1[userid]'>$row1[userid] - $row1[userlname]</option>";
+															echo "<option value='$row1[userid]' selected >$row1[userid] - $row1[userlname]</option>";
+														} else {
+															echo "<option value='$row1[userid]'>$row1[userid] - $row1[userlname]</option>";
+														}
 													}
 													echo "</select>";
+												?><br><br>
+												Terakhir diubah oleh <label><?php echo $row['chg_by']; ?></label>
+												<?php
+													$origDate = $row['chg_date'];
+													$newDate = date("d-M-Y H:i:s", strtotime($origDate));
 												?>
+												tanggal <label><?php echo $newDate; ?></label>.
 												<br><br>
 												<div class="modal-footer">
 													<button class="btn btn-default btn-success" type="submit" name="editCL" c_id="editCL" action="checklist.php?id=<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>

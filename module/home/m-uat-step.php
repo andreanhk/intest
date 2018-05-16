@@ -30,13 +30,14 @@
 		$steptcode = mysqli_real_escape_string($con, $_POST['new_steptcode']);
 		$stepuser = mysqli_real_escape_string($con, $_POST['new_stepuser']);
 		$stepscn = mysqli_real_escape_string($con, $_POST['uat_scn']);
+		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
-		$query = 'SELECT * FROM m_uat_step WHERE bp_step="'.$stepname.'" AND uat_scn="'.$stepscn.'"';  //Coba JOIN 2 tabel untuk insert value PP02 di table step -> cek value dari tabel scn
+		$query = 'SELECT * FROM m_uat_step WHERE bp_step="'.$stepname.'" AND uat_scn="'.$stepscn.'"';
 		$result = mysqli_query($con,$query);
 		
 		if($result->num_rows == 0)
 		{
-			$query = 'INSERT INTO m_uat_step(uat_scn, bp_step, tcode_step, user_step) VALUES ("'.$stepscn.'","'.$stepname.'","'.$steptcode.'","'.$stepuser.'")';
+			$query = 'INSERT INTO m_uat_step(uat_scn,bp_step,tcode_step,user_step,chg_by,chg_date) VALUES ("'.$stepscn.'","'.$stepname.'","'.$steptcode.'","'.$stepuser.'","'.$username.'",now())';
 			$result1 = mysqli_query($con,$query);
 			header("location:m-uat-step.php?submit=1");
 		}
@@ -66,10 +67,11 @@
 		$editStepName = mysqli_real_escape_string($con,$_POST['edit_stepname']);
 		$editStepTcode = mysqli_real_escape_string($con,$_POST['edit_steptcode']);
 		$editStepUser = mysqli_real_escape_string($con,$_POST['edit_stepuser']);
+		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$id = mysqli_real_escape_string($con,$_POST['id_step']);
 		
-		if(!mysqli_query($con,"UPDATE m_uat_step SET bp_step='$editStepName',tcode_step='$editStepTcode',user_step='$editStepUser' WHERE id_step='$id'"))
+		if(!mysqli_query($con,"UPDATE m_uat_step SET bp_step='$editStepName',tcode_step='$editStepTcode',user_step='$editStepUser',chg_by='$username',chg_date=now() WHERE id_step='$id'"))
 		{
 			echo mysqli_error($con);
 		}
@@ -300,7 +302,12 @@
 												<input type="text" id="edit_steptcode" name="edit_steptcode" class="form-control" value="<?php echo $row['tcode_step']; ?>" required=""><br>
 												<label for="edit_scndesc">Edit user:</label>
 												<input type="text" id="edit_stepuser" name="edit_stepuser" class="form-control" value="<?php echo $row['user_step']; ?>" required=""><br>
-												
+												Terakhir diubah oleh <label><?php echo $row['chg_by']; ?></label>
+												<?php
+													$origDate = $row['chg_date'];
+													$newDate = date("d-M-Y H:i:s", strtotime($origDate));
+												?>
+												tanggal <label><?php echo $newDate; ?></label>.
 												<br><br>
 												<div class="modal-footer">
 													<button class="btn btn-default btn-success" type="submit" name="editStep" id="editStep" action="m-uat-step.php?id=<?php echo $row['id_step']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>

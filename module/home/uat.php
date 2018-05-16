@@ -46,10 +46,11 @@
 		$editvuout = mysqli_real_escape_string($con,$_POST['edit_vuoutput']);
 		$editvudate = mysqli_real_escape_string($con,$_POST['edit_vudate']);
 		$editvupic = mysqli_real_escape_string($con,$_POST['edit_vupic']);
+		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$id = mysqli_real_escape_string($con,$_POST['id']);
 		
-		if(!mysqli_query($con,"UPDATE v_uat SET vuinput='$editvuin',vuoutput='$editvuout',vudate='$editvudate',vupic='$editvupic' WHERE id='$id'"))
+		if(!mysqli_query($con,"UPDATE v_uat SET vuinput='$editvuin',vuoutput='$editvuout',vudate='$editvudate',vupic='$editvupic',chg_by='$username',chg_date=now() WHERE id='$id'"))
 		{
 			echo mysqli_error($con);
 		}
@@ -251,7 +252,7 @@
 				<tr>
 					<th class="text-center"><b>No. Step</b></th>
 					<th class="text-center col-md-2 col-lg-2"><b>Skenario</b></th>
-					<th class="text-center col-md-2 col-lg-2"><b>Deskripsi Step</b></th>
+					<th class="text-center col-md-3 col-lg-3"><b>Deskripsi Step</b></th>
 					<th class="text-center"><b>Tcode</b></th>
 					<th class="text-center col-md-1 col-lg-1"><b>User</b></th>
 					<th class="text-center"><b>BA</b></th>
@@ -282,7 +283,7 @@
 						echo "<td style:'border=1px solid black'>".$row['vuoutput']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['vupic']."</td>";
 						$origDate = $row['vudate'];
-						$newDate = date("d-m-Y", strtotime($origDate));
+						$newDate = date("d-M-Y", strtotime($origDate));
 						echo "<td style:'border=1px solid black'>".$newDate."</td>";
 						?>
 						<!-- Button Edit Checklist -->
@@ -318,11 +319,22 @@
 
 													echo "<select name='edit_vupic' class='selectpicker' title='Pilih User' data-width='auto'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
+													{
+														if ($row['vupic'] == $row1[userid])
 														{
-														echo "<option value='$row1[userid]'>$row1[userid] - $row1[userlname]</option>";
+															echo "<option value='$row1[userid]' selected >$row1[userid] - $row1[userlname]</option>";
+														} else {
+															echo "<option value='$row1[userid]'>$row1[userid] - $row1[userlname]</option>";
+														}
 													}
 													echo "</select>";
+												?><br><br>
+												Terakhir diubah oleh <label><?php echo $row['chg_by']; ?></label>
+												<?php
+													$origDate = $row['chg_date'];
+													$newDate = date("d-M-Y H:i:s", strtotime($origDate));
 												?>
+												tanggal <label><?php echo $newDate; ?></label>.
 												<br><br>
 												<div class="modal-footer">
 													<button class="btn btn-default btn-success" type="submit" name="editUAT" id="editUAT" action="uat.php?id=<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>

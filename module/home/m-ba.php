@@ -24,13 +24,14 @@
 		
 		$idba = mysqli_real_escape_string($con,$_POST['new_idba']);
 		$nameba = mysqli_real_escape_string($con,$_POST['new_nameba']);
+		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$query = 'SELECT * FROM m_ba WHERE idba="'.$idba.'"';
 		$result = mysqli_query($con,$query);
 		
 		if($result->num_rows == 0)
 		{
-			$query = 'INSERT INTO m_ba(idba,nameba) VALUES ("'.$idba.'","'.$nameba.'")';
+			$query = 'INSERT INTO m_ba(idba,nameba,chg_by,chg_date) VALUES ("'.$idba.'","'.$nameba.'","'.$username.'",now())';
 			$result1 = mysqli_query($con,$query);
 			header("location:m-ba.php");
 		}
@@ -57,10 +58,11 @@
 	{	
 		$con = mysqli_connect("localhost","root","","saptest");
 		$editnameba = mysqli_real_escape_string($con,$_POST['edit_nameba']);
+		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$id = mysqli_real_escape_string($con,$_POST['idba']);
 		
-		if(!mysqli_query($con,"UPDATE m_ba SET nameba='$editnameba' WHERE idba='$id'"))
+		if(!mysqli_query($con,"UPDATE m_ba SET nameba='$editnameba',chg_by='$username',chg_date=now() WHERE idba='$id'"))
 		{
 			echo mysqli_error($con);
 		}
@@ -239,24 +241,12 @@
 												<input type='hidden' name='idba' value='<?php echo $row['idba']; ?>' />
 												<label for="edit_nameba">Edit nama BA:</label>
 												<input type="text" id="edit_nameba" name="edit_nameba" class="form-control" value="<?php echo $row['nameba']; ?>" required=""><br>
-												<!--<label for="new_pwduser">Edit password:</label>
-												<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" placeholder="Password" required=""><br>
-												<label for="new_usermodul">Edit modul:</label>-->
+												Terakhir diubah oleh <label><?php echo $row['chg_by']; ?></label>
 												<?php
-													/*$con = mysqli_connect("localhost","root","","saptest");
-
-													$query = "SELECT idmodul FROM m_modul";
-													$result1 = mysqli_query($con,$query);
-
-													echo "<select name='edit_idmodul'>";
-													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
-													{
-														echo "<option value='" . $row1['idmodul'] . "'>" . $row1['idmodul'] . "</option>";
-													}
-													echo "</select>";
-													
-													//$con->close();*/
+													$origDate = $row['chg_date'];
+													$newDate = date("d-M-Y H:i:s", strtotime($origDate));
 												?>
+												tanggal <label><?php echo $newDate; ?></label>.
 												<br><br>
 												<div class="modal-footer">
 													<button class="btn btn-default btn-success" type="submit" name="editBA" id="editBA" action="m-ba.php?id=<?php echo $row['idba']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
