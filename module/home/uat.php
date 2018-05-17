@@ -171,7 +171,7 @@
 									$sql = "SELECT * FROM m_ba";
 									$result = mysqli_query($con,$sql);
 
-									echo "<select name='idba' class='selectpicker' title='Pilih BA'>";
+									echo "<select name='idba' class='selectpicker show-tick' title='Pilih BA'>";
 									while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 									{
 										echo "<option value='$row[idba]'>$row[idba] - $row[nameba]</option>";
@@ -186,7 +186,7 @@
 									$sql1 = "SELECT * FROM m_uat_scn";
 									$result1 = mysqli_query($con,$sql1);
 
-									echo "<select name='uat_scn' class='selectpicker' title='Pilih Skenario UAT'>";
+									echo "<select name='uat_scn' class='selectpicker show-tick' title='Pilih Skenario UAT'>";
 									while ($row = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 									{
 										echo "<option value='$row[uat_scn]'>$row[uat_scn]</option>";
@@ -207,7 +207,7 @@
 	</div>
 	
 	<div class="container container-fluid">
-		<select class="selectpicker" title="Pilih Skenario UAT" id="select1" onchange="getval(this);" data-width="auto">     <!-- edit onChange event ini/edit javascript supaya include semua -->
+		<select class="selectpicker show-tick" title="Pilih Skenario UAT" id="select1" onchange="getval(this);" data-width="auto">     <!-- edit onChange event ini/edit javascript supaya include semua -->
 			<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 				
@@ -225,7 +225,7 @@
 			?>
 		</select>
 		
-		<select id="select2" class='selectpicker' title='Pilih Business Area' data-width='auto'>
+		<select id="select2" class='selectpicker show-tick' title='Pilih Business Area' data-width='auto'>
 		<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 
@@ -317,7 +317,7 @@
 													$query = "SELECT * FROM user";
 													$result1 = mysqli_query($con,$query);
 
-													echo "<select name='edit_vupic' class='selectpicker' title='Pilih User' data-width='auto'>";
+													echo "<select name='edit_vupic' class='selectpicker show-tick' title='Pilih User' data-width='auto'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 													{
 														if ($row['vupic'] == $row1[userid])

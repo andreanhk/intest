@@ -160,7 +160,7 @@
 							$sql = "SELECT * FROM m_ba  ORDER BY idba ASC";
 							$result = mysqli_query($con,$sql);
 
-							echo "<select name='idba' class='selectpicker' title='Pilih BA' onchange='getval(this);'>";
+							echo "<select name='idba' class='selectpicker show-tick' title='Pilih BA' onchange='getval(this);'>";
 							while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 							{
 								echo "<option value='$row[idba]'>$row[idba] - $row[nameba]</option>";
@@ -208,7 +208,7 @@
 	} ?>
 	
 	
-		<select id="select2" class='selectpicker' title='Pilih Business Area' data-width='auto'>
+		<select id="select2" class='selectpicker show-tick' title='Pilih Business Area' data-width='auto'>
 		<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 
@@ -316,7 +316,7 @@
 													$query = "SELECT * FROM user";
 													$result1 = mysqli_query($con,$query);
 
-													echo "<select name='edit_vcpic' class='selectpicker' title='Pilih User' data-width='auto'>";
+													echo "<select name='edit_vcpic' class='selectpicker show-tick' title='Pilih User' data-width='auto'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 													{
 														if ($row['vcpic'] == $row1[userid])

@@ -180,12 +180,6 @@
 						</div>
 						<div class="modal-body"><h5>
 							<form action="m-uat-step.php" method="POST" name="form_addstep">
-								<label for="new_stepname">Nama step:</label>
-								<input type="text" id="new_stepname" name="new_stepname" class="form-control" placeholder="Contoh: Buat Sales Order" required="" autofocus=""><br>
-								<label for="new_steptcode">Tcode step:</label>
-								<input type="text" id="new_steptcode" name="new_steptcode" class="form-control" placeholder="Contoh: VA01" required=""><br>
-								<label for="new_stepuser">User step:</label>
-								<input type="text" id="new_stepuser" name="new_stepuser" class="form-control" placeholder="Contoh: Sales Counter" required=""><br>
 								<label for="uat_scn">Skenario step:</label><br />
 								<?php
 									$con = mysqli_connect("localhost","root","","saptest");
@@ -193,7 +187,7 @@
 									$sql = "SELECT uat_scn FROM m_uat_scn";
 									$result = mysqli_query($con,$sql);
 
-									echo "<select name='uat_scn' class='selectpicker' title='Pilih Skenario' data-width='auto'>";
+									echo "<select name='uat_scn' class='selectpicker show-tick' title='Pilih Skenario' data-width='auto'>";
 									while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 									{
 										echo "<option value='$row[uat_scn]'>$row[uat_scn]</option>";
@@ -201,8 +195,13 @@
 									echo "</select>";
 									
 									$con->close();
-								?>
-								<br><br>
+								?><br><br>
+								<label for="new_stepname">Nama step:</label>
+								<input type="text" id="new_stepname" name="new_stepname" class="form-control" placeholder="Contoh: Buat Sales Order" required=""><br>
+								<label for="new_steptcode">Tcode step:</label>
+								<input type="text" id="new_steptcode" name="new_steptcode" class="form-control" placeholder="Contoh: VA01" required=""><br>
+								<label for="new_stepuser">User step:</label>
+								<input type="text" id="new_stepuser" name="new_stepuser" class="form-control" placeholder="Contoh: Sales Counter" required=""><br><br>
 								<div class="modal-footer">
 									<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST"><span class="glyphicon glyphicon-plus"></span> Tambah</button>
 									<a class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</a>
@@ -225,7 +224,7 @@
 	</div>
 	
 	<div class="container container-fluid">
-		<select id="select1" onchange="getval(this);" class="selectpicker" title="Pilih Skenario">     <!-- edit onChange event ini/edit javascript supaya include semua -->
+		<select id="select1" onchange="getval(this);" class="selectpicker show-tick" title="Pilih Skenario" data-width="auto">     <!-- edit onChange event ini/edit javascript supaya include semua -->
 			<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 				

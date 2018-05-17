@@ -187,16 +187,6 @@
 						
 						<div class="modal-body"><h5>
 							<form action="" method="POST" name="form_addchecklist">
-								<label for="new_ctype">Tipe custom:</label>
-								<input type="text" id="new_ctype" name="new_ctype" class="form-control" placeholder="Contoh: Enterprise Structure" required="" autofocus=""><br>
-								<label for="new_cdesc">Deskripsi custom:</label>
-								<input type="text" id="new_ctypedesc" name="new_ctypedesc" class="form-control" placeholder="Contoh: Define Business Area" required=""><br>
-								<label for="new_ctcode">Tcode custom:</label>
-								<input type="text" id="new_ctcode" name="new_ctcode" class="form-control" placeholder="Contoh: SPRO" required=""><br>
-								<label for="new_ctable">Tabel:</label>
-								<input type="text" id="new_ctable" name="new_ctable" class="form-control" placeholder="Contoh: V_TGSB"><br>
-								<label for="new_cstat">Status custom:</label>
-								<input type="text" id="new_cstat" name="new_cstat" class="form-control" placeholder="Contoh: Create/Check" required=""><br>
 								<label for="new_cmodul">Modul checklist:</label><br>
 								<?php
 									$con = mysqli_connect("localhost","root","","saptest");
@@ -211,7 +201,7 @@
 									}
 									$result = mysqli_query($con,$sql);
 
-									echo "<select name='idmodul' class='selectpicker' title='Pilih Modul' data-width='auto'>";
+									echo "<select autofocus='' name='idmodul' class='selectpicker show-tick' title='Pilih Modul' data-width='auto'>";
 									while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 									{
 										echo "<option value='$row[idmodul]'>$row[idmodul]</option>";
@@ -220,7 +210,16 @@
 									
 									$con->close();
 								?><br /><br />
-					  
+								<label for="new_ctype">Tipe custom:</label>
+								<input type="text" id="new_ctype" name="new_ctype" class="form-control" placeholder="Contoh: Enterprise Structure" required=""><br>
+								<label for="new_cdesc">Deskripsi custom:</label>
+								<input type="text" id="new_ctypedesc" name="new_ctypedesc" class="form-control" placeholder="Contoh: Define Business Area" required=""><br>
+								<label for="new_ctcode">Tcode custom:</label>
+								<input type="text" id="new_ctcode" name="new_ctcode" class="form-control" placeholder="Contoh: SPRO" required=""><br>
+								<label for="new_ctable">Tabel:</label>
+								<input type="text" id="new_ctable" name="new_ctable" class="form-control" placeholder="Contoh: V_TGSB"><br>
+								<label for="new_cstat">Status custom:</label>
+								<input type="text" id="new_cstat" name="new_cstat" class="form-control" placeholder="Contoh: Create/Check" required=""><br><br>
 								<div class="modal-footer">
 									<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-check.php"><span class="glyphicon glyphicon-plus"></span> Tambah</button>
 									<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
@@ -237,7 +236,7 @@
 	
 	<div class="container container-fluid">
 	<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") { ?>
-		<select id="select1" onChange="getval(this);" class='selectpicker' title='Pilih Modul'>
+		<select id="select1" onChange="getval(this);" class='selectpicker show-tick' title='Pilih Modul' data-width='auto'>
 		<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 
@@ -320,14 +319,14 @@
 												<input type="text" id="edit_ctable" name="edit_ctable" class="form-control" value="<?php echo $row['ctable']; ?>"><br>
 												<label for="edit_cstat">Edit status:</label>
 												<input type="text" id="edit_cstat" name="edit_cstat" class="form-control" value="<?php echo $row['cstat']; ?>" required=""><br>												
-												<label for="edit_cmodul">Edit modul:</label><br>
+												<!--<label for="edit_cmodul">Edit modul:</label><br>-->
 												<?php
-													$con = mysqli_connect("localhost","root","","saptest");
+													/*$con = mysqli_connect("localhost","root","","saptest");
 
 													$query = "SELECT idmodul FROM m_modul";
 													$result1 = mysqli_query($con,$query);
 
-													echo "<select name='edit_cmodul' class='selectpicker' title='Pilih Modul' data-width='auto'>";
+													echo "<select name='edit_cmodul' class='selectpicker show-tick' title='Pilih Modul' data-width='auto'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 													{
 														if ($row['cmodul'] == $row1[idmodul])
@@ -339,8 +338,8 @@
 													}
 													echo "</select>";
 													
-													//$con->close();
-												?><br><br>
+													//$con->close();*/
+												?>
 												Terakhir diubah oleh <label><?php echo $row['chg_by']; ?></label>
 												<?php
 													$origDate = $row['chg_date'];

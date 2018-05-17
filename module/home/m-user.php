@@ -201,7 +201,7 @@
 									$sql = "SELECT idmodul FROM m_modul";
 									$result = mysqli_query($con,$sql);
 
-									echo "<select name='idmodul' class='selectpicker' title='Pilih Modul' data-width='auto'>";
+									echo "<select name='idmodul' class='selectpicker show-tick' title='Pilih Modul' data-width='auto'>";
 									while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
 										echo "<option value='$row[idmodul]'>$row[idmodul]</option>";
 									}
@@ -283,7 +283,7 @@
 													$query = "SELECT idmodul FROM m_modul";
 													$result1 = mysqli_query($con,$query);
 
-													echo "<select name='edit_idmodul' class='selectpicker' title='Pilih Modul' data-width='auto'>";
+													echo "<select name='edit_idmodul' class='selectpicker show-tick' title='Pilih Modul' data-width='auto'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 													{
 														if ($row['usermodul'] == $row1[idmodul])
