@@ -24,6 +24,7 @@
 		
 		$idba = mysqli_real_escape_string($con,$_POST['new_idba']);
 		$nameba = mysqli_real_escape_string($con,$_POST['new_nameba']);
+		$datelive = mysqli_real_escape_string($con,$_POST['new_datelive']);
 		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$query = 'SELECT * FROM m_ba WHERE idba="'.$idba.'"';
@@ -31,7 +32,7 @@
 		
 		if($result->num_rows == 0)
 		{
-			$query = 'INSERT INTO m_ba(idba,nameba,chg_by,chg_date) VALUES ("'.$idba.'","'.$nameba.'","'.$username.'",now())';
+			$query = 'INSERT INTO m_ba(idba,nameba,date_live,chg_by,chg_date) VALUES ("'.$idba.'","'.$nameba.'","'.$datelive.'","'.$username.'",now())';
 			$result1 = mysqli_query($con,$query);
 			header("location:m-ba.php");
 		}
@@ -43,13 +44,13 @@
 		}
 	}
 	
-	if (isset($_GET['delBA']))
+	if (isset($_GET['del']))
 	{
 		$con = mysqli_connect("localhost","root","","saptest");
 		
-		$idba = $_GET['idba'];
+		$id = $_GET['id'];
 		
-		mysqli_query($con,"DELETE FROM m_ba WHERE idba='".$idba."'");
+		mysqli_query($con,"DELETE FROM m_ba WHERE idba='".$id."'");
 		mysqli_close($con);
 		header("Location:m-ba.php");
 	}
@@ -58,11 +59,17 @@
 	{	
 		$con = mysqli_connect("localhost","root","","saptest");
 		$editnameba = mysqli_real_escape_string($con,$_POST['edit_nameba']);
+		$editdatelive = mysqli_real_escape_string($con,$_POST['edit_datelive']);
 		$username = mysqli_real_escape_string($con,$_SESSION['username']);
+		$p_fico = mysqli_real_escape_string($con,$_POST['pic_fico']);
+		$p_mm = mysqli_real_escape_string($con,$_POST['pic_mm']);
+		$p_pm = mysqli_real_escape_string($con,$_POST['pic_pm']);
+		$p_pp = mysqli_real_escape_string($con,$_POST['pic_pp']);
+		$p_sd = mysqli_real_escape_string($con,$_POST['pic_sd']);
 		
 		$id = mysqli_real_escape_string($con,$_POST['idba']);
 		
-		if(!mysqli_query($con,"UPDATE m_ba SET nameba='$editnameba',chg_by='$username',chg_date=now() WHERE idba='$id'"))
+		if(!mysqli_query($con,"UPDATE m_ba SET nameba='$editnameba',date_live='$editdatelive',p_fico='$p_fico',p_mm='$p_mm',p_pm='$p_pm',p_pp='$p_pp',p_sd='$p_sd',chg_by='$username',chg_date=now() WHERE idba='$id'"))
 		{
 			echo mysqli_error($con);
 		}
@@ -173,9 +180,10 @@
 					<form action="" method="POST" name="form_addba">
 						<label for="new_idba">Kode business area (4 digit):</label>
 						<input type="text" id="new_idba" name="new_idba" class="form-control" placeholder="Contoh: 3000" required="" autofocus="" maxlength="4"><br>
-						<label for="new_nameba">Nama perusahaan/cabang:</label>
+						<label for="new_nameba">Nama cabang:</label>
 						<input type="text" id="new_nameba" name="new_nameba" class="form-control" placeholder="Contoh: Samator Gas Industri Pusat" required=""><br>
-						
+						<label for="new_datelive">Tanggal live:</label>
+						<input type="date" id="new_datelive" name="new_datelive" class="form-control"><br>
 						<br><br>
 						<div class="modal-footer">
 							<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="m-ba.php"><span class="glyphicon glyphicon-plus"></span> Tambah</button>
@@ -194,6 +202,8 @@
 				{
 					
 				}
+				
+				
 			?>
 		</h1>
 	</div>
@@ -202,8 +212,14 @@
 		<table id="tableBA" class="table table-hover text-center table-striped compact cell-border">
 			<thead>
 				<tr>
-					<td><b>Kode BA</b></td>
+					<td><b>BA</b></td>
 					<td><b>Nama BA</b></td>
+					<td><b>Tanggal Live</b></td>
+					<td class="col-md-1 col-lg-1"><b>FICO</b></td>
+					<td class="col-md-1 col-lg-1"><b>MM</b></td>
+					<td class="col-md-1 col-lg-1"><b>PM</b></td>
+					<td class="col-md-1 col-lg-1"><b>PP</b></td>
+					<td class="col-md-1 col-lg-1"><b>SD</b></td>
 					<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") { ?>
 					<td class="col-md-1"></td>
 					<?php } else {} ?>
@@ -221,6 +237,14 @@
 					echo "<tr>";
 						echo "<td style:'border=1px solid black'>".$row['idba']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['nameba']."</td>";
+						$origDate = $row['date_live'];
+						$newDate = date("d-M-Y", strtotime($origDate));
+						echo "<td style:'border=1px solid black'>".$newDate."</td>";
+						echo "<td style:'border=1px solid black'>".$row['p_fico']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['p_mm']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['p_pm']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['p_pp']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['p_sd']."</td>";
 					if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
 						{
 			?>
@@ -241,6 +265,83 @@
 												<input type='hidden' name='idba' value='<?php echo $row['idba']; ?>' />
 												<label for="edit_nameba">Edit nama BA:</label>
 												<input type="text" id="edit_nameba" name="edit_nameba" class="form-control" value="<?php echo $row['nameba']; ?>" required=""><br>
+												<label for="edit_datelive">Tanggal live:</label>
+												<input type="date" id="edit_vcdate" name="edit_datelive" class="form-control" value="<?php echo $row['date_live']; ?>"><br>
+												<label for="pic_fico">PIC FICO:</label><br>
+												<?php
+													$con = mysqli_connect("localhost","root","","saptest");
+
+													$sql = "SELECT * FROM user where usermodul='FICO'";
+													$result1 = mysqli_query($con,$sql);
+
+													echo "<select name='pic_fico' class='selectpicker show-tick' title='Pilih PIC FICO' data-width='auto'>";
+													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
+													{
+														if ($row['userid'] == $row1[userid])
+														{
+															echo "<option value='$row1[userid]' selected>$row1[userid] - $row1[userlname]</option>";
+														} else {
+															echo "<option value='$row1[userid]'>$row1[userid] - $row1[userlname]</option>";
+														}
+													}
+													echo "</select>";
+												?><br><br>
+												<label for="pic_mm">PIC MM:</label><br>
+												<?php
+													$con = mysqli_connect("localhost","root","","saptest");
+
+													$sql = "SELECT * FROM user where usermodul='MM'";
+													$result2 = mysqli_query($con,$sql);
+
+													echo "<select name='pic_mm' class='selectpicker show-tick' title='Pilih PIC MM' data-width='auto'>";
+													while ($row = mysqli_fetch_array($result2,MYSQLI_ASSOC))
+													{
+														echo "<option value='$row[userid]'>$row[userid] - $row[userlname]</option>";
+													}
+													echo "</select>";
+												?><br><br>
+												<label for="pic_pm">PIC PM:</label><br>
+												<?php
+													$con = mysqli_connect("localhost","root","","saptest");
+
+													$sql = "SELECT * FROM user where usermodul='PM'";
+													$result3 = mysqli_query($con,$sql);
+
+													echo "<select name='pic_pm' class='selectpicker show-tick' title='Pilih PIC PM' data-width='auto'>";
+													while ($row = mysqli_fetch_array($result3,MYSQLI_ASSOC))
+													{
+														echo "<option value='$row[userid]'>$row[userid] - $row[userlname]</option>";
+													}
+													echo "</select>";
+												?><br><br>
+												<label for="pic_pp">PIC PP:</label><br>
+												<?php
+													$con = mysqli_connect("localhost","root","","saptest");
+
+													$sql = "SELECT * FROM user where usermodul='PP'";
+													$result4 = mysqli_query($con,$sql);
+
+													echo "<select name='pic_pp' class='selectpicker show-tick' title='Pilih PIC PP' data-width='auto'>";
+													while ($row = mysqli_fetch_array($result4,MYSQLI_ASSOC))
+													{
+														echo "<option value='$row[userid]'>$row[userid] - $row[userlname]</option>";
+													}
+													echo "</select>";
+												?><br><br>
+												<label for="pic_sd">PIC SD:</label><br>
+												<?php
+													$con = mysqli_connect("localhost","root","","saptest");
+
+													$sql = "SELECT * FROM user where usermodul='SD'";
+													$result5 = mysqli_query($con,$sql);
+
+													echo "<select name='pic_sd' class='selectpicker show-tick' title='Pilih PIC SD' data-width='auto'>";
+													while ($row = mysqli_fetch_array($result5,MYSQLI_ASSOC))
+													{
+														echo "<option value='$row[userid]'>$row[userid] - $row[userlname]</option>";
+													}
+													echo "</select>";
+												?><br><br>
 												Terakhir diubah oleh <label><?php echo $row['chg_by']; ?></label>
 												<?php
 													$origDate = $row['chg_date'];
@@ -258,7 +359,7 @@
 								</div>
 							</div>
 							
-							<a class='btn btn-danger btn-xs' data-toggle='modal' href="#modalDelBA<?php echo $row['idba']; ?>"><span class='glyphicon glyphicon-trash'></span></a></td>
+							<a type='button' class='btn btn-danger btn-xs' data-toggle='modal' href="#modalDelBA<?php echo $row['idba']; ?>"><span class='glyphicon glyphicon-trash'></span></a></td>
 							
 							<!-- Modal Delete BA -->
 							<div id="modalDelBA<?php echo $row['idba']; ?>" class="modal fade" role="dialog">
@@ -273,10 +374,10 @@
 										<div class="modal-body"><h5>
 											<form action="" method="POST" name="formDelBA">
 												<label>Anda yakin akan menghapus Business Area</label>
-												<label type="text" id="BAToDel" name="BAToDel"><?php echo $row['idba']; ?> <?php echo $row['nameba']; ?>?</label>
+												<label type="text"><?php echo $row['idba']; ?> <?php echo $row['nameba']; ?>?</label>
 												<br><br>
 												<div class="modal-footer">
-													<a class="btn btn-default btn-success" type="submit" name="delBA" id="delBA" method="POST" href="m-ba.php?delBA=x&idba=<?php echo $row['idba']; ?>"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
+													<a class="btn btn-default btn-success" type="submit" name="del" id="del" method="POST" href="m-ba.php?del=x&id=<?php echo $row['idba']; ?>"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
 													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 												</div>
 											</form>

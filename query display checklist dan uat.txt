@@ -1,0 +1,3 @@
+select * from (join table command)
+where id ba = id ba dari tabel ba
+and session_name = nama pic di table ba

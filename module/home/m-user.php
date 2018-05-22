@@ -276,7 +276,7 @@
 												<input type="text" id="edit_userlname" name="edit_userlname" class="form-control" value="<?php echo $row['userlname']; ?>" required=""><br>
 												<label for="edit_userpwd">Edit password:</label>
 												<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" value="<?php echo $row['userpwd']; ?>" required=""><br>
-												<label for="new_usermodul">Edit modul:</label><br>
+												<label for="edit_usermodul">Edit modul:</label><br>
 												<?php
 													$con = mysqli_connect("localhost","root","","saptest");
 
