@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 16 Mei 2018 pada 19.24
+-- Generation Time: 23 Mei 2018 pada 01.54
 -- Versi Server: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -50,8 +50,15 @@ INSERT INTO `login_data` (`loginuid`, `loginuname`, `loginpwd`, `loginright`, `d
 --
 
 CREATE TABLE `m_ba` (
+  `id` int(11) NOT NULL,
   `idba` int(4) NOT NULL,
   `nameba` varchar(255) NOT NULL,
+  `date_live` date DEFAULT NULL,
+  `p_fico` varchar(255) DEFAULT NULL,
+  `p_mm` varchar(255) DEFAULT NULL,
+  `p_pm` varchar(255) DEFAULT NULL,
+  `p_pp` varchar(255) DEFAULT NULL,
+  `p_sd` varchar(255) DEFAULT NULL,
   `chg_by` varchar(255) DEFAULT NULL,
   `chg_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -60,15 +67,18 @@ CREATE TABLE `m_ba` (
 -- Dumping data untuk tabel `m_ba`
 --
 
-INSERT INTO `m_ba` (`idba`, `nameba`, `chg_by`, `chg_date`) VALUES
-(1000, 'Samator', NULL, NULL),
-(2000, 'Aneka Gas Industri', NULL, NULL),
-(3000, 'Samator Gas Industri', NULL, NULL),
-(3016, 'SGI Rantau Prapat', NULL, NULL),
-(3916, 'SGI Depo Sibolga', NULL, NULL),
-(2072, 'AGI Manado', NULL, NULL),
-(2073, 'AGI Ternate', NULL, NULL),
-(2065, 'AGI Luwuk', NULL, NULL);
+INSERT INTO `m_ba` (`id`, `idba`, `nameba`, `date_live`, `p_fico`, `p_mm`, `p_pm`, `p_pp`, `p_sd`, `chg_by`, `chg_date`) VALUES
+(1, 1000, 'Samator', NULL, 'SAPFICO', 'SAPMM', 'SAPPM', 'SAPPP', 'SAPSD', 'Admin', '2018-05-20 17:29:33'),
+(2, 2000, 'Aneka Gas Industri', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 3000, 'Samator Gas Industri', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 3016, 'SGI Rantau Prapat', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 3916, 'SGI Depo Sibolga', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 2072, 'AGI Manado', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 2073, 'AGI Ternate', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 2065, 'AGI Luwuk', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 2077, 'test input cabang', '2018-05-23', 'SAPFICO', '', '', '', '', 'Admin', '2018-05-23 06:16:07'),
+(10, 2078, 'tes input cabang 2', '0000-00-00', NULL, NULL, NULL, NULL, NULL, 'Admin', '2018-05-23 05:32:12'),
+(11, 2079, 'tes input cabang 3', '2018-06-01', NULL, NULL, NULL, NULL, NULL, 'Admin', '2018-05-23 05:32:51');
 
 -- --------------------------------------------------------
 
@@ -333,6 +343,12 @@ ALTER TABLE `login_data`
   ADD PRIMARY KEY (`loginuid`);
 
 --
+-- Indexes for table `m_ba`
+--
+ALTER TABLE `m_ba`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `m_check`
 --
 ALTER TABLE `m_check`
@@ -385,6 +401,12 @@ ALTER TABLE `login_data`
   MODIFY `loginuid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `m_ba`
+--
+ALTER TABLE `m_ba`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT for table `m_check`
 --
 ALTER TABLE `m_check`
@@ -406,7 +428,7 @@ ALTER TABLE `m_uat_scn`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userno` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `userno` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `v_check`
