@@ -67,9 +67,9 @@
 		$p_pp = mysqli_real_escape_string($con,$_POST['pic_pp']);
 		$p_sd = mysqli_real_escape_string($con,$_POST['pic_sd']);
 		
-		$id = mysqli_real_escape_string($con,$_POST['idba']);
+		$id = mysqli_real_escape_string($con,$_POST['id']);
 		
-		if(!mysqli_query($con,"UPDATE m_ba SET nameba='$editnameba',date_live='$editdatelive',p_fico='$p_fico',p_mm='$p_mm',p_pm='$p_pm',p_pp='$p_pp',p_sd='$p_sd',chg_by='$username',chg_date=now() WHERE idba='$id'"))
+		if(!mysqli_query($con,"UPDATE m_ba SET nameba='$editnameba',date_live='$editdatelive',p_fico='$p_fico',p_mm='$p_mm',p_pm='$p_pm',p_pp='$p_pp',p_sd='$p_sd',chg_by='$username',chg_date=now() WHERE id='$id'"))
 		{
 			echo mysqli_error($con);
 		}
@@ -202,8 +202,6 @@
 				{
 					
 				}
-				
-				
 			?>
 		</h1>
 	</div>
@@ -248,10 +246,10 @@
 					if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
 						{
 			?>
-							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditBA<?php echo $row['idba']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
+							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditBA<?php echo $row['id']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
 							
 							<!-- Modal Edit BA -->
-							<div id="modalEditBA<?php echo $row['idba']; ?>" class="modal fade" role="dialog">
+							<div id="modalEditBA<?php echo $row['id']; ?>" class="modal fade" role="dialog">
 								<div class="modal-dialog">
 									<!-- Modal content-->
 									<div class="modal-content">
@@ -262,22 +260,20 @@
 									  
 										<div class="modal-body"><h5>
 											<form action="" method="POST" name="formEditBA" class="text-left">
-												<input type='hidden' name='idba' value='<?php echo $row['idba']; ?>' />
+												<input type='hidden' name='id' value='<?php echo $row['id']; ?>' />
 												<label for="edit_nameba">Edit nama BA:</label>
 												<input type="text" id="edit_nameba" name="edit_nameba" class="form-control" value="<?php echo $row['nameba']; ?>" required=""><br>
 												<label for="edit_datelive">Tanggal live:</label>
 												<input type="date" id="edit_vcdate" name="edit_datelive" class="form-control" value="<?php echo $row['date_live']; ?>"><br>
 												<label for="pic_fico">PIC FICO:</label><br>
 												<?php
-													$con = mysqli_connect("localhost","root","","saptest");
-
-													$sql = "SELECT * FROM user where usermodul='FICO'";
-													$result1 = mysqli_query($con,$sql);
+													$sql1 = "SELECT * FROM user where usermodul='FICO'";
+													$result1 = mysqli_query($con,$sql1);
 
 													echo "<select name='pic_fico' class='selectpicker show-tick' title='Pilih PIC FICO' data-width='auto'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 													{
-														if ($row['userid'] == $row1[userid])
+														if ($row['p_fico'] == $row1[userid])
 														{
 															echo "<option value='$row1[userid]' selected>$row1[userid] - $row1[userlname]</option>";
 														} else {
@@ -288,57 +284,69 @@
 												?><br><br>
 												<label for="pic_mm">PIC MM:</label><br>
 												<?php
-													$con = mysqli_connect("localhost","root","","saptest");
-
-													$sql = "SELECT * FROM user where usermodul='MM'";
-													$result2 = mysqli_query($con,$sql);
+													$sql2 = "SELECT * FROM user where usermodul='MM'";
+													$result2 = mysqli_query($con,$sql2);
 
 													echo "<select name='pic_mm' class='selectpicker show-tick' title='Pilih PIC MM' data-width='auto'>";
-													while ($row = mysqli_fetch_array($result2,MYSQLI_ASSOC))
+													while ($row2 = mysqli_fetch_array($result2,MYSQLI_ASSOC))
 													{
-														echo "<option value='$row[userid]'>$row[userid] - $row[userlname]</option>";
+														if ($row['p_mm'] == $row2[userid])
+														{
+															echo "<option value='$row2[userid]' selected>$row2[userid] - $row2[userlname]</option>";
+														} else {
+															echo "<option value='$row2[userid]'>$row2[userid] - $row2[userlname]</option>";
+														}
 													}
 													echo "</select>";
 												?><br><br>
 												<label for="pic_pm">PIC PM:</label><br>
 												<?php
-													$con = mysqli_connect("localhost","root","","saptest");
-
-													$sql = "SELECT * FROM user where usermodul='PM'";
-													$result3 = mysqli_query($con,$sql);
+													$sql3 = "SELECT * FROM user where usermodul='PM'";
+													$result3 = mysqli_query($con,$sql3);
 
 													echo "<select name='pic_pm' class='selectpicker show-tick' title='Pilih PIC PM' data-width='auto'>";
-													while ($row = mysqli_fetch_array($result3,MYSQLI_ASSOC))
+													while ($row3 = mysqli_fetch_array($result3,MYSQLI_ASSOC))
 													{
-														echo "<option value='$row[userid]'>$row[userid] - $row[userlname]</option>";
+														if ($row['p_pm'] == $row3[userid])
+														{
+															echo "<option value='$row3[userid]' selected>$row3[userid] - $row3[userlname]</option>";
+														} else {
+															echo "<option value='$row3[userid]'>$row3[userid] - $row3[userlname]</option>";
+														}
 													}
 													echo "</select>";
 												?><br><br>
 												<label for="pic_pp">PIC PP:</label><br>
 												<?php
-													$con = mysqli_connect("localhost","root","","saptest");
-
-													$sql = "SELECT * FROM user where usermodul='PP'";
-													$result4 = mysqli_query($con,$sql);
+													$sql4 = "SELECT * FROM user where usermodul='PP'";
+													$result4 = mysqli_query($con,$sql4);
 
 													echo "<select name='pic_pp' class='selectpicker show-tick' title='Pilih PIC PP' data-width='auto'>";
-													while ($row = mysqli_fetch_array($result4,MYSQLI_ASSOC))
+													while ($row4 = mysqli_fetch_array($result4,MYSQLI_ASSOC))
 													{
-														echo "<option value='$row[userid]'>$row[userid] - $row[userlname]</option>";
+														if ($row['p_pp'] == $row4[userid])
+														{
+															echo "<option value='$row4[userid]' selected>$row4[userid] - $row4[userlname]</option>";
+														} else {
+															echo "<option value='$row4[userid]'>$row4[userid] - $row4[userlname]</option>";
+														}
 													}
 													echo "</select>";
 												?><br><br>
 												<label for="pic_sd">PIC SD:</label><br>
 												<?php
-													$con = mysqli_connect("localhost","root","","saptest");
-
-													$sql = "SELECT * FROM user where usermodul='SD'";
-													$result5 = mysqli_query($con,$sql);
+													$sql5 = "SELECT * FROM user where usermodul='SD'";
+													$result5 = mysqli_query($con,$sql5);
 
 													echo "<select name='pic_sd' class='selectpicker show-tick' title='Pilih PIC SD' data-width='auto'>";
-													while ($row = mysqli_fetch_array($result5,MYSQLI_ASSOC))
+													while ($row5 = mysqli_fetch_array($result5,MYSQLI_ASSOC))
 													{
-														echo "<option value='$row[userid]'>$row[userid] - $row[userlname]</option>";
+														if ($row['p_sd'] == $row5[userid])
+														{
+															echo "<option value='$row5[userid]' selected>$row5[userid] - $row5[userlname]</option>";
+														} else {
+															echo "<option value='$row5[userid]'>$row5[userid] - $row5[userlname]</option>";
+														}
 													}
 													echo "</select>";
 												?><br><br>
@@ -350,7 +358,7 @@
 												tanggal <label><?php echo $newDate; ?></label>.
 												<br><br>
 												<div class="modal-footer">
-													<button class="btn btn-default btn-success" type="submit" name="editBA" id="editBA" action="m-ba.php?id=<?php echo $row['idba']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
+													<button class="btn btn-default btn-success" type="submit" name="editBA" id="editBA" action="m-ba.php?id=<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
 													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 												</div>
 											</form>
