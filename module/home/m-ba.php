@@ -270,7 +270,7 @@
 													$sql1 = "SELECT * FROM user where usermodul='FICO'";
 													$result1 = mysqli_query($con,$sql1);
 
-													echo "<select name='pic_fico' class='selectpicker show-tick' title='Pilih PIC FICO' data-width='auto'>";
+													echo "<select name='pic_fico' class='selectpicker show-tick' title='Pilih PIC FICO' data-width='75%'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 													{
 														if ($row['p_fico'] == $row1[userid])
@@ -287,7 +287,7 @@
 													$sql2 = "SELECT * FROM user where usermodul='MM'";
 													$result2 = mysqli_query($con,$sql2);
 
-													echo "<select name='pic_mm' class='selectpicker show-tick' title='Pilih PIC MM' data-width='auto'>";
+													echo "<select name='pic_mm' class='selectpicker show-tick' title='Pilih PIC MM' data-width='75%'>";
 													while ($row2 = mysqli_fetch_array($result2,MYSQLI_ASSOC))
 													{
 														if ($row['p_mm'] == $row2[userid])
@@ -304,7 +304,7 @@
 													$sql3 = "SELECT * FROM user where usermodul='PM'";
 													$result3 = mysqli_query($con,$sql3);
 
-													echo "<select name='pic_pm' class='selectpicker show-tick' title='Pilih PIC PM' data-width='auto'>";
+													echo "<select name='pic_pm' class='selectpicker show-tick' title='Pilih PIC PM' data-width='75%'>";
 													while ($row3 = mysqli_fetch_array($result3,MYSQLI_ASSOC))
 													{
 														if ($row['p_pm'] == $row3[userid])
@@ -321,7 +321,7 @@
 													$sql4 = "SELECT * FROM user where usermodul='PP'";
 													$result4 = mysqli_query($con,$sql4);
 
-													echo "<select name='pic_pp' class='selectpicker show-tick' title='Pilih PIC PP' data-width='auto'>";
+													echo "<select name='pic_pp' class='selectpicker show-tick' title='Pilih PIC PP' data-width='75%'>";
 													while ($row4 = mysqli_fetch_array($result4,MYSQLI_ASSOC))
 													{
 														if ($row['p_pp'] == $row4[userid])
@@ -338,7 +338,7 @@
 													$sql5 = "SELECT * FROM user where usermodul='SD'";
 													$result5 = mysqli_query($con,$sql5);
 
-													echo "<select name='pic_sd' class='selectpicker show-tick' title='Pilih PIC SD' data-width='auto'>";
+													echo "<select name='pic_sd' class='selectpicker show-tick' title='Pilih PIC SD' data-width='75%'>";
 													while ($row5 = mysqli_fetch_array($result5,MYSQLI_ASSOC))
 													{
 														if ($row['p_sd'] == $row5[userid])
