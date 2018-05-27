@@ -17,9 +17,9 @@
 	session_start();
 	
 	$uname = mysqli_real_escape_string($con,$_POST["username"]);
-	$pass = mysqli_real_escape_string($con,$_POST["password"]);
+	$pass = mysqli_real_escape_string($con,md5($_POST["password"]));
 	
-	$query = "SELECT * FROM user WHERE userid='".$uname."' AND BINARY userpwd= BINARY '".$pass."'";
+	$query = "SELECT * FROM user WHERE userid='".$uname."' AND userpwd='".$pass."'";
 	
 	$result = mysqli_query($con,$query) or die(mysqli_error($con));
 	$count = mysqli_num_rows($result);

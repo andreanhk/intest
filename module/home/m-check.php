@@ -70,12 +70,12 @@
 		$editCtcode = mysqli_real_escape_string($con,$_POST['edit_ctcode']);
 		$editCstat = mysqli_real_escape_string($con,$_POST['edit_cstat']);
 		$editCtable = mysqli_real_escape_string($con,$_POST['edit_ctable']);
-		$editCmodul = mysqli_real_escape_string($con,$_POST['edit_cmodul']);
+		//$editCmodul = mysqli_real_escape_string($con,$_POST['edit_cmodul']);
 		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$id = mysqli_real_escape_string($con,$_POST['c_id']);
 		
-		if(!mysqli_query($con,"UPDATE m_check SET ctype='$editCtype',ctypedesc='$editCtypedesc',ctcode='$editCtcode',cstat='$editCstat',ctable='$editCtable',cmodul='$editCmodul',chg_by='$username',chg_date=now() WHERE c_id='$id'"))
+		if(!mysqli_query($con,"UPDATE m_check SET ctype='$editCtype',ctypedesc='$editCtypedesc',ctcode='$editCtcode',cstat='$editCstat',ctable='$editCtable',chg_by='$username',chg_date=now() WHERE c_id='$id'"))
 		{
 			echo mysqli_error($con);
 		}
@@ -394,6 +394,7 @@
 			</tbody>
 		</table>
 	</div>
+	<br /><br />
 </body>
 
 <script>

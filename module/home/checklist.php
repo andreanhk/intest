@@ -254,7 +254,11 @@
 				}
 				else
 				{
-					$query = "SELECT * FROM v_check WHERE cmodul='$_SESSION[modul]'";
+					//$query = "SELECT * FROM v_check WHERE cmodul='$_SESSION[modul]'";
+					//$query = "SELECT * FROM c v_check JOIN b m_ba WHERE c.cmodul = '$_SESSION[modul]' AND c.vcba = b.idba AND '$_SESSION[username]' IN (b.p_fico,b.p_mm,b.p_pm,b.p_pp,b.p_sd)";
+					$query = "SELECT * FROM saptest.v_check INNER JOIN saptest.m_ba ON saptest.v_check.vcba=saptest.m_ba.idba 
+								WHERE cmodul='$_SESSION[modul]' AND '$_SESSION[username]'
+								IN (saptest.m_ba.p_fico,saptest.m_ba.p_mm,saptest.m_ba.p_pm,saptest.m_ba.p_pp,saptest.m_ba.p_sd);";
 				}
 				$result = mysqli_query($con,$query);
 
@@ -264,8 +268,8 @@
 						echo "<td style:'border=1px solid black'>".$row['cmodul']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctype']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctypedesc']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['ctcode']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['ctable']."</td>";
+						echo "<td style:'border=1px solid black' class='col-md-1 col-lg-1'>".$row['ctcode']."</td>";
+						echo "<td style:'border=1px solid black' class='col-md-1 col-lg-1'>".$row['ctable']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['cstat']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['vcheck']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['vcba']."</td>";

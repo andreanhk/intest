@@ -27,7 +27,7 @@
 		
 		$userid = mysqli_real_escape_string($con,$_POST['new_iduser']);
 		$longname = mysqli_real_escape_string($con,$_POST['new_userlname']);
-		$password = mysqli_real_escape_string($con,$_POST['new_pwduser']);
+		$password = mysqli_real_escape_string($con,md5($_POST['new_pwduser']));
 		$idmodul = mysqli_real_escape_string($con,$_POST['idmodul']);
 		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
@@ -64,7 +64,7 @@
 		$con = mysqli_connect("localhost","root","","saptest");
 		
 		$editlname = mysqli_real_escape_string($con,$_POST['edit_userlname']);
-		$editpwd = mysqli_real_escape_string($con,$_POST['edit_userpwd']);
+		$editpwd = mysqli_real_escape_string($con,md5($_POST['edit_userpwd']));
 		$editmodul = mysqli_real_escape_string($con,$_POST['edit_idmodul']);
 		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
