@@ -104,8 +104,8 @@
 <link href="<?php echo $root; ?>assets/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="<?php echo $root; ?>assets/datatables/media/js/jquery.dataTables.min.js"></script>
 
+<!-- DataTables Export Button -->
 <link href="<?php echo $root; ?>assets/datatables/media/css/buttons.dataTables.min.css" rel="stylesheet">
-
 <script src="<?php echo $root; ?>assets/datatables/media/js/buttons.flash.min.js"></script>
 <script src="<?php echo $root; ?>assets/datatables/media/js/buttons.html5.min.js"></script>
 <script src="<?php echo $root; ?>assets/datatables/media/js/buttons.print.min.js"></script>
@@ -316,9 +316,26 @@
 		stateSave: true,
 		lengthMenu: [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]],
 		dom: 'Blfrtip',
-        buttons: [
-            'copy', 'excel', 'print'
-        ]
+		buttons: [
+            {
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: [ 0, 1 ]
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [ 0, 1 ]
+                }
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: [ 0, 1 ]
+                }
+            }
+		]
 		} );
 	} );
 </script>

@@ -85,7 +85,6 @@
 	}
 ?>
 
-
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
 <!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
@@ -116,6 +115,16 @@
 <!-- DataTables -->
 <link href="<?php echo $root; ?>assets/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="<?php echo $root; ?>assets/datatables/media/js/jquery.dataTables.min.js"></script>
+
+<!-- DataTables Export Button -->
+<link href="<?php echo $root; ?>assets/datatables/media/css/buttons.dataTables.min.css" rel="stylesheet">
+<script src="<?php echo $root; ?>assets/datatables/media/js/buttons.flash.min.js"></script>
+<script src="<?php echo $root; ?>assets/datatables/media/js/buttons.html5.min.js"></script>
+<script src="<?php echo $root; ?>assets/datatables/media/js/buttons.print.min.js"></script>
+<script src="<?php echo $root; ?>assets/datatables/media/js/dataTables.buttons.min.js"></script>
+<script src="<?php echo $root; ?>assets/datatables/media/js/jszip.min.js"></script>
+<script src="<?php echo $root; ?>assets/datatables/media/js/pdfmake.min.js"></script>
+<script src="<?php echo $root; ?>assets/datatables/media/js/vfs_fonts.js"></script>
 
 <!-- Bootstrap Select -->
 <link href="<?php echo $root; ?>assets/bs-select/css/bootstrap-select.min.css" rel="stylesheet">
@@ -289,8 +298,8 @@
 						echo "<td style:'border=1px solid black'>".$row['cmodul']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctype']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctypedesc']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['ctcode']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['ctable']."</td>";
+						echo "<td style:'border=1px solid black' class='col-md-1 col-lg-1'>".$row['ctcode']."</td>";
+						echo "<td style:'border=1px solid black' class='col-md-1 col-lg-1'>".$row['ctable']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['cstat']."</td>";
 			?>
 							<!-- Button Edit Checklist -->
@@ -412,6 +421,27 @@
 					"visible": false,
 				},
 			],
+		dom: 'Blfrtip',
+		buttons: [
+            {
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5 ]
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5 ]
+                }
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5 ]
+                }
+            }
+		],
 		
 			initComplete: function () {
 				this.api().columns().every( function () {

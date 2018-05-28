@@ -113,6 +113,16 @@
 <link href="<?php echo $root; ?>assets/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="<?php echo $root; ?>assets/datatables/media/js/jquery.dataTables.min.js"></script>
 
+<!-- DataTables Export Button -->
+<link href="<?php echo $root; ?>assets/datatables/media/css/buttons.dataTables.min.css" rel="stylesheet">
+<script src="<?php echo $root; ?>assets/datatables/media/js/buttons.flash.min.js"></script>
+<script src="<?php echo $root; ?>assets/datatables/media/js/buttons.html5.min.js"></script>
+<script src="<?php echo $root; ?>assets/datatables/media/js/buttons.print.min.js"></script>
+<script src="<?php echo $root; ?>assets/datatables/media/js/dataTables.buttons.min.js"></script>
+<script src="<?php echo $root; ?>assets/datatables/media/js/jszip.min.js"></script>
+<script src="<?php echo $root; ?>assets/datatables/media/js/pdfmake.min.js"></script>
+<script src="<?php echo $root; ?>assets/datatables/media/js/vfs_fonts.js"></script>
+
 <!-- Bootstrap Select -->
 <link href="<?php echo $root; ?>assets/bs-select/css/bootstrap-select.min.css" rel="stylesheet">
 <script src="<?php echo $root; ?>assets/bs-select/js/bootstrap-select.min.js"></script>
@@ -370,7 +380,28 @@
 			stateSave: true,
 			"order": [[ 1, "asc" ]],
 			"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]],
-			
+			dom: 'Blfrtip',
+			buttons: [
+				{
+					extend: 'copyHtml5',
+					exportOptions: {
+						columns: [ 0, 1, 2 ]
+					}
+				},
+				{
+					extend: 'excelHtml5',
+					exportOptions: {
+						columns: [ 0, 1, 2 ]
+					}
+				},
+				{
+					extend: 'print',
+					exportOptions: {
+						columns: [ 0, 1, 2 ]
+					}
+				}
+			],
+		
 			initComplete: function () {
 				this.api().columns().every( function () {
 					cols.push(this);

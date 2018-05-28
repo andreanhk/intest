@@ -96,6 +96,7 @@
 		
 		$query = 'SELECT * FROM user WHERE userid="'.$session.'"';
 		$result = mysqli_query($con,$query);
+		$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 		
 		if($result->num_rows == 0)
 		{
@@ -126,11 +127,11 @@
 									  
 										<div class="modal-body"><h5>
 											<form action="" method="POST" name="formEditUser">
-												<input type='hidden' name='userid' value='<?php echo $_SESSION['username']; ?>' />
+												<input type='hidden' name='userid' value='<?php echo $row['userid']; ?>' />
 												<label for="edit_userlname">Edit nama:</label>
-												<input type="text" id="edit_userlname" name="edit_userlname" class="form-control" value="<?php echo $_SESSION['longname']; ?>" required=""><br>
+												<input type="text" id="edit_userlname" name="edit_userlname" class="form-control" value="<?php echo $row['userlname']; ?>" required=""><br>
 												<label for="edit_userpwd">Edit password:</label>
-												<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" value="<?php echo $_SESSION['password']; ?>" required=""><br>
+												<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" value="<?php echo $row['userpwd']; ?>" required=""><br>
 												<label for="new_usermodul">Edit modul:</label><br>
 												<?php
 													$con = mysqli_connect("localhost","root","","saptest");
