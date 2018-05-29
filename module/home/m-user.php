@@ -304,8 +304,6 @@
 														}
 													}
 													echo "</select>";
-													
-													//$con->close();
 												?><br><br>
 												Terakhir diubah oleh <label><?php echo $row['chg_by']; ?></label>
 												<?php

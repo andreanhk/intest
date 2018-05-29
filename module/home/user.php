@@ -13,6 +13,25 @@
 	{
 		header("Location: login.php");
 	}
+	
+	if (isset($_POST['editUser']))
+	{	
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$editlname = mysqli_real_escape_string($con,$_POST['edit_userlname']);
+		$editmodul = mysqli_real_escape_string($con,$_POST['edit_usermodul']);
+		$username = mysqli_real_escape_string($con,$_SESSION['username']);
+		
+		$id = mysqli_real_escape_string($con,$_POST['userid']);
+		
+		if(!mysqli_query($con,"UPDATE user SET userlname='$editlname',userpwd='$editpwd',usermodul='$editmodul',chg_by='$username',chg_date=now() WHERE userid='$id'"))
+		{
+			echo mysqli_error($con);
+		}
+		
+		mysqli_close($con);
+		#header("Location:m-user.php");
+	}
 ?>
 
 
@@ -112,53 +131,92 @@
 		<p><span class="glyphicon glyphicon-chevron-right"></span> <label for="username">ID user: <?php echo $_SESSION['username']; ?></label><br /></p>
 		<p><span class="glyphicon glyphicon-chevron-right"></span> <label for="username">Nama user: <?php echo $_SESSION['longname']; ?></label><br /></p>
 		<p><span class="glyphicon glyphicon-chevron-right"></span> <label for="usermodul">Modul user: <?php echo $_SESSION['modul']; ?></label><br /></p>
+		
 		<!-- Button Edit User -->
-							<td><a type='button' class='btn btn-info btn-md' data-toggle='modal' href="#modalEditUser<?php echo $_SESSION['username']; ?>"><span class='glyphicon glyphicon-pencil'></span> <b>Edit user</b></a> 
-							
-							<!-- Modal Edit User -->
-							<div id="modalEditUser<?php echo $_SESSION['username']; ?>" class="modal fade" role="dialog">
-								<div class="modal-dialog">
-									<!-- Modal content-->
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal">&times;</button>
-											<h4 class="modal-title">Edit User</h4>
-										</div>
+		<td><a type='button' class='btn btn-info btn-md' data-toggle='modal' href="#modalEditUser<?php echo $_SESSION['username']; ?>"><span class='glyphicon glyphicon-pencil'></span> <b>Edit user</b></a> 
+						
+		<!-- Modal Edit User -->
+		<div id="modalEditUser<?php echo $_SESSION['username']; ?>" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Edit User</h4>
+					</div>
 									  
-										<div class="modal-body"><h5>
-											<form action="" method="POST" name="formEditUser">
-												<input type='hidden' name='userid' value='<?php echo $row['userid']; ?>' />
-												<label for="edit_userlname">Edit nama:</label>
-												<input type="text" id="edit_userlname" name="edit_userlname" class="form-control" value="<?php echo $row['userlname']; ?>" required=""><br>
-												<label for="edit_userpwd">Edit password:</label>
-												<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" value="<?php echo $row['userpwd']; ?>" required=""><br>
-												<label for="new_usermodul">Edit modul:</label><br>
-												<?php
-													$con = mysqli_connect("localhost","root","","saptest");
+					<div class="modal-body"><h5>
+						<form action="" method="POST" name="formEditUser">
+							<input type='hidden' name='userid' value='<?php echo $row['userid']; ?>' />
+							<label for="edit_userlname">Edit nama:</label>
+							<input type="text" id="edit_userlname" name="edit_userlname" class="form-control" value="<?php echo $row['userlname']; ?>" required=""><br>
+							<label for="edit_usermodul">Edit modul:</label><br>
+							<?php
+								$con = mysqli_connect("localhost","root","","saptest");
 
-													$query = "SELECT idmodul FROM m_modul";
-													$result1 = mysqli_query($con,$query);
+								$query = "SELECT idmodul FROM m_modul";
+								$result1 = mysqli_query($con,$query);
 
-													echo "<select name='edit_idmodul' class='selectpicker' title='Pilih Modul' data-width='auto'>";
-													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
-													{
-														echo "<option value='$row1[idmodul]'>$row1[idmodul]</option>";
-													}
-													echo "</select>";
-													
-													//$con->close();
-												?>
-												<br><br>
-												<div class="modal-footer">
-													<button class="btn btn-default btn-success" type="submit" name="editUser" id="editUser" action="m-user.php?id=<?php echo $row['userid']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
-													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
-												</div>
-											</form>
-										</div>
-									</div>
-								</div>
+								echo "<select name='edit_usermodul' class='selectpicker' title='Pilih Modul' data-width='auto'>";
+								while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
+								{
+									if ($row['usermodul'] == $row1[idmodul])
+									{
+										echo "<option value='$row1[idmodul]' selected >$row1[idmodul]</option>";
+									} else {
+										echo "<option value='$row1[idmodul]'>$row1[idmodul]</option>";
+									}
+								}
+								echo "</select>";
+							?><br><br>
+							
+							<div class="modal-footer">
+								<button class="btn btn-default btn-success" type="submit" name="editUser" id="editUser" action="user.php?id=<?php echo $row['userid']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
+								<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Button Edit Password -->
+		<td><a type='button' class='btn btn-info btn-md' data-toggle='modal' href="#modalEditPwd<?php echo $_SESSION['username']; ?>"><span class='glyphicon glyphicon-pencil'></span> <b>Edit password</b></a> 
+						
+		<!-- Modal Edit Password -->
+		<div id="modalEditPwd<?php echo $_SESSION['username']; ?>" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Edit User</h4>
+					</div>
+									  
+					<div class="modal-body"><h5>
+						<form action="" method="POST" name="formEditUser">
+							<input type='hidden' name='userid' value='<?php echo $row['userid']; ?>' />
+							<label for="edit_oldpwd">Password lama:</label>
+							<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" required=""><br>
+							<label for="edit_newpwd">Password baru:</label>
+							<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" required=""><br>
+							
+							<br><br>
+							
+							<div class="modal-footer">
+								<button class="btn btn-default btn-success" type="submit" name="editPwd" id="editPwd" action="m-user.php?id=<?php echo $row['userid']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
+								<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 		<hr />
+		
 		<h1><span class="glyphicon glyphicon-home"></span> Dasbor Beranda</h1><br />
 		Put "VISIMISI" here to be edited/displayed
 	</div>
