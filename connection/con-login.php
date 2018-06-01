@@ -37,7 +37,10 @@
 	}
 	else
 	{
-		echo header('Location: ../module/home/login.php');
+		//echo header('Location: ../module/home/login.php');
+		echo '<script language="javascript">';
+		echo 'alert("Periksa kembali username dan password anda!")';
+		echo '</script>';
 	}
 	
 	/*if($con->query($sql)==TRUE)

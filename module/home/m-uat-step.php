@@ -171,10 +171,6 @@
 
 	<div class="container container-fluid">
 		<h1>Master Data Step UAT
-		<?php
-				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
-				{
-			?>
 			
 			<a id="btn_tambahstep" class="btn btn-success text-right pull-right" data-toggle="modal" data-target="#modaladd_uatstep"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Step</b></a>
 			
@@ -223,13 +219,6 @@
 				</div>
 			</div>
 			
-			<?php
-				}
-				else
-				{
-					
-				}
-			?>
 		</h1>
 	</div>
 	
@@ -264,9 +253,7 @@
 					<td><b>Step</b></td>
 					<td><b>Tcode</b></td>
 					<td><b>User</b></td>
-					<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") { ?>
 					<td class="col-md-1"></td>
-					<?php } else {} ?>
 				</tr>
 			</thead>
 			<tbody>
@@ -285,8 +272,7 @@
 						echo "<td style:'border=1px solid black'>".$row['bp_step']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['tcode_step']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['user_step']."</td>";
-					if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
-						{
+					
 			?>
 							<!-- Button Edit Step UAT -->
 							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditStep<?php echo $row['id_step']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
@@ -356,11 +342,7 @@
 								</div>
 							</div>
 			<?php
-						}
-						else
-						{
-							
-						}
+						
 					echo "</tr>";
 				}
 

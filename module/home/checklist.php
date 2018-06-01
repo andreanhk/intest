@@ -285,7 +285,7 @@
 						echo "<td style:'border=1px solid black'>".$row['vcba']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['vctransreqs']."</td>";
 						$origDate = $row['vcdate'];
-						$newDate = date("d-M-Y", strtotime($origDate));
+						$newDate = date("d-m-Y", strtotime($origDate));
 						//echo "<td style:'border=1px solid black'>".$row['vcdate']."</td>";
 						echo "<td style:'border=1px solid black'>".$newDate."</td>";
 						echo "<td style:'border=1px solid black'>".$row['vcpic']."</td>";

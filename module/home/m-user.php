@@ -64,26 +64,43 @@
 		$con = mysqli_connect("localhost","root","","saptest");
 		
 		$editlname = mysqli_real_escape_string($con,$_POST['edit_userlname']);
-		$editpwd = mysqli_real_escape_string($con,md5($_POST['edit_userpwd']));
 		$editmodul = mysqli_real_escape_string($con,$_POST['edit_idmodul']);
 		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$id = mysqli_real_escape_string($con,$_POST['userid']);
 		
-		if(!mysqli_query($con,"UPDATE user SET userlname='$editlname',userpwd='$editpwd',usermodul='$editmodul',chg_by='$username',chg_date=now() WHERE userid='$id'"))
+		if(!mysqli_query($con,"UPDATE user SET userlname='$editlname',usermodul='$editmodul',chg_by='$username',chg_date=now() WHERE userid='$id'"))
 		{
 			echo mysqli_error($con);
 		}
 		
-		mysqli_close($con);
-		#header("Location:m-user.php");
+		$con->close();
 	}
 	
-	/*if (isset($_POST['submitEdit']))
+	if (isset($_POST['resetPsw']))
 	{
-		$username = $_POST[];
-		$password = $_POST[];
-	}*/
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$id = mysqli_real_escape_string($con,$_POST['userid']);
+		$pswDefault = mysqli_real_escape_string($con,md5('1234'));
+		$username = mysqli_real_escape_string($con,$_SESSION['username']);
+		
+		$query = 'SELECT * FROM user WHERE userid="'.$id.'"';
+		$result = mysqli_query($con,$query);
+		
+		if($result->num_rows == 0)
+		{
+			echo '<script language="javascript">';
+			echo 'alert("Tidak bisa mereset password!")';
+			echo '</script>';
+		}
+		else
+		{
+			$query = "UPDATE user SET userpwd='$pswDefault',chg_by='$username',chg_date=now() WHERE userid='$id'";
+			$result = mysqli_query($con,$query);
+			header("location:m-user.php");
+		}
+	}
 ?>
 
 
@@ -284,8 +301,6 @@
 												<input type='hidden' name='userid' value='<?php echo $row['userid']; ?>' />
 												<label for="edit_userlname">Edit nama:</label>
 												<input type="text" id="edit_userlname" name="edit_userlname" class="form-control" value="<?php echo $row['userlname']; ?>" required=""><br>
-												<label for="edit_userpwd">Edit password:</label>
-												<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" value="<?php echo $row['userpwd']; ?>" required=""><br>
 												<label for="edit_usermodul">Edit modul:</label><br>
 												<?php
 													$con = mysqli_connect("localhost","root","","saptest");
@@ -322,6 +337,35 @@
 								</div>
 							</div>
 
+							<!-- Button Reset Password -->
+							<a type='button' class='btn btn-warning btn-xs' data-toggle='modal' href="#modalResetPsw<?php echo $row['userid']; ?>"><span class='glyphicon glyphicon-repeat'></span></a>
+
+							<!-- Modal Reset Password -->
+							<div id="modalResetPsw<?php echo $row['userid']; ?>" class="modal fade" role="dialog">
+								<div class="modal-dialog">
+									<!-- Modal content-->
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">Reset Password User</h4>
+										</div>
+										  
+										<div class="modal-body"><h5>
+											<form action="" method="POST" name="formResetPsw" class="text-left">
+												<input type='hidden' name='userid' value='<?php echo $row['userid']; ?>' />
+												<label>Anda yakin akan mereset password user </label>
+												<label type="text" id="userToReset" name="userToReset"><?php echo $row['userid']; ?>?</label>
+												<br><br>
+												<div class="modal-footer">
+													<button class="btn btn-default btn-success" type="submit" name="resetPsw" id="resetPsw" action="m-user.php?id=<?php echo $row['userid']; ?>"><span class="glyphicon glyphicon-repeat"></span> Reset</button>
+													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							
 							<!-- Button Delete User -->
 							<a type='button' class='btn btn-danger btn-xs' data-toggle='modal' href="#modalDelUser<?php echo $row['userid']; ?>"><span class='glyphicon glyphicon-trash'></span></a></td>
 

@@ -24,13 +24,40 @@
 		
 		$id = mysqli_real_escape_string($con,$_POST['userid']);
 		
-		if(!mysqli_query($con,"UPDATE user SET userlname='$editlname',userpwd='$editpwd',usermodul='$editmodul',chg_by='$username',chg_date=now() WHERE userid='$id'"))
+		if(!mysqli_query($con,"UPDATE user SET userlname='$editlname',usermodul='$editmodul',chg_by='$username',chg_date=now() WHERE userid='$id'"))
 		{
 			echo mysqli_error($con);
 		}
 		
 		mysqli_close($con);
-		#header("Location:m-user.php");
+	}
+	
+	if (isset($_POST['editPwd']))
+	{	
+		$con = mysqli_connect("localhost","root","","saptest");
+		
+		$oldPwd = mysqli_real_escape_string($con,md5($_POST['edit_oldpwd']));
+		$newPwd = mysqli_real_escape_string($con,md5($_POST['edit_newpwd']));
+		$username = mysqli_real_escape_string($con,$_SESSION['username']);
+		
+		$id = mysqli_real_escape_string($con,$_POST['userid']);
+		
+		$query = "SELECT * FROM user WHERE userid = '$id' AND userpwd = '$oldPwd'";
+		$result = mysqli_query($con,$query);
+		$num_rows = mysqli_num_rows($result);
+		
+		if($num_rows == 0)
+		{
+			echo '<script language="javascript">';
+			echo 'alert("Gagal mengganti password/password lama tidak sesuai.")';
+			echo '</script>';
+		}
+		else
+		{
+			$query = "UPDATE user SET userpwd='$newPwd',chg_by='$username',chg_date=now() WHERE userid='$id' AND userpwd='$oldPwd'";
+			mysqli_query($con,$query);
+			header("location:user.php");
+		}
 	}
 ?>
 
@@ -129,7 +156,7 @@
 	<div class="container container-fluid">
 		<h1><span class="glyphicon glyphicon-user"></span> Dasbor User</h1><br />
 		<p><span class="glyphicon glyphicon-chevron-right"></span> <label for="username">ID user: <?php echo $_SESSION['username']; ?></label><br /></p>
-		<p><span class="glyphicon glyphicon-chevron-right"></span> <label for="username">Nama user: <?php echo $_SESSION['longname']; ?></label><br /></p>
+		<p><span class="glyphicon glyphicon-chevron-right"></span> <label for="username">Nama user: <?php echo $row['userlname']; ?></label><br /></p>
 		<p><span class="glyphicon glyphicon-chevron-right"></span> <label for="usermodul">Modul user: <?php echo $_SESSION['modul']; ?></label><br /></p>
 		
 		<!-- Button Edit User -->
@@ -155,7 +182,7 @@
 							<?php
 								$con = mysqli_connect("localhost","root","","saptest");
 
-								$query = "SELECT idmodul FROM m_modul";
+								$query = "SELECT idmodul FROM m_modul WHERE idmodul='$_SESSION[modul]'";
 								$result1 = mysqli_query($con,$query);
 
 								echo "<select name='edit_usermodul' class='selectpicker' title='Pilih Modul' data-width='auto'>";
@@ -169,7 +196,8 @@
 									}
 								}
 								echo "</select>";
-							?><br><br>
+							?><br><br><span class="glyphicon glyphicon-check"></span> <label>Perubahan ke modul lain silahkan menghubungi Administrator.</label>
+							<br><br>
 							
 							<div class="modal-footer">
 								<button class="btn btn-default btn-success" type="submit" name="editUser" id="editUser" action="user.php?id=<?php echo $row['userid']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
@@ -199,11 +227,10 @@
 						<form action="" method="POST" name="formEditUser">
 							<input type='hidden' name='userid' value='<?php echo $row['userid']; ?>' />
 							<label for="edit_oldpwd">Password lama:</label>
-							<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" required=""><br>
+							<input type="password" id="edit_oldpwd" name="edit_oldpwd" class="form-control" placeholder="Masukkan password lama" required=""><br>
 							<label for="edit_newpwd">Password baru:</label>
-							<input type="password" id="edit_userpwd" name="edit_userpwd" class="form-control" required=""><br>
-							
-							<br><br>
+							<input type="password" id="edit_newpwd" name="edit_newpwd" class="form-control" placeholder="Masukkan password baru" required=""><br>
+							<br>
 							
 							<div class="modal-footer">
 								<button class="btn btn-default btn-success" type="submit" name="editPwd" id="editPwd" action="m-user.php?id=<?php echo $row['userid']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
@@ -215,9 +242,10 @@
 			</div>
 		</div>
 		
-		<hr />
-		
-		<h1><span class="glyphicon glyphicon-home"></span> Dasbor Beranda</h1><br />
-		Put "VISIMISI" here to be edited/displayed
+		<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") {?>
+			<hr />
+				<h1><span class="glyphicon glyphicon-home"></span> Dasbor Beranda</h1><br />
+				<span class="glyphicon glyphicon-wrench"></span> <label>Under construction...</label>
+		<?php } else {}?>
 	</div>
 </body>

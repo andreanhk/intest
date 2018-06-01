@@ -228,9 +228,9 @@
 					<td class="col-md-1 col-lg-1"><b>PM</b></td>
 					<td class="col-md-1 col-lg-1"><b>PP</b></td>
 					<td class="col-md-1 col-lg-1"><b>SD</b></td>
-					<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") { ?>
+					
 					<td class="col-md-1"></td>
-					<?php } else {} ?>
+					
 				</tr>
 			</thead>
 			<tbody data-link="row">
@@ -246,15 +246,14 @@
 						echo "<td style:'border=1px solid black'>".$row['idba']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['nameba']."</td>";
 						$origDate = $row['date_live'];
-						$newDate = date("d-M-Y", strtotime($origDate));
+						$newDate = date("d-m-Y", strtotime($origDate));
 						echo "<td style:'border=1px solid black'>".$newDate."</td>";
 						echo "<td style:'border=1px solid black'>".$row['p_fico']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['p_mm']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['p_pm']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['p_pp']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['p_sd']."</td>";
-					if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
-						{
+					
 			?>
 							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditBA<?php echo $row['id']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
 							
@@ -404,11 +403,7 @@
 								</div>
 							</div>
 			<?php
-						}
-						else
-						{
-							
-						}
+						
 					echo "</tr>";
 				}
 

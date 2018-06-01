@@ -21,7 +21,7 @@
 		$idBA = mysqli_real_escape_string($con, $_POST['idba']);
 		$uatScn = mysqli_real_escape_string($con, $_POST['uat_scn']);
 		
-		$query = "SELECT * FROM v_uat WHERE vuba = $idBA AND uat_scn = $uatScn";
+		$query = "SELECT * FROM v_uat WHERE vuba = $idBA AND uat_scn = '$uatScn'";
 		$result = mysqli_query($con,$query);
 		
 		if($result->num_rows == 0)
@@ -178,7 +178,7 @@
 								<?php
 									$con = mysqli_connect("localhost","root","","saptest");
 
-									$sql = "SELECT * FROM m_ba";
+									$sql = "SELECT * FROM m_ba ORDER BY idba ASC";
 									$result = mysqli_query($con,$sql);
 
 									echo "<select name='idba' class='selectpicker show-tick' title='Pilih BA'>";
@@ -226,7 +226,6 @@
 				
 				while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
-					
 					echo "<option value='$row[uat_desc]'>$row[uat_scn]</option>";
 					$uat_desc = $_GET['uat_desc'];
 				}
@@ -277,7 +276,10 @@
 			<?php
 				$con = mysqli_connect("localhost","root","","saptest");
 
-				$query = "SELECT * FROM v_uat";
+				//$query = "SELECT * FROM v_uat";
+				$query = "SELECT * FROM saptest.v_uat INNER JOIN saptest.m_ba ON saptest.v_uat.vuba=saptest.m_ba.idba 
+							WHERE '$_SESSION[username]' IN (saptest.m_ba.p_fico,saptest.m_ba.p_mm,saptest.m_ba.p_pm,saptest.m_ba.p_pp,saptest.m_ba.p_sd);";
+								
 				$result = mysqli_query($con,$query);
 
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
@@ -293,7 +295,7 @@
 						echo "<td style:'border=1px solid black'>".$row['vuoutput']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['vupic']."</td>";
 						$origDate = $row['vudate'];
-						$newDate = date("d-M-Y", strtotime($origDate));
+						$newDate = date("d-m-Y", strtotime($origDate));
 						echo "<td style:'border=1px solid black'>".$newDate."</td>";
 						?>
 						<!-- Button Edit Checklist -->

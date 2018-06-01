@@ -167,11 +167,7 @@
 
 	<div class="container container-fluid">
 		<h1>Master Data Skenario UAT
-		<?php
-				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
-				{
-			?>
-			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
+			<!-- Button Add Skenario UAT -->
 			<a class="btn btn-success text-right pull-right" data-toggle="modal" data-target="#modaladd_uatscn"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Skenario</b></a>
 			
 			<!-- Modal Add Skenario UAT -->
@@ -200,14 +196,6 @@
 					</div>
 				</div>
 			</div>
-			
-			<?php
-				}
-				else
-				{
-					
-				}
-			?>
 		</h1>
 	</div>
 	
@@ -219,9 +207,7 @@
 					<!--<td><b>No. Skenario</b></td>-->
 					<td><b>Nama Skenario</b></td>
 					<td><b>Deskripsi Skenario</b></td>
-					<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") { ?>
 					<td class="col-md-1"></td>
-					<?php } else {} ?>
 				</tr>
 			</thead>
 			<tbody>
@@ -236,8 +222,7 @@
 					echo "<tr>";
 						echo "<td style:'border=1px solid black'>".$row['uat_scn']."</td>";
 						echo "<td style:'border=1px solid black' class='col-md-7'>".$row['uat_desc']."</td>";
-					if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
-						{
+					
 			?>
 							<!-- Button Edit Scenario UAT -->
 							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditScn<?php echo $row['uat_id']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
@@ -304,11 +289,7 @@
 								</div>
 							</div>
 			<?php
-						}
-						else
-						{
-							
-						}
+						
 					echo "</tr>";
 				}
 
