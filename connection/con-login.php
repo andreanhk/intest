@@ -14,8 +14,6 @@
 		die("Failed: ".$con->connect_error);
 	}
 	
-	session_start();
-	
 	$uname = mysqli_real_escape_string($con,$_POST["username"]);
 	$pass = mysqli_real_escape_string($con,md5($_POST["password"]));
 	
@@ -37,20 +35,7 @@
 	}
 	else
 	{
-		//echo header('Location: ../module/home/login.php');
-		echo '<script language="javascript">';
-		echo 'alert("Periksa kembali username dan password anda!")';
-		echo '</script>';
+		$_SESSION['message_error']="Periksa kembali username dan password anda!";
+		echo header('Location: ../module/home/login.php');
 	}
-	
-	/*if($con->query($sql)==TRUE)
-	{
-		echo header('Location: ../index.php');
-	}
-	else
-	{
-		echo "Error: ".$sql."<br>".$con->error;
-	}*/
-	
-	$con->close();
 ?>

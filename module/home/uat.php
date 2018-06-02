@@ -4,7 +4,6 @@
 	$root = "../../";
 	require "../template/setting.php";
 	
-	session_start();
 	if(isset($_SESSION['username']) && $_SESSION['username']!="")
 	{
 		//echo($_SESSION['username']);
@@ -16,8 +15,6 @@
 	
 	if (isset($_POST['submit']))
 	{
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$idBA = mysqli_real_escape_string($con, $_POST['idba']);
 		$uatScn = mysqli_real_escape_string($con, $_POST['uat_scn']);
 		
@@ -40,8 +37,6 @@
 	
 	if (isset($_POST['editUAT']))
 	{	
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$editvuin = mysqli_real_escape_string($con,$_POST['edit_vuinput']);
 		$editvuout = mysqli_real_escape_string($con,$_POST['edit_vuoutput']);
 		$editvudate = mysqli_real_escape_string($con,$_POST['edit_vudate']);
@@ -54,8 +49,6 @@
 		{
 			echo mysqli_error($con);
 		}
-		
-		mysqli_close($con);
 	}
 ?>
 
@@ -176,8 +169,6 @@
 							<form action="" method="POST" name="form_addUAT">
 								<label for="idba">Kode business area:</label><br>
 								<?php
-									$con = mysqli_connect("localhost","root","","saptest");
-
 									$sql = "SELECT * FROM m_ba ORDER BY idba ASC";
 									$result = mysqli_query($con,$sql);
 
@@ -187,12 +178,9 @@
 										echo "<option value='$row[idba]'>$row[idba] - $row[nameba]</option>";
 									}
 									echo "</select>";
-									$con->close();
 								?><br /><br />
 								<label for="uat_scn">Skenario UAT:</label><br>
 								<?php
-									$con = mysqli_connect("localhost","root","","saptest");
-
 									$sql1 = "SELECT * FROM m_uat_scn";
 									$result1 = mysqli_query($con,$sql1);
 
@@ -202,7 +190,6 @@
 										echo "<option value='$row[uat_scn]'>$row[uat_scn]</option>";
 									}
 									echo "</select>";
-									$con->close();
 								?><br /><br />
 								<div class="modal-footer">
 									<button class="btn btn-default btn-success" type="submit" name="submit" id="submit" method="POST" action="uat.php"><span class="glyphicon glyphicon-plus"></span> Tambah</button>
@@ -219,8 +206,6 @@
 	<div class="container container-fluid">
 		<select class="selectpicker show-tick" title="Pilih Skenario UAT" id="select1" onchange="getval(this);" data-width="auto">     <!-- edit onChange event ini/edit javascript supaya include semua -->
 			<?php
-				$con = mysqli_connect("localhost","root","","saptest");
-				
 				$query = "SELECT uat_scn, uat_desc FROM m_uat_scn";
 				$result = mysqli_query($con,$query);
 				
@@ -229,15 +214,11 @@
 					echo "<option value='$row[uat_desc]'>$row[uat_scn]</option>";
 					$uat_desc = $_GET['uat_desc'];
 				}
-				
-				$con->close();
 			?>
 		</select>
 		
 		<select id="select2" class='selectpicker show-tick' title='Pilih Business Area' data-width='auto'>
 		<?php
-				$con = mysqli_connect("localhost","root","","saptest");
-
 				$sql = "SELECT * FROM m_ba ORDER BY idba ASC";
 				$result = mysqli_query($con,$sql);
 
@@ -246,8 +227,6 @@
 					echo "<option value='$row[idba]'>$row[idba] - $row[nameba]</option>";
 					$idba = $_GET['idba'];
 				}
-				
-				$con->close();
 			?>
 		</select>
 	</div>
@@ -274,12 +253,19 @@
 			</thead>
 			<tbody>
 			<?php
-				$con = mysqli_connect("localhost","root","","saptest");
+				
 
-				//$query = "SELECT * FROM v_uat";
-				$query = "SELECT * FROM saptest.v_uat INNER JOIN saptest.m_ba ON saptest.v_uat.vuba=saptest.m_ba.idba 
-							WHERE '$_SESSION[username]' IN (saptest.m_ba.p_fico,saptest.m_ba.p_mm,saptest.m_ba.p_pm,saptest.m_ba.p_pp,saptest.m_ba.p_sd);";
-								
+				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+				{
+					$query = "SELECT * FROM v_uat";
+				}
+				else
+				{
+					//$query = "SELECT * FROM v_uat";
+					$query = "SELECT *, saptest.v_uat.id as id, saptest.v_uat.chg_by as chg_by, saptest.v_uat.chg_date as chg_date FROM saptest.v_uat INNER JOIN saptest.m_ba ON saptest.v_uat.vuba=saptest.m_ba.idba 
+								WHERE '$_SESSION[username]' IN (saptest.m_ba.p_fico,saptest.m_ba.p_mm,saptest.m_ba.p_pm,saptest.m_ba.p_pp,saptest.m_ba.p_sd);";
+				}
+				
 				$result = mysqli_query($con,$query);
 
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
@@ -324,15 +310,13 @@
 												<input type="date" id="edit_vudate" name="edit_vudate" class="form-control" value="<?php echo $row['vudate']; ?>"><br>
 												<label for="edit_vupic">PIC:</label><br>
 												<?php
-													$con = mysqli_connect("localhost","root","","saptest");
-
 													$query = "SELECT * FROM user";
 													$result1 = mysqli_query($con,$query);
 
 													echo "<select name='edit_vupic' class='selectpicker show-tick' title='Pilih User' data-width='auto'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 													{
-														if ($row['vupic'] == $row1[userid])
+														if ($row['vupic'] == $row1['userid'])
 														{
 															echo "<option value='$row1[userid]' selected >$row1[userid] - $row1[userlname]</option>";
 														} else {
@@ -360,8 +344,6 @@
 			<?php
 					echo "</tr>";
 				}
-
-				$con->close();
 			?>
 			</tbody>
 		</table>

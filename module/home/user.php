@@ -4,7 +4,6 @@
 	$root = "../../";
 	require "../template/setting.php";
 	
-	session_start();
 	if(isset($_SESSION['username']) && $_SESSION['username']!="")
 	{
 		//echo($_SESSION['username']);
@@ -16,8 +15,6 @@
 	
 	if (isset($_POST['editUser']))
 	{	
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$editlname = mysqli_real_escape_string($con,$_POST['edit_userlname']);
 		$editmodul = mysqli_real_escape_string($con,$_POST['edit_usermodul']);
 		$username = mysqli_real_escape_string($con,$_SESSION['username']);
@@ -28,14 +25,10 @@
 		{
 			echo mysqli_error($con);
 		}
-		
-		mysqli_close($con);
 	}
 	
 	if (isset($_POST['editPwd']))
 	{	
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$oldPwd = mysqli_real_escape_string($con,md5($_POST['edit_oldpwd']));
 		$newPwd = mysqli_real_escape_string($con,md5($_POST['edit_newpwd']));
 		$username = mysqli_real_escape_string($con,$_SESSION['username']);
@@ -136,7 +129,7 @@
 	</nav>
 	
 	<?php
-		$con = mysqli_connect("localhost","root","","saptest");
+		
 		
 		$session = mysqli_real_escape_string($con,$_SESSION['username']);
 		
@@ -180,15 +173,13 @@
 							<input type="text" id="edit_userlname" name="edit_userlname" class="form-control" value="<?php echo $row['userlname']; ?>" required=""><br>
 							<label for="edit_usermodul">Edit modul:</label><br>
 							<?php
-								$con = mysqli_connect("localhost","root","","saptest");
-
 								$query = "SELECT idmodul FROM m_modul WHERE idmodul='$_SESSION[modul]'";
 								$result1 = mysqli_query($con,$query);
 
 								echo "<select name='edit_usermodul' class='selectpicker' title='Pilih Modul' data-width='auto'>";
 								while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 								{
-									if ($row['usermodul'] == $row1[idmodul])
+									if ($row['usermodul'] == $row1['idmodul'])
 									{
 										echo "<option value='$row1[idmodul]' selected >$row1[idmodul]</option>";
 									} else {

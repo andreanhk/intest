@@ -4,7 +4,6 @@
 	$root = "../../";
 	require "../template/setting.php";
 	
-	session_start();
 	if(isset($_SESSION['username']) && $_SESSION['username']!="")
 	{
 		//echo($_SESSION['username']);
@@ -79,7 +78,6 @@
 					<li><a href="../../connection/logout.php"><b>Logout</b></a></li>
 				</ul>
 			</li>
-			<!--&nbsp&nbsp<button class="btn btn-danger navbar-btn" onclick="window.location.href='../../connection/logout.php'">Logout</button>&nbsp&nbsp-->
 		</ul>
 		
 	  </div>

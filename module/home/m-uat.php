@@ -4,8 +4,6 @@
 	$root = "../../";
 	require "../template/setting.php";
 	
-	session_start();
-	
 	if(isset($_SESSION['username']) && $_SESSION['username']!="")
 	{
 		//echo($_SESSION['username']);
@@ -23,8 +21,6 @@
 	
 	if (isset($_POST['submit1']))
 	{
-		$con = mysqli_connect("localhost","root","","saptest");
-
 		$scnname = mysqli_real_escape_string($con, $_POST['new_scnname']);
 		$scndesc = mysqli_real_escape_string($con, $_POST['new_scndesc']);
 		$username = mysqli_real_escape_string($con,$_SESSION['username']);
@@ -48,19 +44,14 @@
 	
 	if (isset($_GET['del']))
 	{
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$id = $_GET['id'];
 		
 		mysqli_query($con,"DELETE FROM m_uat_scn WHERE uat_id='".$id."'");
-		mysqli_close($con);
 		header("Location:m-uat.php");
 	}
 		
 	if (isset($_POST['editScn']))
 	{	
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$editscnname = mysqli_real_escape_string($con,$_POST['edit_scnname']);
 		$editscndesc = mysqli_real_escape_string($con,$_POST['edit_scndesc']);
 		$username = mysqli_real_escape_string($con,$_SESSION['username']);
@@ -71,9 +62,6 @@
 		{
 			echo mysqli_error($con);
 		}
-		
-		mysqli_close($con);
-		#header("Location:m-uat.php");
 	}
 ?>
 
@@ -212,8 +200,6 @@
 			</thead>
 			<tbody>
 			<?php
-				$con = mysqli_connect("localhost","root","","saptest");
-
 				$query = "SELECT * FROM m_uat_scn";
 				$result = mysqli_query($con,$query);
 
@@ -292,8 +278,6 @@
 						
 					echo "</tr>";
 				}
-
-				$con->close();
 			?>
 			</tbody>
 		</table>

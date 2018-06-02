@@ -4,7 +4,6 @@
 	$root = "../../";
 	require "../template/setting.php";
 	
-	session_start();
 	if(isset($_SESSION['username']) && $_SESSION['username']!="")
 	{
 		//echo($_SESSION['username']);
@@ -20,8 +19,6 @@
 	
 	if (isset($_POST['submit']))
 	{
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$idba = mysqli_real_escape_string($con,$_POST['new_idba']);
 		$nameba = mysqli_real_escape_string($con,$_POST['new_nameba']);
 		$datelive = mysqli_real_escape_string($con,$_POST['new_datelive']);
@@ -46,18 +43,14 @@
 	
 	if (isset($_GET['del']))
 	{
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$id = $_GET['id'];
 		
 		mysqli_query($con,"DELETE FROM m_ba WHERE idba='".$id."'");
-		mysqli_close($con);
 		header("Location:m-ba.php");
 	}
 	
 	if (isset($_POST['editBA']))
 	{	
-		$con = mysqli_connect("localhost","root","","saptest");
 		$editnameba = mysqli_real_escape_string($con,$_POST['edit_nameba']);
 		$editdatelive = mysqli_real_escape_string($con,$_POST['edit_datelive']);
 		$username = mysqli_real_escape_string($con,$_SESSION['username']);
@@ -73,9 +66,6 @@
 		{
 			echo mysqli_error($con);
 		}
-		
-		mysqli_close($con);
-		#header("Location:m-ba.php");
 	}
 ?>
 
@@ -228,14 +218,13 @@
 					<td class="col-md-1 col-lg-1"><b>PM</b></td>
 					<td class="col-md-1 col-lg-1"><b>PP</b></td>
 					<td class="col-md-1 col-lg-1"><b>SD</b></td>
-					
 					<td class="col-md-1"></td>
 					
 				</tr>
 			</thead>
 			<tbody data-link="row">
 			<?php
-				$con = mysqli_connect("localhost","root","","saptest");
+				
 
 				$query = "SELECT * FROM m_ba";
 				$result = mysqli_query($con,$query);
@@ -282,7 +271,7 @@
 													echo "<select name='pic_fico' class='selectpicker show-tick' title='Pilih PIC FICO' data-width='75%'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 													{
-														if ($row['p_fico'] == $row1[userid])
+														if ($row['p_fico'] == $row1['userid'])
 														{
 															echo "<option value='$row1[userid]' selected>$row1[userid] - $row1[userlname]</option>";
 														} else {
@@ -299,7 +288,7 @@
 													echo "<select name='pic_mm' class='selectpicker show-tick' title='Pilih PIC MM' data-width='75%'>";
 													while ($row2 = mysqli_fetch_array($result2,MYSQLI_ASSOC))
 													{
-														if ($row['p_mm'] == $row2[userid])
+														if ($row['p_mm'] == $row2['userid'])
 														{
 															echo "<option value='$row2[userid]' selected>$row2[userid] - $row2[userlname]</option>";
 														} else {
@@ -316,7 +305,7 @@
 													echo "<select name='pic_pm' class='selectpicker show-tick' title='Pilih PIC PM' data-width='75%'>";
 													while ($row3 = mysqli_fetch_array($result3,MYSQLI_ASSOC))
 													{
-														if ($row['p_pm'] == $row3[userid])
+														if ($row['p_pm'] == $row3['userid'])
 														{
 															echo "<option value='$row3[userid]' selected>$row3[userid] - $row3[userlname]</option>";
 														} else {
@@ -333,7 +322,7 @@
 													echo "<select name='pic_pp' class='selectpicker show-tick' title='Pilih PIC PP' data-width='75%'>";
 													while ($row4 = mysqli_fetch_array($result4,MYSQLI_ASSOC))
 													{
-														if ($row['p_pp'] == $row4[userid])
+														if ($row['p_pp'] == $row4['userid'])
 														{
 															echo "<option value='$row4[userid]' selected>$row4[userid] - $row4[userlname]</option>";
 														} else {
@@ -350,7 +339,7 @@
 													echo "<select name='pic_sd' class='selectpicker show-tick' title='Pilih PIC SD' data-width='75%'>";
 													while ($row5 = mysqli_fetch_array($result5,MYSQLI_ASSOC))
 													{
-														if ($row['p_sd'] == $row5[userid])
+														if ($row['p_sd'] == $row5['userid'])
 														{
 															echo "<option value='$row5[userid]' selected>$row5[userid] - $row5[userlname]</option>";
 														} else {
@@ -406,8 +395,6 @@
 						
 					echo "</tr>";
 				}
-
-				$con->close();
 			?>
 			</tbody>
 		</table>

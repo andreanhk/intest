@@ -4,7 +4,6 @@
 	$root = "../../";
 	require "../template/setting.php";
 	
-	session_start();
 	if(isset($_SESSION['username']) && $_SESSION['username']!="")
 	{
 		//echo($_SESSION['username']);
@@ -16,8 +15,6 @@
 	
 	if (isset($_POST['submit']))
 	{
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$idBA = mysqli_real_escape_string($con, $_POST['idba']);
 		
 		$query = "SELECT * FROM v_check WHERE vcba = $idBA";
@@ -39,8 +36,6 @@
 	
 	if (isset($_POST['editCL']))
 	{	
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$editvcheck = mysqli_real_escape_string($con,$_POST['edit_vcheck']);
 		$editvctr = mysqli_real_escape_string($con,$_POST['edit_vctransreqs']);
 		$editvcdate = mysqli_real_escape_string($con,$_POST['edit_vcdate']);
@@ -49,12 +44,12 @@
 		
 		$id = mysqli_real_escape_string($con,$_POST['id']);
 		
+		echo $username;
+		die();
 		if(!mysqli_query($con,"UPDATE v_check SET vcheck='$editvcheck',vctransreqs='$editvctr',vcdate='$editvcdate',vcpic='$editvcpic',chg_by='$username',chg_date=now() WHERE id='$id'"))
 		{
 			echo mysqli_error($con);
 		}
-		
-		mysqli_close($con);
 	}
 ?>
 
@@ -165,7 +160,7 @@
 					<form action="" method="POST" name="form_addCL">
 						<label>Kode business area:</label><br>
 						<?php
-							$con = mysqli_connect("localhost","root","","saptest");
+							
 
 							$sql = "SELECT * FROM m_ba  ORDER BY idba ASC";
 							$result = mysqli_query($con,$sql);
@@ -197,8 +192,6 @@
 	<div class="container container-fluid">
 		<select id="select1" class='selectpicker' title='Pilih Modul' data-width='auto'>
 		<?php
-				$con = mysqli_connect("localhost","root","","saptest");
-
 				$sql = "SELECT idmodul FROM m_modul";
 				$result = mysqli_query($con,$sql);
 
@@ -207,8 +200,6 @@
 					echo "<option value='$row[idmodul]'>$row[idmodul]</option>";
 					$idmodul = $_GET['idmodul'];
 				}
-				
-				$con->close();
 			?>
 		</select>
 	
@@ -220,8 +211,6 @@
 	
 		<select id="select2" class='selectpicker show-tick' title='Pilih Business Area' data-width='auto'>
 		<?php
-				$con = mysqli_connect("localhost","root","","saptest");
-
 				$sql = "SELECT * FROM m_ba ORDER BY idba ASC";
 				$result = mysqli_query($con,$sql);
 
@@ -230,8 +219,6 @@
 					echo "<option value='$row[idba]'>$row[idba] - $row[nameba]</option>";
 					$idba = $_GET['idba'];
 				}
-				
-				$con->close();
 			?>
 		</select>
 	</div><br>
@@ -256,7 +243,7 @@
 			</thead>
 			<tbody>
 			<?php
-				$con = mysqli_connect("localhost","root","","saptest");
+				
 
 				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
 				{
@@ -266,9 +253,8 @@
 				{
 					//$query = "SELECT * FROM v_check WHERE cmodul='$_SESSION[modul]'";
 					//$query = "SELECT * FROM c v_check JOIN b m_ba WHERE c.cmodul = '$_SESSION[modul]' AND c.vcba = b.idba AND '$_SESSION[username]' IN (b.p_fico,b.p_mm,b.p_pm,b.p_pp,b.p_sd)";
-					$query = "SELECT * FROM saptest.v_check INNER JOIN saptest.m_ba ON saptest.v_check.vcba=saptest.m_ba.idba 
-								WHERE cmodul='$_SESSION[modul]' AND '$_SESSION[username]'
-								IN (saptest.m_ba.p_fico,saptest.m_ba.p_mm,saptest.m_ba.p_pm,saptest.m_ba.p_pp,saptest.m_ba.p_sd);";
+					$query = "SELECT *, saptest.v_check.id as id, saptest.v_check.chg_by as chg_by, saptest.v_check.chg_date as chg_date FROM saptest.v_check INNER JOIN saptest.m_ba ON saptest.v_check.vcba=saptest.m_ba.idba  
+								WHERE cmodul='$_SESSION[modul]' AND '$_SESSION[username]' IN (saptest.m_ba.p_fico,saptest.m_ba.p_mm,saptest.m_ba.p_pm,saptest.m_ba.p_pp,saptest.m_ba.p_sd);";
 				}
 				$result = mysqli_query($con,$query);
 
@@ -325,15 +311,13 @@
 												<input type="date" id="edit_vcdate" name="edit_vcdate" class="form-control" value="<?php echo $row['vcdate']; ?>"><br>
 												<label for="edit_vcpic">PIC:</label><br>
 												<?php
-													$con = mysqli_connect("localhost","root","","saptest");
-
 													$query = "SELECT * FROM user";
 													$result1 = mysqli_query($con,$query);
 
 													echo "<select name='edit_vcpic' class='selectpicker show-tick' title='Pilih User' data-width='auto'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 													{
-														if ($row['vcpic'] == $row1[userid])
+														if ($row['vcpic'] == $row1['userid'])
 														{
 															echo "<option value='$row1[userid]' selected >$row1[userid] - $row1[userlname]</option>";
 														} else {
@@ -361,8 +345,6 @@
 			<?php
 					echo "</tr>";
 				}
-
-				$con->close();
 			?>
 			</tbody>
 		</table>

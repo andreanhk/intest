@@ -4,8 +4,6 @@
 	$root = "../../";
 	require "../template/setting.php";
 	
-	session_start();
-	
 	if(isset($_SESSION['username']) && $_SESSION['username']!="")
 	{
 		//echo($_SESSION['username']);
@@ -24,8 +22,6 @@
 	
 	if (isset($_POST['submit']))
 	{
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$stepname = mysqli_real_escape_string($con, $_POST['new_stepname']);
 		$steptcode = mysqli_real_escape_string($con, $_POST['new_steptcode']);
 		$stepuser = mysqli_real_escape_string($con, $_POST['new_stepuser']);
@@ -51,19 +47,14 @@
 	
 	if (isset($_GET['del']))
 	{
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$id = $_GET['id'];
 		
 		mysqli_query($con,"DELETE FROM m_uat_step WHERE id_step='".$id."'");
-		mysqli_close($con);
 		header("Location:m-uat-step.php");
 	}
 		
 	if (isset($_POST['editStep']))
 	{	
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$editStepName = mysqli_real_escape_string($con,$_POST['edit_stepname']);
 		$editStepTcode = mysqli_real_escape_string($con,$_POST['edit_steptcode']);
 		$editStepUser = mysqli_real_escape_string($con,$_POST['edit_stepuser']);
@@ -75,9 +66,6 @@
 		{
 			echo mysqli_error($con);
 		}
-		
-		mysqli_close($con);
-		#header("Location:m-uat-step.php");
 	}
 ?>
 
@@ -188,8 +176,6 @@
 							<form action="m-uat-step.php" method="POST" name="form_addstep">
 								<label for="uat_scn">Skenario step:</label><br />
 								<?php
-									$con = mysqli_connect("localhost","root","","saptest");
-
 									$sql = "SELECT uat_scn FROM m_uat_scn";
 									$result = mysqli_query($con,$sql);
 
@@ -199,8 +185,6 @@
 										echo "<option value='$row[uat_scn]'>$row[uat_scn]</option>";
 									}
 									echo "</select>";
-									
-									$con->close();
 								?><br><br>
 								<label for="new_stepname">Nama step:</label>
 								<input type="text" id="new_stepname" name="new_stepname" class="form-control" placeholder="Contoh: Buat Sales Order" required=""><br>
@@ -225,8 +209,6 @@
 	<div class="container container-fluid">
 		<select id="select1" onchange="getval(this);" class="selectpicker show-tick" title="Pilih Skenario" data-width="auto">     <!-- edit onChange event ini/edit javascript supaya include semua -->
 			<?php
-				$con = mysqli_connect("localhost","root","","saptest");
-				
 				$query = "SELECT uat_scn, uat_desc FROM m_uat_scn";
 				$result = mysqli_query($con,$query);
 				
@@ -237,8 +219,6 @@
 					echo "<option value='$row[uat_desc]'>$row[uat_scn]</option>";
 					$uat_desc = $_GET['uat_desc'];
 				}
-				
-				$con->close();
 			?>
 		</select>
 	</div><br>
@@ -258,7 +238,7 @@
 			</thead>
 			<tbody>
 			<?php
-				$con = mysqli_connect("localhost","root","","saptest");
+				
 
 				$query = "SELECT * FROM m_uat_scn c JOIN m_uat_step t WHERE c.uat_scn = t.uat_scn";
 				$result = mysqli_query($con,$query);
@@ -345,8 +325,6 @@
 						
 					echo "</tr>";
 				}
-
-				$con->close();
 			?>
 			</tbody>
 		</table>

@@ -4,8 +4,6 @@
 	$root = "../../";
 	require "../template/setting.php";
 	
-	session_start();
-	
 	if(isset($_SESSION['username']) && $_SESSION['username']!="")
 	{
 		//echo($_SESSION['username']);
@@ -23,8 +21,6 @@
 	
 	if (isset($_POST['submit']))
 	{
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$userid = mysqli_real_escape_string($con,$_POST['new_iduser']);
 		$longname = mysqli_real_escape_string($con,$_POST['new_userlname']);
 		$password = mysqli_real_escape_string($con,md5($_POST['new_pwduser']));
@@ -50,19 +46,14 @@
 	
 	if (isset($_GET['del']))
 	{
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$id = $_GET['id'];
 		
 		mysqli_query($con,"DELETE FROM user WHERE userid='".$id."'");
-		mysqli_close($con);
 		header("Location:m-user.php");
 	}
 	
 	if (isset($_POST['editUser']))
 	{	
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$editlname = mysqli_real_escape_string($con,$_POST['edit_userlname']);
 		$editmodul = mysqli_real_escape_string($con,$_POST['edit_idmodul']);
 		$username = mysqli_real_escape_string($con,$_SESSION['username']);
@@ -73,14 +64,10 @@
 		{
 			echo mysqli_error($con);
 		}
-		
-		$con->close();
 	}
 	
 	if (isset($_POST['resetPsw']))
 	{
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$id = mysqli_real_escape_string($con,$_POST['userid']);
 		$pswDefault = mysqli_real_escape_string($con,md5('1234'));
 		$username = mysqli_real_escape_string($con,$_SESSION['username']);
@@ -223,8 +210,6 @@
 								<input type="password" id="new_repeatpwd" name="new_repeatpwd" class="form-control" placeholder="Ulangi Password" required=""><br>
 								<label for="new_idmodul">Modul user:</label><br>
 								<?php
-									$con = mysqli_connect("localhost","root","","saptest");
-
 									$sql = "SELECT idmodul FROM m_modul";
 									$result = mysqli_query($con,$sql);
 
@@ -268,8 +253,6 @@
 			</thead>
 			<tbody data-link="row">
 			<?php
-				$con = mysqli_connect("localhost","root","","saptest");
-
 				$query = "SELECT * FROM user";
 				$result = mysqli_query($con,$query);
 
@@ -303,15 +286,13 @@
 												<input type="text" id="edit_userlname" name="edit_userlname" class="form-control" value="<?php echo $row['userlname']; ?>" required=""><br>
 												<label for="edit_usermodul">Edit modul:</label><br>
 												<?php
-													$con = mysqli_connect("localhost","root","","saptest");
-
 													$query = "SELECT idmodul FROM m_modul";
 													$result1 = mysqli_query($con,$query);
 
 													echo "<select name='edit_idmodul' class='selectpicker show-tick' title='Pilih Modul' data-width='auto'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 													{
-														if ($row['usermodul'] == $row1[idmodul])
+														if ($row['usermodul'] == $row1['idmodul'])
 														{
 															echo "<option value='$row1[idmodul]' selected >$row1[idmodul]</option>";
 														} else {
@@ -401,8 +382,6 @@
 						}
 					echo "</tr>";
 				}
-				
-				//$con->close();
 			?>
 				
 			</tbody>

@@ -4,7 +4,6 @@
 	$root = "../../";
 	require "../template/setting.php";
 	
-	session_start();
 	if(isset($_SESSION['username']) && $_SESSION['username']!="")
 	{
 		//echo($_SESSION['username']);
@@ -23,8 +22,6 @@
 	
 	if (isset($_POST['submit']))
 	{
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$ctype = mysqli_real_escape_string($con,$_POST['new_ctype']);
 		$ctypedesc = mysqli_real_escape_string($con,$_POST['new_ctypedesc']);
 		$ctcode = mysqli_real_escape_string($con,$_POST['new_ctcode']);
@@ -52,25 +49,19 @@
 	
 	if (isset($_GET['del']))
 	{
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$id = $_GET['id'];
 		
 		mysqli_query($con,"DELETE FROM m_check WHERE c_id='".$id."'");
-		mysqli_close($con);
 		header("Location:m-check.php");
 	}
 	
 	if (isset($_POST['editCheck']))
 	{	
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$editCtype = mysqli_real_escape_string($con,$_POST['edit_ctype']);
 		$editCtypedesc = mysqli_real_escape_string($con,$_POST['edit_ctypedesc']);
 		$editCtcode = mysqli_real_escape_string($con,$_POST['edit_ctcode']);
 		$editCstat = mysqli_real_escape_string($con,$_POST['edit_cstat']);
 		$editCtable = mysqli_real_escape_string($con,$_POST['edit_ctable']);
-		//$editCmodul = mysqli_real_escape_string($con,$_POST['edit_cmodul']);
 		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$id = mysqli_real_escape_string($con,$_POST['c_id']);
@@ -79,9 +70,6 @@
 		{
 			echo mysqli_error($con);
 		}
-		
-		mysqli_close($con);
-		#header("Location:m-user.php");
 	}
 ?>
 
@@ -198,8 +186,6 @@
 							<form action="" method="POST" name="form_addchecklist">
 								<label for="new_cmodul">Modul checklist:</label><br>
 								<?php
-									$con = mysqli_connect("localhost","root","","saptest");
-
 									if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
 									{
 										$sql = "SELECT idmodul FROM m_modul";
@@ -216,8 +202,6 @@
 										echo "<option value='$row[idmodul]'>$row[idmodul]</option>";
 									}
 									echo "</select>";
-									
-									$con->close();
 								?><br /><br />
 								<label for="new_ctype">Tipe custom:</label>
 								<input type="text" id="new_ctype" name="new_ctype" class="form-control" placeholder="Contoh: Enterprise Structure" required=""><br>
@@ -247,8 +231,6 @@
 	<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") { ?>
 		<select id="select1" onChange="getval(this);" class='selectpicker show-tick' title='Pilih Modul' data-width='auto'>
 		<?php
-				$con = mysqli_connect("localhost","root","","saptest");
-
 				$sql = "SELECT idmodul FROM m_modul";
 				$result = mysqli_query($con,$sql);
 
@@ -257,8 +239,6 @@
 					echo "<option value='$row[idmodul]'>$row[idmodul]</option>";
 					$idmodul = $_GET['idmodul'];
 				}
-				
-				$con->close();
 			?>
 		</select>
 	<?php } else {} ?>
@@ -280,8 +260,6 @@
 			</thead>
 			<tbody data-link="row">
 			<?php
-				$con = mysqli_connect("localhost","root","","saptest");
-				
 				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
 				{
 					$query = "SELECT * FROM m_check";
@@ -328,27 +306,6 @@
 												<input type="text" id="edit_ctable" name="edit_ctable" class="form-control" value="<?php echo $row['ctable']; ?>"><br>
 												<label for="edit_cstat">Edit status:</label>
 												<input type="text" id="edit_cstat" name="edit_cstat" class="form-control" value="<?php echo $row['cstat']; ?>" required=""><br>												
-												<!--<label for="edit_cmodul">Edit modul:</label><br>-->
-												<?php
-													/*$con = mysqli_connect("localhost","root","","saptest");
-
-													$query = "SELECT idmodul FROM m_modul";
-													$result1 = mysqli_query($con,$query);
-
-													echo "<select name='edit_cmodul' class='selectpicker show-tick' title='Pilih Modul' data-width='auto'>";
-													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
-													{
-														if ($row['cmodul'] == $row1[idmodul])
-														{
-															echo "<option value='$row1[idmodul]' selected >$row1[idmodul]</option>";
-														} else {
-															echo "<option value='$row1[idmodul]'>$row1[idmodul]</option>";
-														}
-													}
-													echo "</select>";
-													
-													//$con->close();*/
-												?>
 												Terakhir diubah oleh <label><?php echo $row['chg_by']; ?></label>
 												<?php
 													$origDate = $row['chg_date'];
@@ -397,8 +354,6 @@
 						
 					echo "</tr>";
 				}
-
-				$con->close();
 			?>
 			</tbody>
 		</table>

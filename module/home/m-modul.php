@@ -4,7 +4,6 @@
 	$root = "../../";
 	require "../template/setting.php";
 	
-	session_start();
 	if(isset($_SESSION['username']) && $_SESSION['username']!="")
 	{
 		//echo($_SESSION['username']);
@@ -20,8 +19,6 @@
 	
 	if (isset($_POST['submit']))
 	{
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$idmodul = mysqli_real_escape_string($con,$_POST['new_idmodul']);
 		$namemodul = mysqli_real_escape_string($con,$_POST['new_namemodul']);
 		$username = mysqli_real_escape_string($con,$_SESSION['username']);
@@ -45,18 +42,15 @@
 	
 	if (isset($_GET['delmodul']))
 	{
-		$con = mysqli_connect("localhost","root","","saptest");
-		
 		$idmodul = $_GET['idmodul'];
 		
 		mysqli_query($con,"DELETE FROM m_modul WHERE idmodul='".$idmodul."'");
-		mysqli_close($con);
 		header("Location:m-modul.php");
 	}
 	
 	if (isset($_POST['editModul']))
 	{	
-		$con = mysqli_connect("localhost","root","","saptest");
+		
 		$editnamemodul = mysqli_real_escape_string($con,$_POST['edit_namemodul']);
 		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
@@ -66,9 +60,6 @@
 		{
 			echo mysqli_error($con);
 		}
-		
-		mysqli_close($con);
-		#header("Location:m-modul.php");
 	}
 ?>
 
@@ -166,7 +157,8 @@
 				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
 				{
 			?>
-			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
+			
+			<!-- Button Add User-->
 			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modalAddModul"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Modul</b></button>
 			
 			<!-- Modal Add User -->
@@ -221,8 +213,6 @@
 			</thead>
 			<tbody>
 			<?php
-				$con = mysqli_connect("localhost","root","","saptest");
-
 				$query = "SELECT * FROM m_modul";
 				$result = mysqli_query($con,$query);
 
@@ -234,6 +224,7 @@
 					if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
 						{
 			?>
+							<!-- Button Edit Modul -->
 							<td><a class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditModul<?php echo $row['idmodul']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
 							
 							<!-- Modal Edit modul -->
@@ -268,9 +259,10 @@
 								</div>
 							</div>
 							
+							<!-- Button Delete Modul -->
 							<a class='btn btn-danger btn-xs' data-toggle='modal' href="#modalDelModul<?php echo $row['idmodul']; ?>"><span class='glyphicon glyphicon-trash'></span></a></td>
 							
-							<!-- Modal Delete modul -->
+							<!-- Modal Delete Modul -->
 							<div id="modalDelModul<?php echo $row['idmodul']; ?>" class="modal fade" role="dialog">
 								<div class="modal-dialog">
 									<!-- Modal content-->
@@ -302,8 +294,6 @@
 						}
 					echo "</tr>";
 				}
-
-				$con->close();
 			?>
 			</tbody>
 		</table>
