@@ -253,8 +253,8 @@
 				{
 					//$query = "SELECT * FROM v_check WHERE cmodul='$_SESSION[modul]'";
 					//$query = "SELECT * FROM c v_check JOIN b m_ba WHERE c.cmodul = '$_SESSION[modul]' AND c.vcba = b.idba AND '$_SESSION[username]' IN (b.p_fico,b.p_mm,b.p_pm,b.p_pp,b.p_sd)";
-					$query = "SELECT *, saptest.v_check.id as id, saptest.v_check.chg_by as chg_by, saptest.v_check.chg_date as chg_date FROM saptest.v_check INNER JOIN saptest.m_ba ON saptest.v_check.vcba=saptest.m_ba.idba  
-								WHERE cmodul='$_SESSION[modul]' AND '$_SESSION[username]' IN (saptest.m_ba.p_fico,saptest.m_ba.p_mm,saptest.m_ba.p_pm,saptest.m_ba.p_pp,saptest.m_ba.p_sd);";
+					$query = "SELECT *, sappman.v_check.id as id, sappman.v_check.chg_by as chg_by, sappman.v_check.chg_date as chg_date FROM sappman.v_check INNER JOIN sappman.m_ba ON sappman.v_check.vcba=sappman.m_ba.idba  
+								WHERE cmodul='$_SESSION[modul]' AND '$_SESSION[username]' IN (sappman.m_ba.p_fico,sappman.m_ba.p_mm,sappman.m_ba.p_pm,sappman.m_ba.p_pp,sappman.m_ba.p_sd);";
 				}
 				$result = mysqli_query($con,$query);
 

@@ -262,8 +262,8 @@
 				else
 				{
 					//$query = "SELECT * FROM v_uat";
-					$query = "SELECT *, saptest.v_uat.id as id, saptest.v_uat.chg_by as chg_by, saptest.v_uat.chg_date as chg_date FROM saptest.v_uat INNER JOIN saptest.m_ba ON saptest.v_uat.vuba=saptest.m_ba.idba 
-								WHERE '$_SESSION[username]' IN (saptest.m_ba.p_fico,saptest.m_ba.p_mm,saptest.m_ba.p_pm,saptest.m_ba.p_pp,saptest.m_ba.p_sd);";
+					$query = "SELECT *, sappman.v_uat.id as id, sappman.v_uat.chg_by as chg_by, sappman.v_uat.chg_date as chg_date FROM sappman.v_uat INNER JOIN sappman.m_ba ON sappman.v_uat.vuba=sappman.m_ba.idba 
+								WHERE '$_SESSION[username]' IN (sappman.m_ba.p_fico,sappman.m_ba.p_mm,sappman.m_ba.p_pm,sappman.m_ba.p_pp,sappman.m_ba.p_sd);";
 				}
 				
 				$result = mysqli_query($con,$query);
