@@ -1,6 +1,6 @@
 <?php
 
-$con = mysqli_connect("localhost","root","","saptest");
+$con = mysqli_connect("localhost","root","","sappman");
 $result = mysqli_query($con,"SELECT * FROM user");
 
 while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))

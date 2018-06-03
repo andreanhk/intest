@@ -59,10 +59,11 @@
 		$p_pm = mysqli_real_escape_string($con,$_POST['pic_pm']);
 		$p_pp = mysqli_real_escape_string($con,$_POST['pic_pp']);
 		$p_sd = mysqli_real_escape_string($con,$_POST['pic_sd']);
+		$tl_ba = mysqli_real_escape_string($con,$_POST['edit_tl']);
 		
 		$id = mysqli_real_escape_string($con,$_POST['id']);
 		
-		if(!mysqli_query($con,"UPDATE m_ba SET nameba='$editnameba',date_live='$editdatelive',p_fico='$p_fico',p_mm='$p_mm',p_pm='$p_pm',p_pp='$p_pp',p_sd='$p_sd',chg_by='$username',chg_date=now() WHERE id='$id'"))
+		if(!mysqli_query($con,"UPDATE m_ba SET nameba='$editnameba',date_live='$editdatelive',p_fico='$p_fico',p_mm='$p_mm',p_pm='$p_pm',p_pp='$p_pp',p_sd='$p_sd',tlba='$tl_ba',chg_by='$username',chg_date=now() WHERE id='$id'"))
 		{
 			echo mysqli_error($con);
 		}
@@ -149,7 +150,7 @@
 				<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="<?php echo $root; ?>module/home/user.php">Pengaturan</a></li>
-					<li><a href="../../connection/logout.php"><b>Logout</b></a></li>
+					<li><a href="../../connection/con-logout.php"><b>Logout</b></a></li>
 				</ul>
 			</li>
 		</ul>
@@ -237,12 +238,48 @@
 						$origDate = $row['date_live'];
 						$newDate = date("d-m-Y", strtotime($origDate));
 						echo "<td style:'border=1px solid black'>".$newDate."</td>";
-						echo "<td style:'border=1px solid black'>".$row['p_fico']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['p_mm']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['p_pm']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['p_pp']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['p_sd']."</td>";
-					
+						if ($row['tlba'] == 'FICO') {															// Team leader akan ditampilkan BOLD
+							echo "<td style:'border=1px solid black'><b>".$row['p_fico']."</b></td>";
+							echo "<td style:'border=1px solid black'>".$row['p_mm']."</td>";
+							echo "<td style:'border=1px solid black'>".$row['p_pm']."</td>";
+							echo "<td style:'border=1px solid black'>".$row['p_pp']."</td>";
+							echo "<td style:'border=1px solid black'>".$row['p_sd']."</td>";
+						}
+						else if ($row['tlba'] == 'MM') {
+							echo "<td style:'border=1px solid black'>".$row['p_fico']."</td>";
+							echo "<td style:'border=1px solid black'><b>".$row['p_mm']."</b></td>";
+							echo "<td style:'border=1px solid black'>".$row['p_pm']."</td>";
+							echo "<td style:'border=1px solid black'>".$row['p_pp']."</td>";
+							echo "<td style:'border=1px solid black'>".$row['p_sd']."</td>";
+						}
+						else if ($row['tlba'] == 'PM') {
+							echo "<td style:'border=1px solid black'>".$row['p_fico']."</td>";
+							echo "<td style:'border=1px solid black'>".$row['p_mm']."</td>";
+							echo "<td style:'border=1px solid black'><b>".$row['p_pm']."</b></td>";
+							echo "<td style:'border=1px solid black'>".$row['p_pp']."</td>";
+							echo "<td style:'border=1px solid black'>".$row['p_sd']."</td>";
+						}
+						else if ($row['tlba'] == 'PP') {
+							echo "<td style:'border=1px solid black'>".$row['p_fico']."</td>";
+							echo "<td style:'border=1px solid black'>".$row['p_mm']."</td>";
+							echo "<td style:'border=1px solid black'>".$row['p_pm']."</td>";
+							echo "<td style:'border=1px solid black'><b>".$row['p_pp']."</b></td>";
+							echo "<td style:'border=1px solid black'>".$row['p_sd']."</td>";
+						}
+						else if ($row['tlba'] == 'SD') {
+							echo "<td style:'border=1px solid black'>".$row['p_fico']."</td>";
+							echo "<td style:'border=1px solid black'>".$row['p_mm']."</td>";
+							echo "<td style:'border=1px solid black'>".$row['p_pm']."</td>";
+							echo "<td style:'border=1px solid black'>".$row['p_pp']."</td>";
+							echo "<td style:'border=1px solid black'><b>".$row['p_sd']."</b></td>";
+						} else {
+							echo "<td style:'border=1px solid black'>".$row['p_fico']."</td>";
+							echo "<td style:'border=1px solid black'>".$row['p_mm']."</td>";
+							echo "<td style:'border=1px solid black'>".$row['p_pm']."</td>";
+							echo "<td style:'border=1px solid black'>".$row['p_pp']."</td>";
+							echo "<td style:'border=1px solid black'>".$row['p_sd']."</td>";
+						}
+						
 			?>
 							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditBA<?php echo $row['id']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
 							
@@ -348,6 +385,67 @@
 													}
 													echo "</select>";
 												?><br><br>
+												<label for="edit_tl"><i>Team/project leader</i>:</label><br>
+												<?php
+													if ($row['tlba']=="FICO")																// Radio Button untuk value team leader
+													{
+														echo "<input type='radio' name='edit_tl' value='FICO' checked> FICO
+														<input type='radio' name='edit_tl' value='MM'> MM
+														<input type='radio' name='edit_tl' value='PM'> PM
+														<input type='radio' name='edit_tl' value='PP'> PP
+														<input type='radio' name='edit_tl' value='SD'> SD
+														<br>";
+													}
+													else
+													if ($row['tlba']=="MM")
+													{
+														echo "<input type='radio' name='edit_tl' value='FICO'> FICO
+														<input type='radio' name='edit_tl' value='MM' checked> MM
+														<input type='radio' name='edit_tl' value='PM'> PM
+														<input type='radio' name='edit_tl' value='PP'> PP
+														<input type='radio' name='edit_tl' value='SD'> SD
+														<br>";
+													}
+													else
+													if ($row['tlba']=="PM")
+													{
+														echo "<input type='radio' name='edit_tl' value='FICO'> FICO
+														<input type='radio' name='edit_tl' value='MM'> MM
+														<input type='radio' name='edit_tl' value='PM' checked> PM
+														<input type='radio' name='edit_tl' value='PP'> PP
+														<input type='radio' name='edit_tl' value='SD'> SD
+														<br>";
+													}
+													else
+													if ($row['tlba']=="PP")
+													{
+														echo "<input type='radio' name='edit_tl' value='FICO'> FICO
+														<input type='radio' name='edit_tl' value='MM'> MM
+														<input type='radio' name='edit_tl' value='PM'> PM
+														<input type='radio' name='edit_tl' value='PP' checked> PP
+														<input type='radio' name='edit_tl' value='SD'> SD
+														<br>";
+													}
+													else
+													if ($row['tlba']=="SD")
+													{
+														echo "<input type='radio' name='edit_tl' value='FICO'> FICO
+														<input type='radio' name='edit_tl' value='MM'> MM
+														<input type='radio' name='edit_tl' value='PM'> PM
+														<input type='radio' name='edit_tl' value='PP'> PP
+														<input type='radio' name='edit_tl' value='SD' checked> SD
+														<br>";
+													}
+													else
+													{
+														echo "<input type='radio' name='edit_tl' value='FICO'> FICO
+														<input type='radio' name='edit_tl' value='MM'> MM
+														<input type='radio' name='edit_tl' value='PM'> PM
+														<input type='radio' name='edit_tl' value='PP'> PP
+														<input type='radio' name='edit_tl' value='SD'> SD
+														<br>";
+													}
+												?><br>
 												Terakhir diubah oleh <label><?php echo $row['chg_by']; ?></label>
 												<?php
 													$origDate = $row['chg_date'];

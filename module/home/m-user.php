@@ -170,7 +170,7 @@
 				<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="<?php echo $root; ?>module/home/user.php">Pengaturan</a></li>
-					<li><a href="../../connection/logout.php"><b>Logout</b></a></li>
+					<li><a href="../../connection/con-logout.php"><b>Logout</b></a></li>
 				</ul>
 			</li>
 		</ul>

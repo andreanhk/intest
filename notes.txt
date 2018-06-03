@@ -17,17 +17,17 @@ INSERT INTO TARGET_TABLE (`col1`,`col2`) SELECT `col1`,`col2` FROM SOURCE_TABLE;
 -----
 
 - revisi table dengan primary key (auto increment) -OK di m_check
-- pertimbangkan foreign key relationship -NO NEED FOR NOW
+- pertimbangkan foreign key relationship -TDK PERLU
 - session untuk keperluan hak akses, dari nama user/modul user? -MODUL (OK)
-- menu pengaturan user blm dibuat -ONTHEWAY
-- bisa ubah visi misi di home -ONTHEWAY
-- pertimbangkan delete sebagai flagged not shown, bukan delete record sesungguhnya -BELUM BUAT COLUMN KHUSUS
-- kesesuaian bahasa yg digunakan (masih campur aduk) -DATATABLE BLM BISA DIUBAH KE BHS.INDONESIA
+- menu pengaturan user blm dibuat -OK
+- bisa ubah visi misi di home -CANCEL
+- pertimbangkan delete sebagai flagged not shown, bukan delete record sesungguhnya -CANCEL
+- kesesuaian bahasa yg digunakan (masih campur aduk) -TDK PERLU
 
 -----
 
-- integrasi dengan sissup -BLM ADA RENCANA/SELESAIKAN PROGRES WEB UTAMA DL
-- tambah tanggal live di master ba -ONTHEWAY
+- integrasi dengan sissup -CANCEL
+- tambah tanggal live di master ba -OK
 - sort hasil dropdown yg memerlukan sorting, misal sort BA scr ascending, sort modul scr ascending -OK
 - fitur filter/search dropdown 2 buah, contoh by modul dan by BA -OK
 - update checklist/uat jika ditambahkan entry baru di masternya -OK

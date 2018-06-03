@@ -9,5 +9,5 @@
 		unset($_SESSION['message_error']);
 	}
 	
-	$con = mysqli_connect("localhost","root","","saptest");
+	$con = mysqli_connect("localhost","root","","sappman");
 ?>
