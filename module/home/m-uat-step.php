@@ -22,6 +22,7 @@
 	
 	if (isset($_POST['submit']))
 	{
+		$stepno = mysqli_real_escape_string($con, $_POST['new_stepno']);
 		$stepname = mysqli_real_escape_string($con, $_POST['new_stepname']);
 		$steptcode = mysqli_real_escape_string($con, $_POST['new_steptcode']);
 		$stepuser = mysqli_real_escape_string($con, $_POST['new_stepuser']);
@@ -33,7 +34,7 @@
 		
 		if($result->num_rows == 0)
 		{
-			$query = 'INSERT INTO m_uat_step(uat_scn,bp_step,tcode_step,user_step,chg_by,chg_date) VALUES ("'.$stepscn.'","'.$stepname.'","'.$steptcode.'","'.$stepuser.'","'.$username.'",now())';
+			$query = 'INSERT INTO m_uat_step(uat_scn,no_step,bp_step,tcode_step,user_step,chg_by,chg_date) VALUES ("'.$stepscn.'","'.$stepno.'","'.$stepname.'","'.$steptcode.'","'.$stepuser.'","'.$username.'",now())';
 			$result1 = mysqli_query($con,$query);
 			header("location:m-uat-step.php?submit=1");
 		}
@@ -186,6 +187,8 @@
 									}
 									echo "</select>";
 								?><br><br>
+								<label for="new_stepno">No. step:</label>
+								<input type="text" id="new_stepno" name="new_stepno" class="form-control" placeholder="Contoh: 1" required=""><br>
 								<label for="new_stepname">Nama step:</label>
 								<input type="text" id="new_stepname" name="new_stepname" class="form-control" placeholder="Contoh: Buat Sales Order" required=""><br>
 								<label for="new_steptcode">Tcode step:</label>
