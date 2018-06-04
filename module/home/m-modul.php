@@ -74,7 +74,7 @@
 <!-- Meta Tags -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>Master Data: Modul</title>
+<title>Master: Modul</title>
 
 <!-- Mobile Specifics -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -152,9 +152,10 @@
 	</nav>
 
 	<div class="container container-fluid">
-		<h1>Master Data Modul
+		<h1>Master Modul
 			<?php
-				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+				//if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+				if ($_SESSION['modul']=="SUPER")
 				{
 			?>
 			
@@ -206,7 +207,8 @@
 				<tr>
 					<td><b>ID Modul</b></td>
 					<td><b>Nama Modul</b></td>
-					<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") { ?>
+					<?php //if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") {
+					if ($_SESSION['modul']=="SUPER") { ?>
 					<td class="col-md-1"></td>
 					<?php } else {} ?>
 				</tr>
@@ -221,7 +223,8 @@
 					echo "<tr>";
 						echo "<td style:'border=1px solid black'>".$row['idmodul']."</td>";
 						echo "<td style:'border=1px solid black>".$row['namemodul']."</td>";
-					if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+					//if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+					if ($_SESSION['modul']=="SUPER")
 						{
 			?>
 							<!-- Button Edit Modul -->

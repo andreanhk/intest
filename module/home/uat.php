@@ -253,9 +253,8 @@
 			</thead>
 			<tbody>
 			<?php
-				
-
-				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+				//if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+				if ($_SESSION['modul']=="SUPER")
 				{
 					$query = "SELECT * FROM v_uat";
 				}

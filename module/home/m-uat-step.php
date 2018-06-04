@@ -80,7 +80,7 @@
 <!-- Meta Tags -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>Master Data: Step UAT</title>
+<title>Master: Step UAT</title>
 
 <!-- Mobile Specifics -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -158,7 +158,7 @@
 	</nav>
 
 	<div class="container container-fluid">
-		<h1>Master Data Step UAT
+		<h1>Master Step UAT
 			
 			<a id="btn_tambahstep" class="btn btn-success text-right pull-right" data-toggle="modal" data-target="#modaladd_uatstep"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Step</b></a>
 			

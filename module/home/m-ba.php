@@ -81,7 +81,7 @@
 <!-- Meta Tags -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>Master Data: Business Area</title>
+<title>Master: Business Area</title>
 
 <!-- Mobile Specifics -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -159,9 +159,9 @@
 	</nav>
 
 	<div class="container container-fluid">
-		<h1>Master Data Business Area
+		<h1>Master Business Area
 			<?php
-				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS" || $_SESSION['modul']=="SUPER")
 				{
 			?>
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
@@ -225,8 +225,6 @@
 			</thead>
 			<tbody data-link="row">
 			<?php
-				
-
 				$query = "SELECT * FROM m_ba";
 				$result = mysqli_query($con,$query);
 

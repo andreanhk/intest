@@ -76,7 +76,7 @@
 <!-- Meta Tags -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>Master Data: Skenario UAT</title>
+<title>Master: Skenario UAT</title>
 
 <!-- Mobile Specifics -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -154,7 +154,7 @@
 	</nav>
 
 	<div class="container container-fluid">
-		<h1>Master Data Skenario UAT
+		<h1>Master Skenario UAT
 			<!-- Button Add Skenario UAT -->
 			<a class="btn btn-success text-right pull-right" data-toggle="modal" data-target="#modaladd_uatscn"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Skenario</b></a>
 			

@@ -188,7 +188,7 @@
 		</h1>
 	</div>
 	
-	<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") { ?>
+	<?php if ($_SESSION['modul']=="SUPER") { ?>
 	<div class="container container-fluid">
 		<select id="select1" class='selectpicker' title='Pilih Modul' data-width='auto'>
 		<?php
@@ -243,9 +243,8 @@
 			</thead>
 			<tbody>
 			<?php
-				
-
-				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+				//if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+				if ($_SESSION['modul']=="SUPER")
 				{
 					$query = "SELECT * FROM v_check";
 				}

@@ -101,7 +101,7 @@
 <!-- Meta Tags -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>Master Data: User</title>
+<title>Master: User</title>
 
 <!-- Mobile Specifics -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -179,9 +179,10 @@
 	</nav>
 
 	<div class="container container-fluid">
-		<h1>Master Data User 
+		<h1>Master User 
 			<?php
-				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+				//if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+				if ($_SESSION['modul']=="SUPER")
 				{
 			?>
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
@@ -246,7 +247,8 @@
 					<td><b>ID Login</b></td>
 					<td><b>Nama User</b></td>
 					<td><b>Modul User</b></td>
-					<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") { ?>
+					<?php //if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") {
+					if ($_SESSION['modul']=="SUPER") { ?>
 					<td class="col-md-1"></td>
 					<?php } else {} ?>
 				</tr>
@@ -263,7 +265,8 @@
 						echo "<td style:'border=1px solid black'>".$row['userlname']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['usermodul']."</td>";
 						
-						if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+						//if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+						if ($_SESSION['modul']=="SUPER")
 						{
 			?>
 							<!-- Button Edit User -->
@@ -385,7 +388,7 @@
 			?>
 				
 			</tbody>
-		</table>
+		</table><br /><br />
 	</div>
 </body>
 

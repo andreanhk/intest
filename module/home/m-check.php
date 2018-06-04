@@ -83,7 +83,7 @@
 <!-- Meta Tags -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>Master Data: Checklist</title>
+<title>Master: Checklist</title>
 
 <!-- Mobile Specifics -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -165,7 +165,7 @@
 	</nav>
 
 	<div class="container container-fluid">
-		<h1>Master Data Checklist
+		<h1>Master Checklist
 			
 			
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
@@ -186,7 +186,8 @@
 							<form action="" method="POST" name="form_addchecklist">
 								<label for="new_cmodul">Modul checklist:</label><br>
 								<?php
-									if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+									//if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+									if ($_SESSION['modul']=="SUPER")
 									{
 										$sql = "SELECT idmodul FROM m_modul";
 									}
@@ -228,7 +229,7 @@
 		
 	
 	<div class="container container-fluid">
-	<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") { ?>
+	<?php if ($_SESSION['modul']=="SUPER") { ?>
 		<select id="select1" onChange="getval(this);" class='selectpicker show-tick' title='Pilih Modul' data-width='auto'>
 		<?php
 				$sql = "SELECT idmodul FROM m_modul";
@@ -260,7 +261,8 @@
 			</thead>
 			<tbody data-link="row">
 			<?php
-				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+				//if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
+				if ($_SESSION['modul']=="SUPER")
 				{
 					$query = "SELECT * FROM m_check";
 				}
@@ -301,11 +303,11 @@
 												<label for="edit_ctypedesc">Edit deskripsi custom:</label>
 												<input type="text" id="edit_ctypedesc" name="edit_ctypedesc" class="form-control" value="<?php echo $row['ctypedesc']; ?>" required=""><br>
 												<label for="edit_ctcode">Edit Tcode:</label>
-												<input type="text" id="edit_ctcode" name="edit_ctcode" class="form-control" value="<?php echo $row['ctcode']; ?>" required=""><br>
+												<input type="text" id="edit_ctcode" name="edit_ctcode" class="form-control" value="<?php echo $row['ctcode']; ?>"><br>
 												<label for="edit_ctable">Edit tabel custom:</label>
 												<input type="text" id="edit_ctable" name="edit_ctable" class="form-control" value="<?php echo $row['ctable']; ?>"><br>
 												<label for="edit_cstat">Edit status:</label>
-												<input type="text" id="edit_cstat" name="edit_cstat" class="form-control" value="<?php echo $row['cstat']; ?>" required=""><br>												
+												<input type="text" id="edit_cstat" name="edit_cstat" class="form-control" value="<?php echo $row['cstat']; ?>"><br>												
 												Terakhir diubah oleh <label><?php echo $row['chg_by']; ?></label>
 												<?php
 													$origDate = $row['chg_date'];
