@@ -241,8 +241,6 @@
 			</thead>
 			<tbody>
 			<?php
-				
-
 				$query = "SELECT * FROM m_uat_scn c JOIN m_uat_step t WHERE c.uat_scn = t.uat_scn";
 				$result = mysqli_query($con,$query);
 

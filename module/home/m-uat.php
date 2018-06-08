@@ -200,7 +200,7 @@
 			</thead>
 			<tbody>
 			<?php
-				$query = "SELECT * FROM m_uat_scn";
+				$query = "SELECT * FROM m_uat_scn ORDER BY uat_id ASC";
 				$result = mysqli_query($con,$query);
 
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
@@ -280,7 +280,7 @@
 				}
 			?>
 			</tbody>
-		</table>
+		</table><br /><br />
 	</div>
 </body>
 

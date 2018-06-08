@@ -233,7 +233,8 @@
 			</div>
 		</div>
 		
-		<?php if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") {?>
+		<?php //if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") {
+				if ($_SESSION['modul']=="SUPER") {?>
 			<hr />
 				<h1><span class="glyphicon glyphicon-home"></span> Dasbor Beranda</h1><br />
 				<span class="glyphicon glyphicon-wrench"></span> <label>Under construction...</label>
