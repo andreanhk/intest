@@ -44,8 +44,6 @@
 		
 		$id = mysqli_real_escape_string($con,$_POST['id']);
 		
-		echo $username;
-		die();
 		if(!mysqli_query($con,"UPDATE v_check SET vcheck='$editvcheck',vctransreqs='$editvctr',vcdate='$editvcdate',vcpic='$editvcpic',chg_by='$username',chg_date=now() WHERE id='$id'"))
 		{
 			echo mysqli_error($con);
@@ -250,10 +248,10 @@
 				}
 				else
 				{
-					//$query = "SELECT * FROM v_check WHERE cmodul='$_SESSION[modul]'";
+					$query = "SELECT * FROM v_check WHERE cmodul='$_SESSION[modul]'";
 					//$query = "SELECT * FROM c v_check JOIN b m_ba WHERE c.cmodul = '$_SESSION[modul]' AND c.vcba = b.idba AND '$_SESSION[username]' IN (b.p_fico,b.p_mm,b.p_pm,b.p_pp,b.p_sd)";
-					$query = "SELECT *, sappman.v_check.id as id, sappman.v_check.chg_by as chg_by, sappman.v_check.chg_date as chg_date FROM sappman.v_check INNER JOIN sappman.m_ba ON sappman.v_check.vcba=sappman.m_ba.idba  
-								WHERE cmodul='$_SESSION[modul]' AND '$_SESSION[username]' IN (sappman.m_ba.p_fico,sappman.m_ba.p_mm,sappman.m_ba.p_pm,sappman.m_ba.p_pp,sappman.m_ba.p_sd);";
+					//$query = "SELECT *, sappman.v_check.id as id, sappman.v_check.chg_by as chg_by, sappman.v_check.chg_date as chg_date FROM sappman.v_check INNER JOIN sappman.m_ba ON sappman.v_check.vcba=sappman.m_ba.idba  
+								//WHERE cmodul='$_SESSION[modul]' AND '$_SESSION[username]' IN (sappman.m_ba.p_fico,sappman.m_ba.p_mm,sappman.m_ba.p_pm,sappman.m_ba.p_pp,sappman.m_ba.p_sd);";
 				}
 				$result = mysqli_query($con,$query);
 
@@ -333,7 +331,7 @@
 												tanggal <label><?php echo $newDate; ?></label>.
 												<br><br>
 												<div class="modal-footer">
-													<button class="btn btn-default btn-success" type="submit" name="editCL" c_id="editCL" action="checklist.php?id=<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
+													<button class="btn btn-default btn-success" type="submit" name="editCL" id="editCL" action="checklist.php?id=<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
 													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 												</div>
 											</form>
