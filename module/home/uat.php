@@ -204,7 +204,7 @@
 	</div>
 	
 	<div class="container container-fluid">
-		<select class="selectpicker show-tick" title="Pilih Skenario UAT" id="select1" onchange="getval(this);" data-width="auto">     <!-- edit onChange event ini/edit javascript supaya include semua -->
+		<select id="select1" class="selectpicker show-tick" title="Pilih Skenario UAT" onchange="getval(this);" data-width="auto">     <!-- edit onChange event ini/edit javascript supaya include semua -->
 			<?php
 				$query = "SELECT uat_scn, uat_desc FROM m_uat_scn";
 				$result = mysqli_query($con,$query);
@@ -254,17 +254,18 @@
 			<tbody>
 			<?php
 				//if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
-				if ($_SESSION['modul']=="SUPER")
+				/*if ($_SESSION['modul']=="SUPER")
 				{
 					$query = "SELECT * FROM v_uat";
 				}
 				else
 				{
-					//$query = "SELECT * FROM v_uat";
-					$query = "SELECT *, sappman.v_uat.id as id, sappman.v_uat.chg_by as chg_by, sappman.v_uat.chg_date as chg_date FROM sappman.v_uat INNER JOIN sappman.m_ba ON sappman.v_uat.vuba=sappman.m_ba.idba 
-								WHERE '$_SESSION[username]' IN (sappman.m_ba.p_fico,sappman.m_ba.p_mm,sappman.m_ba.p_pm,sappman.m_ba.p_pp,sappman.m_ba.p_sd);";
-				}
+					$query = "SELECT * FROM v_uat";
+					//$query = "SELECT *, sappman.v_uat.id as id, sappman.v_uat.chg_by as chg_by, sappman.v_uat.chg_date as chg_date FROM sappman.v_uat INNER JOIN sappman.m_ba ON sappman.v_uat.vuba=sappman.m_ba.idba 
+					//			WHERE '$_SESSION[username]' IN (sappman.m_ba.p_fico,sappman.m_ba.p_mm,sappman.m_ba.p_pm,sappman.m_ba.p_pp,sappman.m_ba.p_sd);";
+				}*/
 				
+				$query = "SELECT * FROM v_uat";
 				$result = mysqli_query($con,$query);
 
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
