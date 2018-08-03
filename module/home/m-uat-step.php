@@ -158,7 +158,7 @@
 	  </div>
 	</nav>
 
-	<div class="container container-fluid">
+	<div class="container-fluid">
 		<h1>Master Step UAT
 			
 			<a id="btn_tambahstep" class="btn btn-success text-right pull-right" data-toggle="modal" data-target="#modaladd_uatstep"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Step</b></a>
@@ -209,7 +209,7 @@
 		</h1>
 	</div>
 	
-	<div class="container container-fluid">
+	<div class="container-fluid">
 		<select id="select1" onchange="getval(this);" class="selectpicker show-tick" title="Pilih Skenario" data-width="auto">     <!-- edit onChange event ini/edit javascript supaya include semua -->
 			<?php
 				$query = "SELECT uat_scn, uat_desc FROM m_uat_scn";
@@ -226,8 +226,8 @@
 		</select>
 	</div><br>
 	
-	<div class="container container-fluid">
-		<table id="tableStep" class="table table-hover text-center table-striped compact cell-border">
+	<div class="container-fluid">
+		<table id="tableStep" class="table table-hover text-left table-striped compact cell-border">
 			<thead>
 				<tr>
 					<!--<td><b>Modul</b></td>-->

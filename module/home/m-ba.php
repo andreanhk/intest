@@ -158,7 +158,7 @@
 	  </div>
 	</nav>
 
-	<div class="container container-fluid">
+	<div class="container-fluid">
 		<h1>Master Business Area
 			<?php
 				if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS" || $_SESSION['modul']=="SUPER")
@@ -207,8 +207,8 @@
 		</h1>
 	</div>
 	
-	<div class="container container-fluid">
-		<table id="tableBA" class="table table-hover text-center table-striped compact cell-border">
+	<div class="container-fluid">
+		<table id="tableBA" class="table table-hover text-left table-striped compact cell-border">
 			<thead>
 				<tr>
 					<td><b>BA</b></td>

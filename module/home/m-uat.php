@@ -153,7 +153,7 @@
 	  </div>
 	</nav>
 
-	<div class="container container-fluid">
+	<div class="container-fluid">
 		<h1>Master Skenario UAT
 			<!-- Button Add Skenario UAT -->
 			<a class="btn btn-success text-right pull-right" data-toggle="modal" data-target="#modaladd_uatscn"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Skenario</b></a>
@@ -187,8 +187,8 @@
 		</h1>
 	</div>
 	
-	<div class="container container-fluid">
-		<table id="tableMUAT" class="table table-hover text-center table-striped compact cell-border">
+	<div class="container-fluid">
+		<table id="tableMUAT" class="table table-hover text-left table-striped compact cell-border">
 			<thead>
 				<tr>
 					<!--<td><b>Modul</b></td>-->

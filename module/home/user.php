@@ -129,8 +129,6 @@
 	</nav>
 	
 	<?php
-		
-		
 		$session = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$query = 'SELECT * FROM user WHERE userid="'.$session.'"';
@@ -146,7 +144,7 @@
 		else {}
 	?>
 	
-	<div class="container container-fluid">
+	<div class="container-fluid">
 		<h1><span class="glyphicon glyphicon-user"></span> Dasbor User</h1><br />
 		<p><span class="glyphicon glyphicon-chevron-right"></span> <label for="username">ID user: <?php echo $_SESSION['username']; ?></label><br /></p>
 		<p><span class="glyphicon glyphicon-chevron-right"></span> <label for="username">Nama user: <?php echo $row['userlname']; ?></label><br /></p>

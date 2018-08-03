@@ -138,7 +138,7 @@
 	  </div>
 	</nav>
 	
-	<div class="container container-fluid">
+	<div class="container-fluid">
 		<h1>Checklist
 		
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
@@ -187,7 +187,7 @@
 	</div>
 	
 	<?php if ($_SESSION['modul']=="SUPER") { ?>
-	<div class="container container-fluid">
+	<div class="container-fluid">
 		<select id="select1" class='selectpicker' title='Pilih Modul' data-width='auto'>
 		<?php
 				$sql = "SELECT idmodul FROM m_modul";
@@ -221,8 +221,8 @@
 		</select>
 	</div><br>
 	
-	<div class="container container-fluid">
-		<table id="tableChecklist" class="table table-hover text-center table-striped compact cell-border">
+	<div class="container-fluid">
+		<table id="tableChecklist" class="table table-hover text-left table-striped compact cell-border">
 			<thead>
 				<tr>
 					<td><b>Modul</b></td>
@@ -234,7 +234,7 @@
 					<td><b><span class="glyphicon glyphicon-ok"></span></b></td>
 					<td><b>BA</b></td>
 					<td><b>TR</b></td>
-					<td><b>Date</b></td>
+					<td class="col-md-1"><b>Date</b></td>
 					<td><b>PIC</b></td>
 					<td></td>
 				</tr>
@@ -308,8 +308,16 @@
 												<input type="date" id="edit_vcdate" name="edit_vcdate" class="form-control" value="<?php echo $row['vcdate']; ?>"><br>
 												<label for="edit_vcpic">PIC:</label><br>
 												<?php
-													$query = "SELECT * FROM user";
-													$result1 = mysqli_query($con,$query);
+													//$query = "SELECT * FROM user";
+													
+													if ($_SESSION['modul']=="SUPER")
+													{
+														$query1 = "SELECT * FROM user";
+													}
+													else
+														$query1 = "SELECT * FROM user WHERE usermodul='$_SESSION[modul]'";
+													
+													$result1 = mysqli_query($con,$query1);
 
 													echo "<select name='edit_vcpic' class='selectpicker show-tick' title='Pilih User' data-width='auto'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))

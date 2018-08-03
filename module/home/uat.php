@@ -148,7 +148,7 @@
 	  </div>
 	</nav>
 	
-	<div class="container container-fluid">
+	<div class="container-fluid">
 		<h1>User Acceptance Test
 		
 		<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
@@ -203,7 +203,7 @@
 		</h1>
 	</div>
 	
-	<div class="container container-fluid">
+	<div class="container-fluid">
 		<select id="select1" class="selectpicker show-tick" title="Pilih Skenario UAT" onchange="getval(this);" data-width="auto">     <!-- edit onChange event ini/edit javascript supaya include semua -->
 			<?php
 				$query = "SELECT uat_scn, uat_desc FROM m_uat_scn";
@@ -231,11 +231,11 @@
 		</select>
 	</div>
 		
-	<div class="container container-fluid">
+	<div class="container-fluid">
 		<br>Deskripsi UAT: <label for="uatDesc" id="uatDesc"></label>
 		
 		<br><br>
-		<table id="tableUAT" class="table table-hover text-center table-striped compact cell-border">
+		<table id="tableUAT" class="table table-hover text-left table-striped compact cell-border">
 			<thead>
 				<tr>
 					<th class="text-center"><b>No. Step</b></th>

@@ -127,46 +127,45 @@
 
 <body>
 	<nav class="navbar navbar-default">
-	  <div class="container-fluid">
-		<div class="navbar-header">
-		  <img alt="Samator" class="navbar-text" src="<?php echo $root; ?>assets/images/s-logo.png" width="20" height="20">
-		  <a class="navbar-brand">SAP Internal Testing</a>
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<img alt="Samator" class="navbar-text" src="<?php echo $root; ?>assets/images/s-logo.png" width="20" height="20">
+				<a class="navbar-brand">SAP Internal Testing</a>
+			</div>
+		
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="<?php echo $root; ?>module/home/home.php">Beranda</a></li>
+				<li class="dropdown active">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><b>Master
+					<span class="caret"></span></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="<?php echo $root; ?>module/home/m-modul.php">Modul</a></li>
+						<li><a href="<?php echo $root; ?>module/home/m-user.php">User</a></li>
+						<li><a href="<?php echo $root; ?>module/home/m-ba.php">Business Area</a></li>
+						<li><a href="<?php echo $root; ?>module/home/m-check.php">Checklist</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="<?php echo $root; ?>module/home/m-uat.php">Skenario UAT</a></li>
+						<li><a href="<?php echo $root; ?>module/home/m-uat-step.php">Step UAT</a></li>
+					</ul>
+				</li>
+				<li><a href="<?php echo $root; ?>module/home/checklist.php">Checklist</a></li>
+				<li><a href="<?php echo $root; ?>module/home/uat.php">U A T</a></li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+					<?php echo $_SESSION["longname"]; ?>
+					<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="<?php echo $root; ?>module/home/user.php">Pengaturan</a></li>
+						<li><a href="../../connection/con-logout.php"><b>Logout</b></a></li>
+					</ul>
+				</li>
+			</ul>
+		
 		</div>
-		
-		<ul class="nav navbar-nav navbar-right">
-			<li><a href="<?php echo $root; ?>module/home/home.php">Beranda</a></li>
-			<li class="dropdown active">
-				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><b>Master
-				<span class="caret"></span></b></a>
-				<ul class="dropdown-menu">
-					<li><a href="<?php echo $root; ?>module/home/m-modul.php">Modul</a></li>
-					<li><a href="<?php echo $root; ?>module/home/m-user.php">User</a></li>
-					<li><a href="<?php echo $root; ?>module/home/m-ba.php">Business Area</a></li>
-					<li><a href="<?php echo $root; ?>module/home/m-check.php">Checklist</a></li>
-					<li role="separator" class="divider"></li>
-					<li><a href="<?php echo $root; ?>module/home/m-uat.php">Skenario UAT</a></li>
-					<li><a href="<?php echo $root; ?>module/home/m-uat-step.php">Step UAT</a></li>
-				</ul>
-			</li>
-			<li><a href="<?php echo $root; ?>module/home/checklist.php">Checklist</a></li>
-			<li><a href="<?php echo $root; ?>module/home/uat.php">U A T</a></li>
-			<li class="dropdown">
-				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-				<?php echo $_SESSION["longname"]; ?>
-				<span class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li><a href="<?php echo $root; ?>module/home/user.php">Pengaturan</a></li>
-					<li><a href="../../connection/con-logout.php"><b>Logout</b></a></li>
-				</ul>
-			</li>
-		</ul>
-		
-	  </div>
 	</nav>
 
-	<div class="container container-fluid">
+	<div class="container-fluid">
 		<h1>Master Checklist
-			
 			
 			<!--<a class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span></a>-->
 			<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modalAddCheck"><span class="glyphicon glyphicon-plus"></span> <b>Tambah Checklist</b></button>
@@ -228,7 +227,7 @@
 	</div>	
 		
 	
-	<div class="container container-fluid">
+	<div class="container-fluid">
 	<?php if ($_SESSION['modul']=="SUPER") { ?>
 		<select id="select1" onChange="getval(this);" class='selectpicker show-tick' title='Pilih Modul' data-width='auto'>
 		<?php
@@ -246,8 +245,8 @@
 	</div><br>
 	
 	
-	<div class="container container-fluid">
-		<table id="tableMCheck" class="table table-hover text-center table-striped compact cell-border">
+	<div class="container-fluid">
+		<table id="tableMCheck" class="table table-hover text-left table-striped compact cell-border">
 			<thead>
 				<tr>
 					<td><b>Modul</b></td>
