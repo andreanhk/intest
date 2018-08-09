@@ -144,7 +144,7 @@
 		else {}
 	?>
 	
-	<div class="container-fluid">
+	<div class="container container-fluid">
 		<h1><span class="glyphicon glyphicon-user"></span> Dasbor User</h1><br />
 		<p><span class="glyphicon glyphicon-chevron-right"></span> <label for="username">ID user: <?php echo $_SESSION['username']; ?></label><br /></p>
 		<p><span class="glyphicon glyphicon-chevron-right"></span> <label for="username">Nama user: <?php echo $row['userlname']; ?></label><br /></p>
@@ -235,6 +235,7 @@
 				if ($_SESSION['modul']=="SUPER") {?>
 			<hr />
 				<h1><span class="glyphicon glyphicon-home"></span> Dasbor Beranda</h1><br />
+				<span class="glyphicon glyphicon-wrench"></span> <label>Future plans: Ganti visi misi dan tambahkan 5P</label>
 				<span class="glyphicon glyphicon-wrench"></span> <label>Under construction...</label>
 		<?php } else {}?>
 	</div>

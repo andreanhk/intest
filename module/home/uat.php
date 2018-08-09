@@ -310,8 +310,16 @@
 												<input type="date" id="edit_vudate" name="edit_vudate" class="form-control" value="<?php echo $row['vudate']; ?>"><br>
 												<label for="edit_vupic">PIC:</label><br>
 												<?php
-													$query = "SELECT * FROM user";
-													$result1 = mysqli_query($con,$query);
+													//$query = "SELECT * FROM user";
+													
+													if ($_SESSION['modul']=="SUPER")
+													{
+														$query1 = "SELECT * FROM user";
+													}
+													else
+														$query1 = "SELECT * FROM user WHERE usermodul='$_SESSION[modul]'";
+													
+													$result1 = mysqli_query($con,$query1);
 
 													echo "<select name='edit_vupic' class='selectpicker show-tick' title='Pilih User' data-width='auto'>";
 													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))

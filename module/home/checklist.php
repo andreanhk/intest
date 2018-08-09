@@ -202,10 +202,9 @@
 		</select>
 	
 	<?php } else {
-		?> <div class="container container-fluid">
+		?> <div class="container-fluid">
 		<?php
 	} ?>
-	
 	
 		<select id="select2" class='selectpicker show-tick' title='Pilih Business Area' data-width='auto'>
 		<?php
