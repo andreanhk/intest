@@ -224,6 +224,7 @@
 		<table id="tableChecklist" class="table table-hover text-left table-striped compact cell-border">
 			<thead>
 				<tr>
+					<td><b>Id</b></td>
 					<td><b>Modul</b></td>
 					<td class="col-md-2"><b>Tipe Custom</b></td>
 					<td class="col-md-3"><b>Deskripsi Custom</b></td>
@@ -235,6 +236,8 @@
 					<td><b>TR</b></td>
 					<td class="col-md-1"><b>Date</b></td>
 					<td><b>PIC</b></td>
+					<td><b>Change By</b></td>
+					<td><b>Change Date</b></td>
 					<td></td>
 				</tr>
 			</thead>
@@ -257,6 +260,7 @@
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					echo "<tr>";
+						echo "<td style:'border=1px solid black'>".$row['id']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['cmodul']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctype']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctypedesc']."</td>";
@@ -271,88 +275,77 @@
 						//echo "<td style:'border=1px solid black'>".$row['vcdate']."</td>";
 						echo "<td style:'border=1px solid black'>".$newDate."</td>";
 						echo "<td style:'border=1px solid black'>".$row['vcpic']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['chg_by']."</td>";	
+						$origDate1 = $row['chg_date'];
+						$newDate1 = date("d-M-Y H:i:s", strtotime($origDate1));
+						echo "<td style:'border=1px solid black'>$newDate1</td>";	
 			?>
 						<!-- Button Edit Checklist -->
-							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditCL<?php echo $row['id']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
-							
-							<!-- Modal Edit Checklist -->
-							<div id="modalEditCL<?php echo $row['id']; ?>" class="modal fade" role="dialog">
-								<div class="modal-dialog">
-									<!-- Modal content-->
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal">&times;</button>
-											<h4 class="modal-title">Edit Checklist</h4>
-										</div>
-									  
-										<div class="modal-body"><h5>
-											<form action="" method="POST" name="formEditCL" class="text-left">
-												<input type='hidden' name='id' value='<?php echo $row['id']; ?>' />
-												<label><span class="glyphicon glyphicon-tasks"></span> <?php echo $row['ctype']; ?>: <?php echo $row['ctypedesc'];?></label><br>
-												<label><span class="glyphicon glyphicon-briefcase"></span> Untuk BA: <?php echo $row['vcba']; ?></label><br><br>
-												<label for="edit_vcheck">Cek status custom?</label><br>
-												<?php
-													if ($row['vcheck']=="OK")
-													{
-														echo "<input type='radio' name='edit_vcheck' value='OK' checked> OK<br><input type='radio' name='edit_vcheck' value=' '> Belum<br><br>";
-													}
-													else
-													{
-														echo "<input type='radio' name='edit_vcheck' value='OK'> OK<br><input type='radio' name='edit_vcheck' value=' ' checked> Belum<br><br>";
-													}
-												?>
-												<label for="edit_vctransreqs">No. <i>Transport Request</i>:</label>
-												<input type="text" id="edit_vctransreqs" name="edit_vctransreqs" class="form-control" value="<?php echo $row['vctransreqs']; ?>"><br>
-												<label for="edit_vcdate">Tanggal cek:</label>
-												<input type="date" id="edit_vcdate" name="edit_vcdate" class="form-control" value="<?php echo $row['vcdate']; ?>"><br>
-												<label for="edit_vcpic">PIC:</label><br>
-												<?php
-													//$query = "SELECT * FROM user";
-													
-													if ($_SESSION['modul']=="SUPER")
-													{
-														$query1 = "SELECT * FROM user";
-													}
-													else
-														$query1 = "SELECT * FROM user WHERE usermodul='$_SESSION[modul]'";
-													
-													$result1 = mysqli_query($con,$query1);
-
-													echo "<select name='edit_vcpic' class='selectpicker show-tick' title='Pilih User' data-width='auto'>";
-													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
-													{
-														if ($row['vcpic'] == $row1['userid'])
-														{
-															echo "<option value='$row1[userid]' selected >$row1[userid] - $row1[userlname]</option>";
-														} else {
-															echo "<option value='$row1[userid]'>$row1[userid] - $row1[userlname]</option>";
-														}
-													}
-													echo "</select>";
-												?><br><br>
-												Terakhir diubah oleh <label><?php echo $row['chg_by']; ?></label>
-												<?php
-													$origDate = $row['chg_date'];
-													$newDate = date("d-M-Y H:i:s", strtotime($origDate));
-												?>
-												tanggal <label><?php echo $newDate; ?></label>.
-												<br><br>
-												<div class="modal-footer">
-													<button class="btn btn-default btn-success" type="submit" name="editCL" id="editCL" action="checklist.php?id=<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
-													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
-												</div>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
+						<td><button class='btn btn-info btn-xs button-edit' data-toggle='modal'><span class='glyphicon glyphicon-pencil'></span> Edit</button>
+						</td> 			
 			<?php
-					echo "</tr>";
 				}
 			?>
+				</tr>
 			</tbody>
 		</table>
 	</div><br /><br />
+
+	<!-- Modal Edit Checklist -->
+	<div id="modalEdit" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Edit Checklist</h4>
+				</div>
+			  
+				<div class="modal-body"><h5>
+					<form action="" method="POST" name="formEditCL" class="text-left">
+						<input type='hidden' name='id' id="input-id" value='' />
+						<label><span class="glyphicon glyphicon-tasks"></span> <span id="display-ctype"> </span>: <span id= "display-ctypedesc"></span></label><br>
+						<label><span class="glyphicon glyphicon-briefcase"></span> Untuk BA: <span id= "display-ba"></span> </label><br><br>
+						<label for="edit_vcheck">Cek status custom?</label><br>
+						<input type='radio' name='edit_vcheck' id="input-vcheck-ok" value='OK'> OK<br>
+						<input type='radio' name='edit_vcheck' id="input-vcheck-belum" value=' '> Belum<br><br>
+						<label for="edit_vctransreqs">No. <i>Transport Request</i>:</label>
+						<input type="text" id="edit_vctransreqs" name="edit_vctransreqs" class="form-control"><br>
+						<label for="edit_vcdate">Tanggal cek:</label>
+						<input type="date" id="edit_vcdate" name="edit_vcdate" class="form-control"><br>
+						<label for="edit_vcpic">PIC:</label><br>
+						<?php
+							//$query = "SELECT * FROM user";
+							
+							if ($_SESSION['modul']=="SUPER")
+							{
+								$query1 = "SELECT * FROM user";
+							}
+							else
+								$query1 = "SELECT * FROM user WHERE usermodul='$_SESSION[modul]'";
+							
+							$result1 = mysqli_query($con,$query1);
+
+							echo "<select name='edit_vcpic' class='selectpicker show-tick' title='Pilih User' data-width='auto' id='input-vpic'>";
+							while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
+							{
+								echo "<option value='$row1[userid]'>$row1[userid] - $row1[userlname]</option>";
+							}
+							echo "</select>";
+						?><br><br>
+						Terakhir diubah oleh <label id="display-chgby"></label>
+						tanggal <label id="display-chgdate"></label>.
+												
+						<br><br>
+						<div class="modal-footer">
+							<button class="btn btn-default btn-success" type="submit" name="editCL" id="editCL" action="checklist.php?id=<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
+							<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 
 <script>
@@ -361,7 +354,7 @@
 	var cols1=[];
 
 	$(document).ready( function () {
-    $('#tableChecklist').DataTable( {
+    var table = $('#tableChecklist').DataTable( {
 		stateSave: true,
 		"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]],
 			dom: 'Blfrtip',
@@ -388,7 +381,7 @@
 		
 		"columnDefs": [
 				{
-					"targets": [ 0 ],
+					"targets": [ 0, 1, 12, 13 ],
 					"visible": false,
 				},
 			],
@@ -402,7 +395,7 @@
 		} );
 		
 		$('#select1').on( 'change', function () {
-			column = cols[0];
+			column = cols[1];
 			var val = $.fn.dataTable.util.escapeRegex(
 				$(this).find(":selected").text()
 			);
@@ -414,7 +407,7 @@
 		} );
 		
 		$('#select2').on( 'change', function () {
-			column = cols[7];
+			column = cols[8];
 			console.log(column);
 			var val = $.fn.dataTable.util.escapeRegex(
 				$(this).find(":selected").val()
@@ -425,5 +418,36 @@
 				.draw();
 				
 		} );
+
+		$('#tableChecklist').on('click', 'tbody .button-edit', function () {
+		    var data_row = table.row($(this).closest('tr')).data();
+		    console.log(data_row);
+		    $('#input-id').val(data_row[0]);
+			$('#display-ctype').text(data_row[2]);
+			$('#display-ctypedesc').text(data_row[3]);
+			$('#display-ba').text(data_row[8]);
+			$('#display-chgby').text(data_row[12]);
+			$('#display-chgdate').text(data_row[13]);
+			var date_str = data_row[10].split("-");
+			$('#edit_vcdate').val(date_str[2]+"-"+date_str[1]+"-"+date_str[0])
+			$('#edit_vctransreqs').val(data_row[9]);
+			$('#input-id').val(data_row[0]);
+			var options = $('#input-vpic').children()
+			for (i = 0; i < options.length; i++) { 
+				console.log(options.eq(i).attr("value"))
+				console.log(data_row[11])
+			    if (options.eq(i).attr("value") == data_row[11]) {
+			   		options.eq(i).attr("selected", true)
+			   		break;
+			    }
+			}
+			$('#input-vpic').trigger("change");
+			if (data_row[7]=="OK")
+				$('#input-vcheck-ok').attr('checked', true);
+			else 
+				$('#input-vcheck-belum').attr('checked', true);
+
+			$('#modalEdit').modal('show');	
+		})
 	} );
 </script>

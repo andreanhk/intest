@@ -238,6 +238,7 @@
 		<table id="tableUAT" class="table table-hover text-left table-striped compact cell-border">
 			<thead>
 				<tr>
+					<th class="text-center"><b>id</b></th>
 					<th class="text-center"><b>No. Step</b></th>
 					<th class="text-center col-md-2 col-lg-2"><b>Skenario</b></th>
 					<th class="text-center col-md-3 col-lg-3"><b>Deskripsi Step</b></th>
@@ -248,6 +249,8 @@
 					<th class="text-center"><b>Output</b></th>
 					<th class="text-center"><b>PIC</b></th>
 					<th class="text-center col-md-1 col-lg-1"><b>Run Date</b></th>
+					<th class="text-center"><b>Change By</b></th>
+					<th class="text-center"><b>Change Date</b></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -271,6 +274,7 @@
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					echo "<tr>";
+						echo "<td style:'border=1px solid black'>".$row['id']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['no_step']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['uat_scn']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['bp_step']."</td>";
@@ -283,80 +287,78 @@
 						$origDate = $row['vudate'];
 						$newDate = date("d-m-Y", strtotime($origDate));
 						echo "<td style:'border=1px solid black'>".$newDate."</td>";
+						echo "<td style:'border=1px solid black'>".$row['chg_by']."</td>";	
+						$origDate1 = $row['chg_date'];
+						$newDate1 = date("d-M-Y H:i:s", strtotime($origDate1));
+						echo "<td style:'border=1px solid black'>$newDate1</td>";
 						?>
 						<!-- Button Edit Checklist -->
-							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditUAT<?php echo $row['id']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
-							
-							<!-- Modal Edit Checklist -->
-							<div id="modalEditUAT<?php echo $row['id']; ?>" class="modal fade" role="dialog">
-								<div class="modal-dialog">
-									<!-- Modal content-->
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal">&times;</button>
-											<h4 class="modal-title">Edit Step UAT</h4>
-										</div>
-									  
-										<div class="modal-body"><h5>
-											<form action="" method="POST" name="formEditUAT" class="text-left">
-												<input type='hidden' name='id' value='<?php echo $row['id']; ?>' />
-												<label><span class="glyphicon glyphicon-tasks"></span> <?php echo $row['uat_scn']; ?>: <?php echo $row['bp_step'];?></label><br>
-												<label><span class="glyphicon glyphicon-briefcase"></span> Untuk BA: <?php echo $row['vuba']; ?></label><br><br>
-												<label for="edit_vuinput">Input Data/<i>Special Information</i>:</label>
-												<input type="text" id="edit_vuinput" name="edit_vuinput" class="form-control" value="<?php echo $row['vuinput']; ?>"><br>
-												<label for="edit_vuoutput">Output Data/<i>Result</i>:</label>
-												<input type="text" id="edit_vuoutput" name="edit_vuoutput" class="form-control" value="<?php echo $row['vuoutput']; ?>"><br>
-												<label for="edit_vcdate">Tanggal run:</label>
-												<input type="date" id="edit_vudate" name="edit_vudate" class="form-control" value="<?php echo $row['vudate']; ?>"><br>
-												<label for="edit_vupic">PIC:</label><br>
-												<?php
-													//$query = "SELECT * FROM user";
-													
-													if ($_SESSION['modul']=="SUPER")
-													{
-														$query1 = "SELECT * FROM user";
-													}
-													else
-														$query1 = "SELECT * FROM user WHERE usermodul='$_SESSION[modul]'";
-													
-													$result1 = mysqli_query($con,$query1);
-
-													echo "<select name='edit_vupic' class='selectpicker show-tick' title='Pilih User' data-width='auto'>";
-													while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
-													{
-														if ($row['vupic'] == $row1['userid'])
-														{
-															echo "<option value='$row1[userid]' selected >$row1[userid] - $row1[userlname]</option>";
-														} else {
-															echo "<option value='$row1[userid]'>$row1[userid] - $row1[userlname]</option>";
-														}
-													}
-													echo "</select>";
-												?><br><br>
-												Terakhir diubah oleh <label><?php echo $row['chg_by']; ?></label>
-												<?php
-													$origDate = $row['chg_date'];
-													$newDate = date("d-M-Y H:i:s", strtotime($origDate));
-												?>
-												tanggal <label><?php echo $newDate; ?></label>.
-												<br><br>
-												<div class="modal-footer">
-													<button class="btn btn-default btn-success" type="submit" name="editUAT" id="editUAT" action="uat.php?id=<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
-													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
-												</div>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
+						<td><button class='btn btn-info btn-xs button-edit' data-toggle='modal'><span class='glyphicon glyphicon-pencil'></span> Edit</button>
+						</td>
+					</tr>
 			<?php
-					echo "</tr>";
 				}
 			?>
 			</tbody>
 		</table>
 	</div>
 	<br /><br />
+
+	<!-- Modal Edit Checklist -->
+	<div id="modalEdit" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Edit Step UAT</h4>
+				</div>
+			  
+				<div class="modal-body"><h5>
+					<form action="" method="POST" name="formEditUAT" class="text-left">
+						<input id="input-id" type='hidden' name='id'/>
+						<label><span class="glyphicon glyphicon-tasks"></span> <span id="display-utype"></span>: <span id="display-utypedesc"></span></label><br>
+						<label><span class="glyphicon glyphicon-briefcase"></span> Untuk BA: <span id="display-ba"></span></label><br><br>
+						<label for="edit_vuinput">Input Data/<i>Special Information</i>:</label>
+						<input type="text" id="edit_vuinput" name="edit_vuinput" class="form-control" value="<?php echo $row['vuinput']; ?>"><br>
+						<label for="edit_vuoutput">Output Data/<i>Result</i>:</label>
+						<input type="text" id="edit_vuoutput" name="edit_vuoutput" class="form-control" value="<?php echo $row['vuoutput']; ?>"><br>
+						<label for="edit_vcdate">Tanggal run:</label>
+						<input type="date" id="edit_vudate" name="edit_vudate" class="form-control" value="<?php echo $row['vudate']; ?>"><br>
+						<label for="edit_vupic">PIC:</label><br>
+						<?php
+							//$query = "SELECT * FROM user";
+							
+							if ($_SESSION['modul']=="SUPER")
+							{
+								$query1 = "SELECT * FROM user";
+							}
+							else
+								$query1 = "SELECT * FROM user WHERE usermodul='$_SESSION[modul]'";
+							
+							$result1 = mysqli_query($con,$query1);
+
+							echo "<select id='input-upic' name='edit_vupic' class='selectpicker show-tick' title='Pilih User' data-width='auto'>";
+							while ($row1 = mysqli_fetch_array($result1,MYSQLI_ASSOC))
+							{
+								echo "<option value='$row1[userid]'>$row1[userid] - $row1[userlname]</option>";
+							}
+							echo "</select>";
+						?><br><br>
+						Terakhir diubah oleh <label id="display-chgby"></label>
+						tanggal <label id="display-chgdate"></label>.
+
+						<br><br>
+						<div class="modal-footer">
+							<button class="btn btn-default btn-success" type="submit" name="editUAT" id="editUAT" action="uat.php?id=<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
+							<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </body>
 
 <script>
@@ -364,7 +366,7 @@
 	var cols=[];
 								
 	$(document).ready(function() {
-		$('#tableUAT').DataTable( {
+		var table = $('#tableUAT').DataTable( {
 			stateSave: true,
 			"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]],
 			dom: 'Blfrtip',
@@ -391,7 +393,7 @@
 			
 			"columnDefs": [
 				{
-					"targets": [ 1 ],
+					"targets": [ 0, 1, 11, 12 ],
 					"visible": false,
 				}
 			],
@@ -405,7 +407,7 @@
 		} );
 		
 		$('#select1').on( 'change', function () {
-			column = cols[1];
+			column = cols[2];
 			var val = $.fn.dataTable.util.escapeRegex(
 				$(this).find(":selected").text()
 			);
@@ -416,7 +418,7 @@
 		} );
 		
 		$('#select2').on( 'change', function () {
-			column = cols[5];
+			column = cols[6];
 			console.log(column);
 			var val = $.fn.dataTable.util.escapeRegex(
 				$(this).find(":selected").val()
@@ -427,5 +429,30 @@
 				.draw();
 				
 		} );
+
+		$('#tableUAT').on('click', 'tbody .button-edit', function () {
+		    var data_row = table.row($(this).closest('tr')).data();
+		    console.log(data_row);
+		    $('#input-id').val(data_row[0]);
+			$('#display-utype').text(data_row[2]);
+			$('#display-utypedesc').text(data_row[3]);
+			$('#display-ba').text(data_row[6]);
+			$('#display-chgby').text(data_row[11]);
+			$('#display-chgdate').text(data_row[12]);
+			var date_str = data_row[10].split("-");
+			$('#edit_vudate').val(date_str[2]+"-"+date_str[1]+"-"+date_str[0])
+			$('#edit_vuinput').val(data_row[7])
+			$('#edit_vuoutput').val(data_row[8])
+			var options = $('#input-upic').children()
+			for (i = 0; i < options.length; i++) { 
+				if (options.eq(i).attr("value") == data_row[9]) {
+			   		options.eq(i).attr("selected", true)
+			   		break;
+			    }
+			}
+			$('#input-upic').trigger("change");
+
+			$('#modalEdit').modal('show');	
+		});
 	} );
 </script>

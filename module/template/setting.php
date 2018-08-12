@@ -9,5 +9,10 @@
 		unset($_SESSION['message_error']);
 	}
 	
-	$con = mysqli_connect("localhost","root","","sappman");
+	define("DB_HOST","localhost");
+	define("DB_USER","root");
+	define("DB_PASS","");
+	define("DB_NAME","sappman");
+	
+	$con = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 ?>
