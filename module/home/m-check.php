@@ -22,6 +22,7 @@
 	
 	if (isset($_POST['submit']))
 	{
+		$ccat = mysqli_real_escape_string($con,$_POST['new_ccat']);
 		$ctype = mysqli_real_escape_string($con,$_POST['new_ctype']);
 		$ctypedesc = mysqli_real_escape_string($con,$_POST['new_ctypedesc']);
 		$ctcode = mysqli_real_escape_string($con,$_POST['new_ctcode']);
@@ -35,7 +36,7 @@
 		
 		if($result->num_rows == 0)
 		{
-			$query = 'INSERT INTO m_check(ctype,ctypedesc,ctcode,ctable,cstat,cmodul,chg_by,chg_date) VALUES ("'.$ctype.'","'.$ctypedesc.'","'.$ctcode.'","'.$ctable.'","'.$cstat.'","'.$cmodul.'","'.$username.'",now())';
+			$query = 'INSERT INTO m_check(ccat,ctype,ctypedesc,ctcode,ctable,cstat,cmodul,chg_by,chg_date) VALUES ("'.$ccat.'","'.$ctype.'","'.$ctypedesc.'","'.$ctcode.'","'.$ctable.'","'.$cstat.'","'.$cmodul.'","'.$username.'",now())';
 			$result = mysqli_query($con,$query);
 			header("location:m-check.php");
 		}
@@ -57,6 +58,7 @@
 	
 	if (isset($_POST['editCheck']))
 	{	
+		$editCcat = mysqli_real_escape_string($con,$_POST['edit_ccat']);
 		$editCtype = mysqli_real_escape_string($con,$_POST['edit_ctype']);
 		$editCtypedesc = mysqli_real_escape_string($con,$_POST['edit_ctypedesc']);
 		$editCtcode = mysqli_real_escape_string($con,$_POST['edit_ctcode']);
@@ -66,7 +68,7 @@
 		
 		$id = mysqli_real_escape_string($con,$_POST['c_id']);
 		
-		if(!mysqli_query($con,"UPDATE m_check SET ctype='$editCtype',ctypedesc='$editCtypedesc',ctcode='$editCtcode',cstat='$editCstat',ctable='$editCtable',chg_by='$username',chg_date=now() WHERE c_id='$id'"))
+		if(!mysqli_query($con,"UPDATE m_check SET ccat='$editCcat',ctype='$editCtype',ctypedesc='$editCtypedesc',ctcode='$editCtcode',cstat='$editCstat',ctable='$editCtable',chg_by='$username',chg_date=now() WHERE c_id='$id'"))
 		{
 			echo mysqli_error($con);
 		}
@@ -203,6 +205,8 @@
 									}
 									echo "</select>";
 								?><br /><br />
+								<label for="new_ccat">Kategori Custom (Khusus Tim FICO):</label>
+								<input type="text" id="new_ccat" name="new_ccat" class="form-control" placeholder="Contoh: C/CC/BA/COA" required=""><br>
 								<label for="new_ctype">Tipe custom:</label>
 								<input type="text" id="new_ctype" name="new_ctype" class="form-control" placeholder="Contoh: Enterprise Structure" required=""><br>
 								<label for="new_cdesc">Deskripsi custom:</label>
@@ -250,6 +254,7 @@
 			<thead>
 				<tr>
 					<td><b>Modul</b></td>
+					<td><b>Cat.</b></td>
 					<td><b>Custom Type</b></td>
 					<td><b>Custom Description</b></td>
 					<td><b>Tcode</b></td>
@@ -275,6 +280,7 @@
 				{
 					echo "<tr>";
 						echo "<td style:'border=1px solid black'>".$row['cmodul']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['ccat']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctype']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctypedesc']."</td>";
 						echo "<td style:'border=1px solid black' class='col-md-1 col-lg-1'>".$row['ctcode']."</td>";
@@ -297,6 +303,8 @@
 										<div class="modal-body"><h5>
 											<form action="" method="POST" name="formEditCheck" class="text-left">
 												<input type='hidden' name='c_id' value='<?php echo $row['c_id']; ?>' />
+												<label for="edit_ccat"class="text-left">Edit kategori custom:</label>
+												<input type="text" id="edit_ccat" name="edit_ccat" class="form-control" value="<?php echo $row['ccat']; ?>"><br>
 												<label for="new_userlname"class="text-left">Edit tipe custom:</label>
 												<input type="text" id="edit_userlname" name="edit_ctype" class="form-control" value="<?php echo $row['ctype']; ?>" required=""><br>
 												<label for="edit_ctypedesc">Edit deskripsi custom:</label>

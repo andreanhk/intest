@@ -264,8 +264,8 @@
 				{
 					echo "<tr>";
 						echo "<td style:'border=1px solid black'>".$row['id']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['ccat']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['cmodul']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['ccat']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctype']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctypedesc']."</td>";
 						echo "<td style:'border=1px solid black' class='col-md-1 col-lg-1'>".$row['ctcode']."</td>";
@@ -413,7 +413,7 @@
 		} );
 		
 		$('#select2').on( 'change', function () {
-			column = cols[8];
+			column = cols[9];
 			console.log(column);
 			var val = $.fn.dataTable.util.escapeRegex(
 				$(this).find(":selected").val()
