@@ -39,13 +39,14 @@
 	{	
 		$editvuin = mysqli_real_escape_string($con,$_POST['edit_vuinput']);
 		$editvuout = mysqli_real_escape_string($con,$_POST['edit_vuoutput']);
+		$editvuinfo = mysqli_real_escape_string($con,$_POST['edit_vuinfo']);
 		$editvudate = mysqli_real_escape_string($con,$_POST['edit_vudate']);
 		$editvupic = mysqli_real_escape_string($con,$_POST['edit_vupic']);
 		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$id = mysqli_real_escape_string($con,$_POST['id']);
 		
-		if(!mysqli_query($con,"UPDATE v_uat SET vuinput='$editvuin',vuoutput='$editvuout',vudate='$editvudate',vupic='$editvupic',chg_by='$username',chg_date=now() WHERE id='$id'"))
+		if(!mysqli_query($con,"UPDATE v_uat SET vuinput='$editvuin',vuoutput='$editvuout',vudate='$editvudate',vupic='$editvupic',vuinfo='$editvuinfo',chg_by='$username',chg_date=now() WHERE id='$id'"))
 		{
 			echo mysqli_error($con);
 		}
@@ -249,6 +250,7 @@
 					<th class="text-center"><b>Output</b></th>
 					<th class="text-center"><b>PIC</b></th>
 					<th class="text-center col-md-1 col-lg-1"><b>Run Date</b></th>
+					<th class="text-center"><b>Keterangan</b></th>
 					<th class="text-center"><b>Change By</b></th>
 					<th class="text-center"><b>Change Date</b></th>
 					<th></th>
@@ -287,6 +289,7 @@
 						$origDate = $row['vudate'];
 						$newDate = date("d-m-Y", strtotime($origDate));
 						echo "<td style:'border=1px solid black'>".$newDate."</td>";
+						echo "<td style:'border=1px solid black'>".$row['vuinfo']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['chg_by']."</td>";	
 						$origDate1 = $row['chg_date'];
 						$newDate1 = date("d-M-Y H:i:s", strtotime($origDate1));
@@ -345,6 +348,8 @@
 							}
 							echo "</select>";
 						?><br><br>
+						<label for="edit_vcinfo">Keterangan:</label>
+						<input type="text" id="edit_vuinfo" name="edit_vuinfo" class="form-control"><br>
 						Terakhir diubah oleh <label id="display-chgby"></label>
 						tanggal <label id="display-chgdate"></label>.
 
@@ -374,26 +379,26 @@
 				{
 					extend: 'copyHtml5',
 					exportOptions: {
-						columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+						columns: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
 					}
 				},
 				{
 					extend: 'excelHtml5',
 					exportOptions: {
-						columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+						columns: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
 					}
 				},
 				{
 					extend: 'print',
 					exportOptions: {
-						columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+						columns: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
 					}
 				}
 			],
 			
 			"columnDefs": [
 				{
-					"targets": [ 0, 1, 11, 12 ],
+					"targets": [ 0, 1, 12, 13 ],
 					"visible": false,
 				}
 			],
@@ -443,6 +448,7 @@
 			$('#edit_vudate').val(date_str[2]+"-"+date_str[1]+"-"+date_str[0])
 			$('#edit_vuinput').val(data_row[7])
 			$('#edit_vuoutput').val(data_row[8])
+			$('#edit_vuinfo').val(data_row[11])
 			var options = $('#input-upic').children()
 			for (i = 0; i < options.length; i++) { 
 				if (options.eq(i).attr("value") == data_row[9]) {

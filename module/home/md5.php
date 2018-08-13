@@ -8,7 +8,7 @@ while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 	echo "Forbidden";
 	die();
 	$md5psw = md5($row['userpwd']);
-	mysqli_query ($con,"UPDATE user SET userpwd='$md5psw' WHERE userno='$row[userno]'");
+	mysqli_query ($con,"UPDATE user SET userpwd='$md5psw' WHERE id='$row[id]'");
 }
 
 ?>

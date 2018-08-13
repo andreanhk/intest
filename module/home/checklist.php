@@ -22,7 +22,7 @@
 		
 		if($result->num_rows == 0)
 		{
-			$query = "INSERT INTO v_check (ctype,ctypedesc,ctcode,ctable,cstat,cmodul,vcba) SELECT ctype,ctypedesc,ctcode,ctable,cstat,cmodul, $idBA as vcba FROM m_check";
+			$query = "INSERT INTO v_check (ccat,ctype,ctypedesc,ctcode,ctable,cstat,cmodul,vcba) SELECT ccat,ctype,ctypedesc,ctcode,ctable,cstat,cmodul, $idBA as vcba FROM m_check";
 			$result1 = mysqli_query($con,$query);
 			header("location:checklist.php");
 		}
@@ -38,13 +38,14 @@
 	{	
 		$editvcheck = mysqli_real_escape_string($con,$_POST['edit_vcheck']);
 		$editvctr = mysqli_real_escape_string($con,$_POST['edit_vctransreqs']);
+		$editvcinfo = mysqli_real_escape_string($con,$_POST['edit_vcinfo']);
 		$editvcdate = mysqli_real_escape_string($con,$_POST['edit_vcdate']);
 		$editvcpic = mysqli_real_escape_string($con,$_POST['edit_vcpic']);
 		$username = mysqli_real_escape_string($con,$_SESSION['username']);
 		
 		$id = mysqli_real_escape_string($con,$_POST['id']);
 		
-		if(!mysqli_query($con,"UPDATE v_check SET vcheck='$editvcheck',vctransreqs='$editvctr',vcdate='$editvcdate',vcpic='$editvcpic',chg_by='$username',chg_date=now() WHERE id='$id'"))
+		if(!mysqli_query($con,"UPDATE v_check SET vcheck='$editvcheck',vctransreqs='$editvctr',vcdate='$editvcdate',vcpic='$editvcpic',vcinfo='$editvcinfo',chg_by='$username',chg_date=now() WHERE id='$id'"))
 		{
 			echo mysqli_error($con);
 		}
@@ -226,6 +227,7 @@
 				<tr>
 					<td><b>Id</b></td>
 					<td><b>Modul</b></td>
+					<td><b>Cat.</b></td>
 					<td class="col-md-2"><b>Tipe Custom</b></td>
 					<td class="col-md-3"><b>Deskripsi Custom</b></td>
 					<td><b>Tcode</b></td>
@@ -236,6 +238,7 @@
 					<td><b>TR</b></td>
 					<td class="col-md-1"><b>Date</b></td>
 					<td><b>PIC</b></td>
+					<td><b>Keterangan</b></td>
 					<td><b>Change By</b></td>
 					<td><b>Change Date</b></td>
 					<td></td>
@@ -261,6 +264,7 @@
 				{
 					echo "<tr>";
 						echo "<td style:'border=1px solid black'>".$row['id']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['ccat']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['cmodul']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctype']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['ctypedesc']."</td>";
@@ -275,6 +279,7 @@
 						//echo "<td style:'border=1px solid black'>".$row['vcdate']."</td>";
 						echo "<td style:'border=1px solid black'>".$newDate."</td>";
 						echo "<td style:'border=1px solid black'>".$row['vcpic']."</td>";
+						echo "<td style:'border=1px solid black'>".$row['vcinfo']."</td>";
 						echo "<td style:'border=1px solid black'>".$row['chg_by']."</td>";	
 						$origDate1 = $row['chg_date'];
 						$newDate1 = date("d-M-Y H:i:s", strtotime($origDate1));
@@ -333,9 +338,10 @@
 							}
 							echo "</select>";
 						?><br><br>
+						<label for="edit_vcinfo">Keterangan:</label>
+						<input type="text" id="edit_vcinfo" name="edit_vcinfo" class="form-control"><br>
 						Terakhir diubah oleh <label id="display-chgby"></label>
-						tanggal <label id="display-chgdate"></label>.
-												
+						tanggal <label id="display-chgdate"></label>.					
 						<br><br>
 						<div class="modal-footer">
 							<button class="btn btn-default btn-success" type="submit" name="editCL" id="editCL" action="checklist.php?id=<?php echo $row['id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
@@ -362,26 +368,26 @@
 				{
 					extend: 'copyHtml5',
 					exportOptions: {
-						columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+						columns: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ]
 					}
 				},
 				{
 					extend: 'excelHtml5',
 					exportOptions: {
-						columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+						columns: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ]
 					}
 				},
 				{
 					extend: 'print',
 					exportOptions: {
-						columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+						columns: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ]
 					}
 				}
 			],
 		
 		"columnDefs": [
 				{
-					"targets": [ 0, 1, 12, 13 ],
+					"targets": [ 0, 1, 14, 15 ],
 					"visible": false,
 				},
 			],
@@ -423,26 +429,27 @@
 		    var data_row = table.row($(this).closest('tr')).data();
 		    console.log(data_row);
 		    $('#input-id').val(data_row[0]);
-			$('#display-ctype').text(data_row[2]);
-			$('#display-ctypedesc').text(data_row[3]);
-			$('#display-ba').text(data_row[8]);
-			$('#display-chgby').text(data_row[12]);
-			$('#display-chgdate').text(data_row[13]);
-			var date_str = data_row[10].split("-");
+			$('#display-ctype').text(data_row[3]);
+			$('#display-ctypedesc').text(data_row[4]);
+			$('#display-ba').text(data_row[9]);
+			$('#display-chgby').text(data_row[14]);
+			$('#display-chgdate').text(data_row[15]);
+			var date_str = data_row[11].split("-");
 			$('#edit_vcdate').val(date_str[2]+"-"+date_str[1]+"-"+date_str[0])
-			$('#edit_vctransreqs').val(data_row[9]);
+			$('#edit_vctransreqs').val(data_row[10]);
+			$('#edit_vcinfo').val(data_row[13]);
 			$('#input-id').val(data_row[0]);
 			var options = $('#input-vpic').children()
 			for (i = 0; i < options.length; i++) { 
 				console.log(options.eq(i).attr("value"))
-				console.log(data_row[11])
-			    if (options.eq(i).attr("value") == data_row[11]) {
+				console.log(data_row[12])
+			    if (options.eq(i).attr("value") == data_row[12]) {
 			   		options.eq(i).attr("selected", true)
 			   		break;
 			    }
 			}
 			$('#input-vpic').trigger("change");
-			if (data_row[7]=="OK")
+			if (data_row[8]=="OK")
 				$('#input-vcheck-ok').attr('checked', true);
 			else 
 				$('#input-vcheck-belum').attr('checked', true);
