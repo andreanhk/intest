@@ -235,8 +235,9 @@
 				if ($_SESSION['modul']=="SUPER") {?>
 			<hr />
 				<h1><span class="glyphicon glyphicon-home"></span> Dasbor Beranda</h1><br />
-				<span class="glyphicon glyphicon-wrench"></span> <label>Future plans: Ganti visi misi dan tambahkan 5P</label>
-				<span class="glyphicon glyphicon-wrench"></span> <label>Under construction...</label>
+				<span class="glyphicon glyphicon-wrench"></span> <label>Under construction...</label><br>
+				<span class="glyphicon glyphicon-wrench"></span> <label>Menu untuk mengganti konten visi dan misi</label><br>
+				<span class="glyphicon glyphicon-wrench"></span> <label>Menu untuk menambahkan 5P</label><br>
 		<?php } else {}?>
 	</div>
 </body>

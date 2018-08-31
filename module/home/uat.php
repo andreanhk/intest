@@ -173,7 +173,7 @@
 									$sql = "SELECT * FROM m_ba ORDER BY idba ASC";
 									$result = mysqli_query($con,$sql);
 
-									echo "<select name='idba' class='selectpicker show-tick' title='Pilih BA'>";
+									echo "<select name='idba' class='selectpicker show-tick' title='Pilih BA' data-width='auto'>";
 									while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 									{
 										echo "<option value='$row[idba]'>$row[idba] - $row[nameba]</option>";
@@ -185,7 +185,7 @@
 									$sql1 = "SELECT * FROM m_uat_scn";
 									$result1 = mysqli_query($con,$sql1);
 
-									echo "<select name='uat_scn' class='selectpicker show-tick' title='Pilih Skenario UAT'>";
+									echo "<select name='uat_scn' class='selectpicker show-tick' title='Pilih Skenario UAT' data-width='auto'>";
 									while ($row = mysqli_fetch_array($result1,MYSQLI_ASSOC))
 									{
 										echo "<option value='$row[uat_scn]'>$row[uat_scn]</option>";
@@ -373,6 +373,7 @@
 	$(document).ready(function() {
 		var table = $('#tableUAT').DataTable( {
 			stateSave: true,
+			stateDuration: -1,
 			"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]],
 			dom: 'Blfrtip',
 			buttons: [
@@ -442,8 +443,8 @@
 			$('#display-utype').text(data_row[2]);
 			$('#display-utypedesc').text(data_row[3]);
 			$('#display-ba').text(data_row[6]);
-			$('#display-chgby').text(data_row[11]);
-			$('#display-chgdate').text(data_row[12]);
+			$('#display-chgby').text(data_row[12]);
+			$('#display-chgdate').text(data_row[13]);
 			var date_str = data_row[10].split("-");
 			$('#edit_vudate').val(date_str[2]+"-"+date_str[1]+"-"+date_str[0])
 			$('#edit_vuinput').val(data_row[7])

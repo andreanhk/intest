@@ -501,6 +501,7 @@
 	$(document).ready( function () {
     $('#tableBA').DataTable( {
 		stateSave: true,
+		stateDuration: -1,
 		"lengthMenu": [[20, 40, 60, 80, -1], [20, 40, 60, 80, "All"]],
 		dom: 'Blfrtip',
 		buttons: [
