@@ -108,5 +108,8 @@
 		<p>2. Berintegritas dan berkomitmen terhadap kualitas, <i>Health Safety Environment</i>, dan <i>Good Corporate Governance</i>.</p>
 		<p>3. Meningkatkan <i>Total Customer Solution</i>.</p>
 		<p>4. Memperluas wilayah usaha dan mengembangkan produk, layanan, serta teknologi.</p>
+		<br><br>
+		<h3>Nilai Perusahaan:</h3>
+		<p><b>P</b>rofessional (Profesionalisme), <b>R</b>ighteousness (Kebijakan), <b>I</b>nnovation (Inovasi), <b>D</b>iversity (Keberagaman), <b>E</b>ntrepreneurship (Kewirausahaan)</p>
 	</div><br><br>
 </body>
