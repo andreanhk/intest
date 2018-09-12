@@ -205,11 +205,11 @@
 		<table id="tableModul" class="table table-hover text-left table-striped compact cell-border">
 			<thead>
 				<tr>
-					<td><b>ID Modul</b></td>
-					<td><b>Nama Modul</b></td>
+					<th style="vertical-align:middle;" class="text-center"><b>ID Modul</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Nama Modul</b></th>
 					<?php //if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS") {
 					if ($_SESSION['modul']=="SUPER") { ?>
-					<td class="col-md-1"></td>
+					<th class="col-md-1"></th>
 					<?php } else {} ?>
 				</tr>
 			</thead>
@@ -221,14 +221,14 @@
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					echo "<tr>";
-						echo "<td style:'border=1px solid black'>".$row['idmodul']."</td>";
-						echo "<td style:'border=1px solid black>".$row['namemodul']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['idmodul']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['namemodul']."</td>";
 					//if ($_SESSION['modul']=="ABAP" || $_SESSION['modul']=="BASIS")
 					if ($_SESSION['modul']=="SUPER")
 						{
 			?>
 							<!-- Button Edit Modul -->
-							<td><a class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditModul<?php echo $row['idmodul']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
+							<td style="vertical-align:middle;" class="text-center"><a class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditModul<?php echo $row['idmodul']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
 							
 							<!-- Modal Edit modul -->
 							<div id="modalEditModul<?php echo $row['idmodul']; ?>" class="modal fade" role="dialog">

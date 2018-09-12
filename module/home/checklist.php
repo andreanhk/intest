@@ -225,23 +225,23 @@
 		<table id="tableChecklist" class="table table-hover text-left table-striped compact cell-border">
 			<thead>
 				<tr>
-					<td><b>Id</b></td>
-					<td><b>Modul</b></td>
-					<td><b>Cat.</b></td>
-					<td class="col-md-2"><b>Tipe Custom</b></td>
-					<td class="col-md-3"><b>Deskripsi Custom</b></td>
-					<td><b>Tcode</b></td>
-					<td><b>Tabel</b></td>
-					<td><b>Status Custom</b></td>
-					<td><b><span class="glyphicon glyphicon-ok"></span></b></td>
-					<td><b>BA</b></td>
-					<td><b>TR</b></td>
-					<td class="col-md-1"><b>Date</b></td>
-					<td><b>PIC</b></td>
-					<td><b>Keterangan</b></td>
-					<td><b>Change By</b></td>
-					<td><b>Change Date</b></td>
-					<td></td>
+					<th style="vertical-align:middle;" class="text-center"><b>Id</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Modul</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Cat.</b></th>
+					<th style="vertical-align:middle;" class="text-center col-md-2"><b>Tipe Custom</b></th>
+					<th style="vertical-align:middle;" class="text-center col-md-3"><b>Deskripsi Custom</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Tcode</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Tabel</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Status Custom</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b><span class="glyphicon glyphicon-ok"></span></b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>BA</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>TR</b></th>
+					<th style="vertical-align:middle;" class="text-center col-md-1"><b>Date</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>PIC</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Keterangan</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Change By</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Change Date</b></th>
+					<th style="vertical-align:middle;"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -263,30 +263,30 @@
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					echo "<tr>";
-						echo "<td style:'border=1px solid black'>".$row['id']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['cmodul']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['ccat']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['ctype']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['ctypedesc']."</td>";
-						echo "<td style:'border=1px solid black' class='col-md-1 col-lg-1'>".$row['ctcode']."</td>";
-						echo "<td style:'border=1px solid black' class='col-md-1 col-lg-1'>".$row['ctable']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['cstat']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['vcheck']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['vcba']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['vctransreqs']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['id']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['cmodul']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['ccat']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['ctype']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['ctypedesc']."</td>";
+						echo "<td style='vertical-align:middle;' class='col-md-1 col-lg-1'>".$row['ctcode']."</td>";
+						echo "<td style='vertical-align:middle;' class='col-md-1 col-lg-1'>".$row['ctable']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['cstat']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['vcheck']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['vcba']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['vctransreqs']."</td>";
 						$origDate = $row['vcdate'];
 						$newDate = date("d-m-Y", strtotime($origDate));
-						//echo "<td style:'border=1px solid black'>".$row['vcdate']."</td>";
-						echo "<td style:'border=1px solid black'>".$newDate."</td>";
-						echo "<td style:'border=1px solid black'>".$row['vcpic']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['vcinfo']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['chg_by']."</td>";	
+						//echo "<td style='vertical-align:middle;'>".$row['vcdate']."</td>";
+						echo "<td style='vertical-align:middle;'>".$newDate."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['vcpic']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['vcinfo']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['chg_by']."</td>";	
 						$origDate1 = $row['chg_date'];
 						$newDate1 = date("d-M-Y H:i:s", strtotime($origDate1));
-						echo "<td style:'border=1px solid black'>$newDate1</td>";	
+						echo "<td style='vertical-align:middle;'>$newDate1</td>";	
 			?>
 						<!-- Button Edit Checklist -->
-						<td><button class='btn btn-info btn-xs button-edit' data-toggle='modal'><span class='glyphicon glyphicon-pencil'></span> Edit</button>
+						<td style="vertical-align:middle;" class="text-center"><button class='btn btn-info btn-xs button-edit' data-toggle='modal'><span class='glyphicon glyphicon-pencil'></span> Edit</button>
 						</td> 			
 			<?php
 				}

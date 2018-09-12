@@ -185,7 +185,8 @@
 									}
 								}
 								echo "</select>";
-							?><br><br><span class="glyphicon glyphicon-check"></span> <label>Perubahan ke modul lain silahkan menghubungi Administrator.</label>
+							?><br><br>
+							<span class="glyphicon glyphicon-info-sign"></span> <label>Hubungi <i>Administrator</i> untuk perubahan modul.</label>
 							<br><br>
 							
 							<div class="modal-footer">
@@ -235,9 +236,9 @@
 				if ($_SESSION['modul']=="SUPER") {?>
 			<hr />
 				<h1><span class="glyphicon glyphicon-home"></span> Dasbor Beranda</h1><br />
-				<span class="glyphicon glyphicon-wrench"></span> <label>Under construction...</label><br>
-				<span class="glyphicon glyphicon-wrench"></span> <label>Menu untuk mengganti konten visi dan misi</label><br>
-				<span class="glyphicon glyphicon-wrench"></span> <label>Menu untuk menambahkan 5P</label><br>
+				<span class="glyphicon glyphicon-info-sign"></span> <label>Dalam perbaikan</label><br><br>
+				<span class="glyphicon glyphicon-check"></span> <label>Menu untuk melakukan perubahan visi dan misi</label><br>
+				<span class="glyphicon glyphicon-check"></span> <label>Menu untuk melakukan perubahan nilai perusahaan (PRIDE)</label><br>
 		<?php } else {}?>
 	</div>
 </body>

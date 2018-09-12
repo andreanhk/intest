@@ -211,16 +211,15 @@
 		<table id="tableBA" class="table table-hover text-left table-striped compact cell-border">
 			<thead>
 				<tr>
-					<td><b>BA</b></td>
-					<td><b>Nama BA</b></td>
-					<td><b>Tanggal Live</b></td>
-					<td class="col-md-1 col-lg-1"><b>FICO</b></td>
-					<td class="col-md-1 col-lg-1"><b>MM</b></td>
-					<td class="col-md-1 col-lg-1"><b>PM</b></td>
-					<td class="col-md-1 col-lg-1"><b>PP</b></td>
-					<td class="col-md-1 col-lg-1"><b>SD</b></td>
-					<td class="col-md-1"></td>
-					
+					<th style="vertical-align:middle;" class="text-center"><b>BA</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Nama BA</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Tanggal Live</b></th>
+					<th style="vertical-align:middle;" class="text-center col-md-1 col-lg-1"><b>FICO</b></th>
+					<th style="vertical-align:middle;" class="text-center col-md-1 col-lg-1"><b>MM</b></th>
+					<th style="vertical-align:middle;" class="text-center col-md-1 col-lg-1"><b>PM</b></th>
+					<th style="vertical-align:middle;" class="text-center col-md-1 col-lg-1"><b>PP</b></th>
+					<th style="vertical-align:middle;" class="text-center col-md-1 col-lg-1"><b>SD</b></th>
+					<th class="col-md-1"></th>
 				</tr>
 			</thead>
 			<tbody data-link="row">
@@ -231,55 +230,55 @@
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					echo "<tr>";
-						echo "<td style:'border=1px solid black'>".$row['idba']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['nameba']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['idba']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['nameba']."</td>";
 						$origDate = $row['date_live'];
 						$newDate = date("d-m-Y", strtotime($origDate));
-						echo "<td style:'border=1px solid black'>".$newDate."</td>";
+						echo "<td style='vertical-align:middle;'>".$newDate."</td>";
 						if ($row['tlba'] == 'FICO') {															// Team leader akan ditampilkan BOLD
-							echo "<td style:'border=1px solid black'><b>".$row['p_fico']."</b></td>";
-							echo "<td style:'border=1px solid black'>".$row['p_mm']."</td>";
-							echo "<td style:'border=1px solid black'>".$row['p_pm']."</td>";
-							echo "<td style:'border=1px solid black'>".$row['p_pp']."</td>";
-							echo "<td style:'border=1px solid black'>".$row['p_sd']."</td>";
+							echo "<td style='vertical-align:middle;'><b>".$row['p_fico']."</b></td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_mm']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_pm']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_pp']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_sd']."</td>";
 						}
 						else if ($row['tlba'] == 'MM') {
-							echo "<td style:'border=1px solid black'>".$row['p_fico']."</td>";
-							echo "<td style:'border=1px solid black'><b>".$row['p_mm']."</b></td>";
-							echo "<td style:'border=1px solid black'>".$row['p_pm']."</td>";
-							echo "<td style:'border=1px solid black'>".$row['p_pp']."</td>";
-							echo "<td style:'border=1px solid black'>".$row['p_sd']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_fico']."</td>";
+							echo "<td style='vertical-align:middle;'><b>".$row['p_mm']."</b></td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_pm']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_pp']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_sd']."</td>";
 						}
 						else if ($row['tlba'] == 'PM') {
-							echo "<td style:'border=1px solid black'>".$row['p_fico']."</td>";
-							echo "<td style:'border=1px solid black'>".$row['p_mm']."</td>";
-							echo "<td style:'border=1px solid black'><b>".$row['p_pm']."</b></td>";
-							echo "<td style:'border=1px solid black'>".$row['p_pp']."</td>";
-							echo "<td style:'border=1px solid black'>".$row['p_sd']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_fico']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_mm']."</td>";
+							echo "<td style='vertical-align:middle;'><b>".$row['p_pm']."</b></td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_pp']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_sd']."</td>";
 						}
 						else if ($row['tlba'] == 'PP') {
-							echo "<td style:'border=1px solid black'>".$row['p_fico']."</td>";
-							echo "<td style:'border=1px solid black'>".$row['p_mm']."</td>";
-							echo "<td style:'border=1px solid black'>".$row['p_pm']."</td>";
-							echo "<td style:'border=1px solid black'><b>".$row['p_pp']."</b></td>";
-							echo "<td style:'border=1px solid black'>".$row['p_sd']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_fico']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_mm']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_pm']."</td>";
+							echo "<td style='vertical-align:middle;'><b>".$row['p_pp']."</b></td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_sd']."</td>";
 						}
 						else if ($row['tlba'] == 'SD') {
-							echo "<td style:'border=1px solid black'>".$row['p_fico']."</td>";
-							echo "<td style:'border=1px solid black'>".$row['p_mm']."</td>";
-							echo "<td style:'border=1px solid black'>".$row['p_pm']."</td>";
-							echo "<td style:'border=1px solid black'>".$row['p_pp']."</td>";
-							echo "<td style:'border=1px solid black'><b>".$row['p_sd']."</b></td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_fico']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_mm']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_pm']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_pp']."</td>";
+							echo "<td style='vertical-align:middle;'><b>".$row['p_sd']."</b></td>";
 						} else {
-							echo "<td style:'border=1px solid black'>".$row['p_fico']."</td>";
-							echo "<td style:'border=1px solid black'>".$row['p_mm']."</td>";
-							echo "<td style:'border=1px solid black'>".$row['p_pm']."</td>";
-							echo "<td style:'border=1px solid black'>".$row['p_pp']."</td>";
-							echo "<td style:'border=1px solid black'>".$row['p_sd']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_fico']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_mm']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_pm']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_pp']."</td>";
+							echo "<td style='vertical-align:middle;'>".$row['p_sd']."</td>";
 						}
 						
 			?>
-							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditBA<?php echo $row['id']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
+							<td style="vertical-align:middle;" class="text-center"><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditBA<?php echo $row['id']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
 							
 							<!-- Modal Edit BA -->
 							<div id="modalEditBA<?php echo $row['id']; ?>" class="modal fade" role="dialog">

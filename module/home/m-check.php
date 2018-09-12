@@ -253,14 +253,14 @@
 		<table id="tableMCheck" class="table table-hover text-left table-striped compact cell-border">
 			<thead>
 				<tr>
-					<td><b>Modul</b></td>
-					<td><b>Cat.</b></td>
-					<td><b>Custom Type</b></td>
-					<td><b>Custom Description</b></td>
-					<td><b>Tcode</b></td>
-					<td><b>Table</b></td>
-					<td><b>Custom Status</b></td>
-					<td class="col-md-1"></td>
+					<th style="vertical-align:middle;" class="text-center"><b>Modul</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Cat.</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Custom Type</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Custom Description</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Tcode</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Table</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Custom Status</b></th>
+					<th class="col-md-1"></th>
 				</tr>
 			</thead>
 			<tbody data-link="row">
@@ -279,16 +279,16 @@
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					echo "<tr>";
-						echo "<td style:'border=1px solid black'>".$row['cmodul']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['ccat']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['ctype']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['ctypedesc']."</td>";
-						echo "<td style:'border=1px solid black' class='col-md-1 col-lg-1'>".$row['ctcode']."</td>";
-						echo "<td style:'border=1px solid black' class='col-md-1 col-lg-1'>".$row['ctable']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['cstat']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['cmodul']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['ccat']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['ctype']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['ctypedesc']."</td>";
+						echo "<td style='vertical-align:middle;' class='col-md-1 col-lg-1'>".$row['ctcode']."</td>";
+						echo "<td style='vertical-align:middle;' class='col-md-1 col-lg-1'>".$row['ctable']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['cstat']."</td>";
 			?>
 							<!-- Button Edit Checklist -->
-							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditCheck<?php echo $row['c_id']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
+							<td style="vertical-align:middle;" class="text-center"><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditCheck<?php echo $row['c_id']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
 							
 							<!-- Modal Edit Checklist -->
 							<div id="modalEditCheck<?php echo $row['c_id']; ?>" class="modal fade" role="dialog">

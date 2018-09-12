@@ -239,20 +239,20 @@
 		<table id="tableUAT" class="table table-hover text-left table-striped compact cell-border">
 			<thead>
 				<tr>
-					<th class="text-center"><b>id</b></th>
-					<th class="text-center"><b>No. Step</b></th>
-					<th class="text-center col-md-2 col-lg-2"><b>Skenario</b></th>
-					<th class="text-center col-md-3 col-lg-3"><b>Deskripsi Step</b></th>
-					<th class="text-center"><b>Tcode</b></th>
-					<th class="text-center col-md-1 col-lg-1"><b>User</b></th>
-					<th class="text-center"><b>BA</b></th>
-					<th class="text-center"><b>Input</b></th>
-					<th class="text-center"><b>Output</b></th>
-					<th class="text-center"><b>PIC</b></th>
-					<th class="text-center col-md-1 col-lg-1"><b>Run Date</b></th>
-					<th class="text-center"><b>Keterangan</b></th>
-					<th class="text-center"><b>Change By</b></th>
-					<th class="text-center"><b>Change Date</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>id</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>No. Step</b></th>
+					<th style="vertical-align:middle;" class="text-center col-md-2 col-lg-2"><b>Skenario</b></th>
+					<th style="vertical-align:middle;" class="text-center col-md-3 col-lg-3"><b>Deskripsi Step</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Tcode</b></th>
+					<th style="vertical-align:middle;" class="text-center col-md-1 col-lg-1"><b>User</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>BA</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Input</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Output</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>PIC</b></th>
+					<th style="vertical-align:middle;" class="text-center col-md-1 col-lg-1"><b>Run Date</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Keterangan</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Change By</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Change Date</b></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -276,27 +276,27 @@
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					echo "<tr>";
-						echo "<td style:'border=1px solid black'>".$row['id']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['no_step']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['uat_scn']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['bp_step']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['tcode_step']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['user_step']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['vuba']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['vuinput']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['vuoutput']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['vupic']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['id']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['no_step']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['uat_scn']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['bp_step']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['tcode_step']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['user_step']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['vuba']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['vuinput']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['vuoutput']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['vupic']."</td>";
 						$origDate = $row['vudate'];
 						$newDate = date("d-m-Y", strtotime($origDate));
-						echo "<td style:'border=1px solid black'>".$newDate."</td>";
-						echo "<td style:'border=1px solid black'>".$row['vuinfo']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['chg_by']."</td>";	
+						echo "<td style='vertical-align:middle;'>".$newDate."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['vuinfo']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['chg_by']."</td>";	
 						$origDate1 = $row['chg_date'];
 						$newDate1 = date("d-M-Y H:i:s", strtotime($origDate1));
-						echo "<td style:'border=1px solid black'>$newDate1</td>";
+						echo "<td style='vertical-align:middle;'>$newDate1</td>";
 						?>
 						<!-- Button Edit Checklist -->
-						<td><button class='btn btn-info btn-xs button-edit' data-toggle='modal'><span class='glyphicon glyphicon-pencil'></span> Edit</button>
+						<td style="vertical-align:middle;" class="text-center"><button class='btn btn-info btn-xs button-edit' data-toggle='modal'><span class='glyphicon glyphicon-pencil'></span> Edit</button>
 						</td>
 					</tr>
 			<?php

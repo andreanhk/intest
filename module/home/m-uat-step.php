@@ -230,13 +230,13 @@
 		<table id="tableStep" class="table table-hover text-left table-striped compact cell-border">
 			<thead>
 				<tr>
-					<!--<td><b>Modul</b></td>-->
-					<td><b>No. Step</b></td>
-					<td><b>Nama Skenario</b></td>
-					<td><b>Step</b></td>
-					<td><b>Tcode</b></td>
-					<td><b>User</b></td>
-					<td class="col-md-1"></td>
+					<!--<th><b>Modul</b></th>-->
+					<th style="vertical-align:middle;" class="text-center"><b>No. Step</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Nama Skenario</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Step</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Tcode</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>User</b></th>
+					<th class="col-md-1"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -248,15 +248,14 @@
 				{
 					echo "<tr>";
 						//echo "<td style:'border=1px solid black'>".$row['uat_modul']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['no_step']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['uat_scn']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['bp_step']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['tcode_step']."</td>";
-						echo "<td style:'border=1px solid black'>".$row['user_step']."</td>";
-					
+						echo "<td style='vertical-align:middle;'>".$row['no_step']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['uat_scn']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['bp_step']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['tcode_step']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['user_step']."</td>";
 			?>
 							<!-- Button Edit Step UAT -->
-							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditStep<?php echo $row['id_step']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
+							<td style="vertical-align:middle;" class="text-center"><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditStep<?php echo $row['id_step']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
 							
 							<!-- Modal Edit Scenario UAT -->
 							<div id="modalEditStep<?php echo $row['id_step']; ?>" class="modal fade" role="dialog">

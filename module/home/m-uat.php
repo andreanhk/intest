@@ -193,9 +193,9 @@
 				<tr>
 					<!--<td><b>Modul</b></td>-->
 					<!--<td><b>No. Skenario</b></td>-->
-					<td><b>Nama Skenario</b></td>
-					<td><b>Deskripsi Skenario</b></td>
-					<td class="col-md-1"></td>
+					<th style="vertical-align:middle;" class="text-center"><b>Nama Skenario</b></th>
+					<th style="vertical-align:middle;" class="text-center"><b>Deskripsi Skenario</b></th>
+					<th class="col-md-1"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -206,12 +206,12 @@
 				while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					echo "<tr>";
-						echo "<td style:'border=1px solid black'>".$row['uat_scn']."</td>";
-						echo "<td style:'border=1px solid black' class='col-md-7'>".$row['uat_desc']."</td>";
+						echo "<td style='vertical-align:middle;'>".$row['uat_scn']."</td>";
+						echo "<td style='vertical-align:middle;' class='col-md-7'>".$row['uat_desc']."</td>";
 					
 			?>
 							<!-- Button Edit Scenario UAT -->
-							<td><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditScn<?php echo $row['uat_id']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
+							<td style="vertical-align:middle;" class="text-center"><a type='button' class='btn btn-info btn-xs' data-toggle='modal' href="#modalEditScn<?php echo $row['uat_id']; ?>"><span class='glyphicon glyphicon-pencil'></span></a> 
 							
 							<!-- Modal Edit Scenario UAT -->
 							<div id="modalEditScn<?php echo $row['uat_id']; ?>" class="modal fade" role="dialog">
