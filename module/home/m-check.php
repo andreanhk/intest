@@ -48,12 +48,15 @@
 		}
 	}
 	
-	if (isset($_GET['del']))
+	if (isset($_POST['delCheck']))
 	{
-		$id = $_GET['id'];
+		echo test;
+		//$id = $_GET['id'];
 		
-		mysqli_query($con,"DELETE FROM m_check WHERE c_id='".$id."'");
-		header("Location:m-check.php");
+		//$sql = 'DELETE FROM m_check WHERE c_id="'.$id.'"';
+		//mysqli_query($con,$sql);
+		//mysqli_query($con,commit);
+		//header("Location:m-check.php");
 	}
 	
 	if (isset($_POST['editCheck']))
@@ -198,10 +201,10 @@
 									}
 									$result = mysqli_query($con,$sql);
 
-									echo "<select autofocus='' name='idmodul' class='selectpicker show-tick' title='Pilih Modul' data-width='auto'>";
+									echo "<select autofocus='' name='new_cmodul' class='selectpicker show-tick' title='Pilih Modul' data-width='auto'>";
 									while ($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 									{
-										echo "<option value='$row[idmodul]'>$row[idmodul]</option>";
+										echo "<option value='$row[idmodul]' selected='selected'>$row[idmodul]</option>";
 									}
 									echo "</select>";
 								?><br /><br />
@@ -323,7 +326,7 @@
 												tanggal <label><?php echo $newDate; ?></label>.
 												<br><br>
 												<div class="modal-footer">
-													<button class="btn btn-default btn-success" type="submit" name="editCheck" c_id="editCheck" action="m-check.php?id=<?php echo $row['c_id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
+													<button class="btn btn-default btn-success" type="submit" name="editCheck" action="m-check.php?id=<?php echo $row['c_id']; ?>"><span class="glyphicon glyphicon-floppy-disk"></span> Simpan</button>
 													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 												</div>
 											</form>
@@ -351,7 +354,7 @@
 												<label type="text" id="checkToDel" name="checkToDel"><?php echo $row['ctypedesc']; ?>?</label>
 												<br><br>
 												<div class="modal-footer">
-													<a class="btn btn-default btn-success" type="submit" name="delCheck" c_id="delCheck" method="POST" href="m-check.php?del=x&c_id=<?php echo $row['c_id']; ?>"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
+													<a class="btn btn-default btn-success" type="submit" name="delCheck" method="POST" href="m-check.php?id=<?php echo $row['c_id']; ?>"><span class="glyphicon glyphicon-trash"></span> Hapus</a>
 													<button type="button" class="btn btn-default btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Batal</button>
 												</div>
 											</form>
